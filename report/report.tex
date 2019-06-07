@@ -1,0 +1,79 @@
+\documentclass{article}
+\usepackage{amssymb,latexsym,amsmath,amsthm}
+
+\newtheorem{theorem}{Satz}
+\newtheorem{lemma}{Lemma}
+\newtheorem{definition}{Definition}
+
+
+%some defined variable
+\newcommand{\myparaDent}{12pt}
+\newcommand{\Prime}{\ensuremath{\mathbb{P}}}
+\newcommand{\Nature}{\ensuremath{\mathbb{N}}}
+\newcommand{\myMersen}{\emph{Mersennesche Zahl}}
+
+\title{My first document}
+\date{2019-6-7}
+\author{Panwei Hu}
+
+% set the contents of tables depth 
+% here 2 ----  subsection
+\setcounter{tocdepth}{2}
+\begin{document}
+
+
+  \pagenumbering{gobble}
+  \maketitle
+  \newpage
+ \tableofcontents
+	\newpage
+  \newpage
+  \pagenumbering{arabic}
+
+  Hello World!
+  \begin{equation}
+  \label{quadric}
+  	f(x) = x^2
+  \end{equation}
+Please see the equation \ref{quadric} for
+definition of the function $f$
+\newpage
+\section{Einleitung}
+
+\section{Mersennsche Primzahl}
+Bevor wir zur Definition von \emph{Mersennesche Primzahl} kommen, wird es
+hilfreich, wenn wir das folgende Lemma aus dem Skript~\cite{script} kennen.
+\begin{lemma}\label{lem1}
+	Sei $a,m \in \mathbb{N},m > 1$, so dass $a^m - 1$ eine Primzahl ist. Dann ist
+	$a = 2$ und $m$ eine Primzahl.
+\end{lemma}
+\begin{proof}[Beweis]
+Siehe \cite{script}
+\end{proof}
+Mithilfe dieses Lemmas f\"{u}hren wir die Definition von \emph{Mersennesche Primzahl} ein, die wir auch aus dem Skript~\cite{script} kennen:
+\begin{definition}
+Die Zahlen
+\[
+	M_{q} = 2^{q} - 1,
+\]
+$q \in \mathbb{P}$, hei{\ss}en \emph{Mersennesche Zahl} $M_{q}$ bzw. \emph{Mersennesche Primzahlen} falls sie zu $\mathbb{P}$ geh\"{o}rt.
+\end{definition}
+Wir sehen leicht, dass $M_{q}$ eine Primzahl ist, wenn $q$ eine Primzahl ist.
+Somit gibt es eine Methode f\"{u}r eine gegebene Zahl $n$ zu testen, ob $n$ eine Primzahl ist, n\"{a}mlich, wir berechnen die $n-te$ \emph{Mersennesche Zahl} $M_{n}$. Wenn wir zeigen k\"{o}nnen, dass $M_{n}$ keine Primzahl ist, dann ist $n$ nach Lemma~\ref{lem1} auch nicht prim.\\[\myparaDent]
+% Wichtig ist an der Stelle zu merken, dass die Umkehrung nicht richtig ist. Ein Gegenbeispiel ist $q = 11$ mit $M_{q} = 2^{11} -1 = 23 \cdot 89$\\[myparaDent]
+Unsere Aufgabe ist jetzt, ein Algorithmus zu suchen, so dass f\"{u}r eine beliebige $n \in \Nature$, schnell eine Aussage \"{u}ber die $n-te$ \emph{Mersennesche Zahl} $M_{n}$ zu bekommen, ob die prim oder nicht prim ist. Dieses Algorithmus
+
+\section{Der Lukas Lehmer Test}
+
+\section{Beweis des Test}
+
+\newpage
+\begin{appendix}
+
+\end{appendix}
+
+Please see the \cite{zahlentheorie}
+\newpage
+\bibliography{reference}
+\bibliographystyle{ieeetr}
+\end{document}
