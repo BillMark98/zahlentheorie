@@ -7,3 +7,18 @@ falls $d$ kein quadratisches Rest in $\Zmodq$ ist
 
 \Roman prints the value of a counter as a roman numeral, so cant use it with "2".
 use \romannumeral 2.
+
+align 中如果碰到equation 上要加text 可以用\mathclap(需要\mathtools 的package)
+
+一开始line间距太小，开头设置\renewcommand{\baselinestretch}{1.5} 
+
+\ 符号可以用\setminus 生成
+
+更改目录的名字 即不显示contents 而是别的 如 Inhalte
+\renewcommand{\contentsname}{Inhalte}
+
+日期可以自定义
+如
+\date{2019-6-7}
+或者
+\date{\today}

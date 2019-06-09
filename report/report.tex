@@ -1,5 +1,7 @@
 \documentclass{article}
-\usepackage{amssymb,latexsym,amsmath,amsthm}
+\usepackage{amssymb,latexsym,amsmath,amsthm,mathtools}
+
+\renewcommand{\baselinestretch}{1.5} 
 
 \newtheorem{theorem}{Satz}
 \newtheorem{lemma}{Lemma}
@@ -23,40 +25,37 @@
 \newcommand{\ZadjdModqOhnez}{\ensuremath{\ZAdjdModq \setminus\! \{ 0 \}}}
 \newcommand{\QRmodq}{\ensuremath{\mbox{QR}\pmod{q}}}
 \newcommand{\QNmodq}{\ensuremath{\mbox{QN} \! \pmod{q}}}
-
+\newcommand{\Zmodn}{\ensuremath{\Integer/n\Integer}}
+\newcommand{\ZadThreeModn}{\ensuremath{\Integer[\sqrt{3}]/\langle n \rangle}}
 
 \makeatletter
 \newcommand{\rmnum}[1]{\romannumeral #1}
 \newcommand{\Rmnum}[1]{\expandafter\@slowromancap\romannumeral #1@}
 \makeatother
-\title{My first document}
-\date{2019-6-7}
+\title{Der Lucas-Lehmer-Test}
+\date{\today}
 \author{Panwei Hu}
 
 % set the contents of tables depth 
 % here 2 ----  subsection
 \setcounter{tocdepth}{2}
+
+\renewcommand{\contentsname}{Inhalte}
+\renewcommand{\refname}{Literatur}
 \begin{document}
 
 
   \pagenumbering{gobble}
   \maketitle
   \newpage
- \tableofcontents
+ \tableofcontents{Inhalte}
 	\newpage
   \newpage
   \pagenumbering{arabic}
-
-  Hello World!
-  \begin{equation}
-  \label{quadric}
-  	f(x) = x^2
-  \end{equation}
-Please see the equation \ref{quadric} for
-definition of the function $f$
 \newpage
 \section{Einleitung}
-
+Der \emph{Lucas-Lehmer-Test} ist ein Algorithmus, mit der man testen kann, ob eine gegebene
+\myMersen eine Primzahl ist. Der Test wurde erstmal von Édouard Lucas empfunden im Jahr 1856 und wurde sp\"{a}ter vom Lucas im Jahr 1878 und Derrick Henry Lehmer in den 1930s verbessert. In dieser Ausarbeitung stellen wir den Algorithmus vor und geben den Beweis f\"{u}r die Richtigkeit des Algorithmus dazu.
 \section{Mersennsche Primzahl}
 Bevor wir zur Definition von \emph{Mersennesche Primzahl} kommen, wird es
 hilfreich, wenn wir uns an das folgende Lemma aus dem Skript~\cite{script} erinnern.
@@ -73,14 +72,14 @@ Die Zahlen
 \[
 	M_{q} = 2^{q} - 1,
 \]
-$q \in \mathbb{P}$, hei{\ss}en \emph{Mersennesche Zahl} $M_{q}$ bzw. \emph{Mersennesche Primzahlen} falls sie zu $\mathbb{P}$ geh\"{o}rt.
+$q \in \mathbb{P}$, hei{\ss}en \emph{Mersennesche Zahl} $M_{q}$ bzw. \emph{Mersennesche Primzahlen} falls sie zu $\mathbb{P}$ geh\"{o}ren.
 \end{definition}
 Wir sehen leicht, dass $M_{q}$ eine Primzahl ist, wenn $q$ eine Primzahl ist.
 Somit gibt es eine Methode f\"{u}r eine gegebene Zahl $n$ zu testen, ob $n$ eine Primzahl ist, n\"{a}mlich, wir berechnen die $n-te$ \emph{Mersennesche Zahl} $M_{n}$. Wenn wir zeigen k\"{o}nnen, dass $M_{n}$ keine Primzahl ist, dann ist $n$ nach Lemma~\ref{lem1} auch nicht prim.\\[\myparaDent]
 % Wichtig ist an der Stelle zu merken, dass die Umkehrung nicht richtig ist. Ein Gegenbeispiel ist $q = 11$ mit $M_{q} = 2^{11} -1 = 23 \cdot 89$\\[myparaDent]
-Unsere Aufgabe ist jetzt, ein Algorithmus zu suchen, so dass f\"{u}r eine beliebige $n \in \Nature$, schnell eine Aussage \"{u}ber die $n-te$ \emph{Mersennesche Zahl} $M_{n}$ zu bekommen, ob die prim oder nicht prim ist. Dieses Algorithmus ist der \emph{Lucas Lehmer Test}. 
+Unsere Aufgabe ist jetzt, einen Algorithmus zu suchen, so dass f\"{u}r eine beliebige $n \in \Nature$, schnell eine Aussage \"{u}ber die $n-te$ \emph{Mersennesche Zahl} $M_{n}$ zu bekommen, ob die prim oder nicht prim ist. Dieser Algorithmus ist der \emph{Lucas-Lehmer-Test}. 
 
-\section{Der Lucas Lehmer Test}
+\section{Der Lucas-Lehmer-Test}
 \begin{theorem}\label{lucas}
 	Sei $p > 2$ eine Primzahl und die Folge $(S_n)_{n \in \Nature}$ rekursiv durch
 	\[
@@ -90,7 +89,7 @@ Unsere Aufgabe ist jetzt, ein Algorithmus zu suchen, so dass f\"{u}r eine belieb
 \end{theorem}
 
 \begin{example}
-	Wir untersuchen $M_7 = 2^7 - 1 = 127$ mithilfe \emph{Lucas Lehmer Test},dazu:
+	Wir untersuchen $M_7 = 2^7 - 1 = 127$ mithilfe \emph{Lucas-Lehmer-Test},dazu:
 	\begin{align*}
 			S_1 &= 4 & \pmod{127}\\
 			S_2 &= S_1^2 - 2 = 14 & \pmod{127}\\
@@ -99,10 +98,11 @@ Unsere Aufgabe ist jetzt, ein Algorithmus zu suchen, so dass f\"{u}r eine belieb
 			S_5 &= S_4^2 - 2 = 111 & \pmod{127}\\
 			S_6 &= S_5^2 - 2 = 0 & \pmod{127}\\
 	\end{align*}
-	Also ist nach \emph{Lucas Lehmer Test} $M_7$ eine Primzahl, was unserer Erkenntnis entspricht.
+	Also ist nach \emph{Lucas-Lehmer-Test} $M_7$ eine Primzahl, was unserer Erkenntnis entspricht.
 \end{example}
 \section{Beweis des Tests}
 Wir f\"{u}hren den Beweis in zwei Teile durch.\\
+\subsection{Vor\"{u}berlegung}
 Zu dem Beweis benutzen wir zwei Hilfsvariablen,
 \[
 	\psi = 2 + \sqrt{3}\quad \mbox{und die konjugierte}\quad \bar{\psi} = 2- \sqrt{3}
@@ -119,7 +119,7 @@ S_k \nobreak = \nobreak \psi^{2^{k-1}} \!+ \, \bar{\psi}^{2^{k-1}}
 	S_{k+1} &\overset{\text{def}}{=} S_{k}^2 - 2\\
 			&\overset{\text{IV}}{=} (\psi^{2^{k-1}} + \bar{\psi}^{2^{k-1}})^2 - 2\\
 			&= \psi^{2^{k}} + \bar{\psi}^{2^{k}} + 2\cdot \psi^{2^{k-1}} \cdot \bar{\psi}^{2^{k-1}} - 2\\
-			&\overset{\text{(\ref{psiProp})}}{=} \psi^{2^{k}} + \bar{\psi}^{2^{k}} + 2 - 2\\
+			&\overset{\mathclap{\text{(\ref{psiProp})}}}{=} \psi^{2^{k}} + \bar{\psi}^{2^{k}} + 2 - 2\\
 			&= \psi^{2^{k}} + \bar{\psi}^{2^{k}}
 \end{align*}
 F\"{u}r den Beweis ben\"{o}tigen wir noch ein Lemma
@@ -137,7 +137,7 @@ F\"{u}r den Beweis ben\"{o}tigen wir noch ein Lemma
 \end{lemma}
 \begin{proof}[Beweis]
 	\begin{enumerate}
-		\item Man braucht nur die Abgeschlossenheit der Addition und Multiplikation zu zeigen, da alle andere Rechenregeln folgt aus der Ringstruktur der ganzen Zahlen $\Integer$. \\ Wir k\"{o}nnen aber auch anders machen, in dem wir uns an die Algebraische Zahlentheorie erinnern. Das besagt uns, dass $\Zadjd$ der Teilring der ganzen Zahlen (sogar gleich, falls $d \equiv {2,3} \pmod{4}$ ist) von dem K\"{o}rper $\Qadjd$ ist. Details, siehe z.B \cite{zahlentheorie}. Damit folgt
+		\item Man braucht nur die Abgeschlossenheit der Addition und Multiplikation zu zeigen, da alle andere Rechenregeln aus der Ringstruktur der ganzen Zahlen $\Integer$ folgen. \\ Wir k\"{o}nnen aber auch anders machen, in dem wir uns an die Algebraische Zahlentheorie erinnern. Das besagt uns, dass $\Zadjd$ der Teilring der ganzen Zahlen (sogar gleich, falls $d \equiv {2,3} \pmod{4}$ ist) von dem K\"{o}rper $\Qadjd$ ist. Details, siehe z.B \cite{zahlentheorie}. Damit folgt
 		die Behauptung
 		\item 
 		Dass $\ZAdjdModq$ ein Ring ist, folgt daraus, dass $\langle q \rangle$ ein Ideal in $\ZAdjdModq$ ist.\\
@@ -170,16 +170,16 @@ Erstens zeigen wir die R\"{u}ckrichtung.
 \begin{proof}[``$\Leftarrow$"]
 Sei $n := M_p$ ein Teiler von $S_{p-1}$, und sei $q$ ein Teiler von $M_p$.
 Aus der Definition von $M_p$ wissen wir dass $q\neq2$ ist. Au\ss erdem nehmen wir an, dass $q^2 \leq n$ ist. (denn ansonsten, ist $\frac{n}{q}$ auch ein Teiler von n, was aber $(\frac{n}{q})^2 \leq n$ folgt).Wir rechnen im Ring $E  := \Integer[\sqrt{3}]/\langle q \rangle$ (der Ring ist nicht unbedingt ein K\"{o}rper)\\
-Es gilt
+Es gilt %&\phantom{\Rightarrow a} 
 \begin{alignat*}{4}
-	&\phantom{\Rightarrow a} &S_{p-1} \quad &&\equiv{\phantom{-}0} &\pmod{n} \\
+	&\phantom{\Rightarrow a} & S_{p-1} \quad &&\equiv{\phantom{-}0} &\pmod{n} \\
 	&\Rightarrow &S_{p-1} 		\quad   &&\equiv{\phantom{-}0} &\pmod{q}\\
-	&\overset{\text{(\ref{Skpsi})}}{\Leftrightarrow} &\psi^{2^{p-2}} + \phantom{1}\bar{\psi}^{2^{p-2}} \quad &&\equiv{\phantom{-}0} &\pmod{q}\\
-	&\overset{\text{(\ref{psiProp})}}{\Leftrightarrow} &\psi^{2^{p-1}} + \,1 \phantom{\bar{\psi}^{2^{p-2}}} \quad &&\equiv{\phantom{-}0}  &\pmod{q}\\
+	&\overset{\text{(\ref{Skpsi})}}{\Leftrightarrow} \quad \psi^{2^{p-2}} &+ \phantom{1}\bar{\psi}^{2^{p-2}} \quad &&\equiv{\phantom{-}0} &\pmod{q}\\
+	&\overset{\text{(\ref{psiProp})}}{\Leftrightarrow} \quad \psi^{2^{p-1}} &+ \,1 \phantom{\bar{\psi}^{2^{p-2}}} \quad &&\equiv{\phantom{-}0}  &\pmod{q}\\
 	&\Leftrightarrow &\psi^{2^{p-1}} \quad &&\equiv{-1} &\pmod{q}\\
 	&\Rightarrow &\psi^{2^{p\phantom{-1}}} \quad && \equiv{\phantom{-}1} &\pmod{q}
 \end{alignat*}
-insbesonere folgt dass ord($\psi$) $ = 2^p$ ist, wir wissen dass die Einheit von $E$ weniger als $q^2 - 1$ Elemente besitzt, folgt aus dem Satz von Lagrange unter Ber\"{u}cksichtigung dass $2^{p} = n + 1$:
+insbesonere folgt dass ord($\psi$) $ = 2^p$ ist. Wir wissen, dass die Einheit von $E$ weniger als $q^2 - 1$ Elemente besitzt. Dann folgt aus dem Satz von Lagrange unter Ber\"{u}cksichtigung dass $2^{p} = n + 1$:
 \[
 	n + 1 = 2^{p} \,\leq q^2-1 \,\leq n - 1
 \]
@@ -223,14 +223,37 @@ also insbesondere mithilfe Satzes von Euler:
 \begin{equation}\label{threePot}
 	3^{\frac{n-1}{2}} \equiv{-1} \pmod{n}
 \end{equation}
-
+Da 2 ein quadratisches Rest in $\Zmodn$ ist, ist 2 auch ein quadratisches Rest in
+$\ZadThreeModn$, also $\exists x \in \ZadThreeModn$, mit 
+\begin{equation}\label{xQuTwo}
+	x^2 = 2
+\end{equation}
+Aus dem Beweis von der R\"{u}ckrichtung wissen wir, dass es reicht,
+\begin{equation}\label{*}
+	\psi^{2^{p-1}} \equiv{-1} \pmod{n} \tag{*}
+\end{equation}
+zu pr\"{u}fen.
+Durch Nachrechnen \"{u}berpr\"{u}ft man:
+\begin{equation}\label{xPsi}
+	\psi \,= \,2+ \sqrt{3}\, = \,\left( \frac{1 + \sqrt{3}}{x} \right)^2
+\end{equation}
+Insgesamt folgt:
+\begin{align*}
+	 \psi^{2^{p-1}} \quad &\overset{\mathclap{\text{(\ref{xPsi})}}}{=} \quad \left( \frac{1 + \sqrt{3}}{x} \right)	^{2^{p-1}}\\
+	 &\overset{\mathclap{\text{(\ref{xQuTwo})}}}{\equiv} \quad \frac{(1 + \sqrt{3})^{2^{p}}}{2^{2^{p-1}}} &&\pmod{n} \\
+	 &\overset{\text{(\ref{nPequ})}}{\equiv} \quad \frac{(1 + \sqrt{3})^{n+1}}{2^{\frac{n+1}{2}}}&&\pmod{n}\\
+	 &\overset{\text{(\ref{twoPo})}}{\equiv} \quad \frac{(1 + \sqrt{3})^{n+1}}{2} &&\pmod{n}\\
+	 &\overset{\mathclap{\text{Lemma\ref{restRing}}}}{\equiv} \quad \frac{(1 + \sqrt{3})(1 + \sqrt{3}^{n})}{2} &&\pmod{n} \\
+	 &\equiv \quad \frac{(1 + \sqrt{3})(1 + 3^{\frac{n-1}{2}}\,\sqrt{3})}{2} &&\pmod{n}\\
+	 &\overset{\text{(\ref{threePot})}}{\equiv} \quad \frac{(1 + \sqrt{3})(1 - \sqrt{3})}{2} &&\pmod{n}\\
+	 &\equiv \quad \frac{1 - 3}{2} &&\pmod{n}\\
+	 &\equiv \quad -1 &&\pmod{n}
+\end{align*}
+damit ist (\ref{*}) gezeigt. \\Also ist die Hinrichtung gezeigt.\\
 \end{proof}
+Insgesamt ist die Richtigkeit von \emph{Lucas-Lehmer-Test} bewiesen.
 \newpage
-\begin{appendix}
 
-\end{appendix}
-
-Please see the \cite{zahlentheorie}
 \newpage
 \bibliography{reference}
 \bibliographystyle{ieeetr}
