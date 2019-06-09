@@ -1,0 +1,9 @@
+使用了\newcommand{\Zmodq}{\ensuremath{\Integer/q\Integer}}
+在使用如
+falls $d$ kein quadratisches Rest in $\Zmodq$ ist
+如果是Rest in \Zmodq ist 则显示 的时候 Z/qZist 即Z/qZ与ist之间没有空格，
+估计是ensuremath之后整个一行均设置为math mode 所以用$ $把math mode 限制好
+这样Z/qZ 与 ist 之间就有空格了
+
+\Roman prints the value of a counter as a roman numeral, so cant use it with "2".
+use \romannumeral 2.

@@ -4,14 +4,31 @@
 \newtheorem{theorem}{Satz}
 \newtheorem{lemma}{Lemma}
 \newtheorem{definition}{Definition}
-
+\newtheorem{Algorithmus}{Algorithmus}
+\newtheorem{example}{Beispiel}
 
 %some defined variable
 \newcommand{\myparaDent}{12pt}
 \newcommand{\Prime}{\ensuremath{\mathbb{P}}}
 \newcommand{\Nature}{\ensuremath{\mathbb{N}}}
+\newcommand{\Rational}{\ensuremath{\mathbb{Q}}}
+\newcommand{\Integer}{\ensuremath{\mathbb{Z}}}
 \newcommand{\myMersen}{\emph{Mersennesche Zahl}}
+\newcommand{\Qadjd}{\ensuremath{\Rational[\sqrt{d}]}}
+\newcommand{\ZadjdOhnez}{\ensuremath{\Zadjd \setminus\! \{ 0 \}}}
 
+\newcommand{\Zadjd}{\ensuremath{\Integer[\sqrt{d}]}}
+\newcommand{\ZAdjdModq}{\ensuremath{\Integer[\sqrt{d}]/\langle q \rangle}}
+\newcommand{\Zmodq}{\ensuremath{\Integer/q\Integer}}
+\newcommand{\ZadjdModqOhnez}{\ensuremath{\ZAdjdModq \setminus\! \{ 0 \}}}
+\newcommand{\QRmodq}{\ensuremath{\mbox{QR}\pmod{q}}}
+\newcommand{\QNmodq}{\ensuremath{\mbox{QN} \! \pmod{q}}}
+
+
+\makeatletter
+\newcommand{\rmnum}[1]{\romannumeral #1}
+\newcommand{\Rmnum}[1]{\expandafter\@slowromancap\romannumeral #1@}
+\makeatother
 \title{My first document}
 \date{2019-6-7}
 \author{Panwei Hu}
@@ -42,7 +59,7 @@ definition of the function $f$
 
 \section{Mersennsche Primzahl}
 Bevor wir zur Definition von \emph{Mersennesche Primzahl} kommen, wird es
-hilfreich, wenn wir das folgende Lemma aus dem Skript~\cite{script} kennen.
+hilfreich, wenn wir uns an das folgende Lemma aus dem Skript~\cite{script} erinnern.
 \begin{lemma}\label{lem1}
 	Sei $a,m \in \mathbb{N},m > 1$, so dass $a^m - 1$ eine Primzahl ist. Dann ist
 	$a = 2$ und $m$ eine Primzahl.
@@ -61,12 +78,153 @@ $q \in \mathbb{P}$, hei{\ss}en \emph{Mersennesche Zahl} $M_{q}$ bzw. \emph{Merse
 Wir sehen leicht, dass $M_{q}$ eine Primzahl ist, wenn $q$ eine Primzahl ist.
 Somit gibt es eine Methode f\"{u}r eine gegebene Zahl $n$ zu testen, ob $n$ eine Primzahl ist, n\"{a}mlich, wir berechnen die $n-te$ \emph{Mersennesche Zahl} $M_{n}$. Wenn wir zeigen k\"{o}nnen, dass $M_{n}$ keine Primzahl ist, dann ist $n$ nach Lemma~\ref{lem1} auch nicht prim.\\[\myparaDent]
 % Wichtig ist an der Stelle zu merken, dass die Umkehrung nicht richtig ist. Ein Gegenbeispiel ist $q = 11$ mit $M_{q} = 2^{11} -1 = 23 \cdot 89$\\[myparaDent]
-Unsere Aufgabe ist jetzt, ein Algorithmus zu suchen, so dass f\"{u}r eine beliebige $n \in \Nature$, schnell eine Aussage \"{u}ber die $n-te$ \emph{Mersennesche Zahl} $M_{n}$ zu bekommen, ob die prim oder nicht prim ist. Dieses Algorithmus
+Unsere Aufgabe ist jetzt, ein Algorithmus zu suchen, so dass f\"{u}r eine beliebige $n \in \Nature$, schnell eine Aussage \"{u}ber die $n-te$ \emph{Mersennesche Zahl} $M_{n}$ zu bekommen, ob die prim oder nicht prim ist. Dieses Algorithmus ist der \emph{Lucas Lehmer Test}. 
 
-\section{Der Lukas Lehmer Test}
+\section{Der Lucas Lehmer Test}
+\begin{theorem}\label{lucas}
+	Sei $p > 2$ eine Primzahl und die Folge $(S_n)_{n \in \Nature}$ rekursiv durch
+	\[
+		S_1 := 4,\, \mbox{und} \; S_n = S_{n-1}^2 - 2,\quad \mbox{f\"{u}r} \; n \in \Nature \; \mbox{mit} \;n \geq 2
+	\]
+	Dann ist $M_p := 2^p - 1$ eine Primzahl genau dann wenn $M_p$ ein Teiler von $S_{p-1}$ ist
+\end{theorem}
 
-\section{Beweis des Test}
+\begin{example}
+	Wir untersuchen $M_7 = 2^7 - 1 = 127$ mithilfe \emph{Lucas Lehmer Test},dazu:
+	\begin{align*}
+			S_1 &= 4 & \pmod{127}\\
+			S_2 &= S_1^2 - 2 = 14 & \pmod{127}\\
+			S_3 &= S_2^2 - 2 = 64 & \pmod{127}\\
+			S_4 &= S_3^2 - 2 = 42 & \pmod{127}\\
+			S_5 &= S_4^2 - 2 = 111 & \pmod{127}\\
+			S_6 &= S_5^2 - 2 = 0 & \pmod{127}\\
+	\end{align*}
+	Also ist nach \emph{Lucas Lehmer Test} $M_7$ eine Primzahl, was unserer Erkenntnis entspricht.
+\end{example}
+\section{Beweis des Tests}
+Wir f\"{u}hren den Beweis in zwei Teile durch.\\
+Zu dem Beweis benutzen wir zwei Hilfsvariablen,
+\[
+	\psi = 2 + \sqrt{3}\quad \mbox{und die konjugierte}\quad \bar{\psi} = 2- \sqrt{3}
+\]
+Es gilt $S_1 = 4 = \psi + \bar{\psi}$ und 
+\begin{equation}\label{psiProp}
+	\psi \cdot \bar{\psi} = 1
+\end{equation}
+und man zeigt sich durch Induktion leicht dass 
+\begin{equation}\label{Skpsi}
+S_k \nobreak = \nobreak \psi^{2^{k-1}} \!+ \, \bar{\psi}^{2^{k-1}}
+\end{equation} ist. F\"{u}r den Induktionsschritt:
+\begin{align*}
+	S_{k+1} &\overset{\text{def}}{=} S_{k}^2 - 2\\
+			&\overset{\text{IV}}{=} (\psi^{2^{k-1}} + \bar{\psi}^{2^{k-1}})^2 - 2\\
+			&= \psi^{2^{k}} + \bar{\psi}^{2^{k}} + 2\cdot \psi^{2^{k-1}} \cdot \bar{\psi}^{2^{k-1}} - 2\\
+			&\overset{\text{(\ref{psiProp})}}{=} \psi^{2^{k}} + \bar{\psi}^{2^{k}} + 2 - 2\\
+			&= \psi^{2^{k}} + \bar{\psi}^{2^{k}}
+\end{align*}
+F\"{u}r den Beweis ben\"{o}tigen wir noch ein Lemma
+\begin{lemma}\label{restRing}
+	Sei $d$ eine quadratfreie ganze Zahl in \Integer, dann gilt 
+	f\"{u}r die Menge \Integer$[\sqrt{d}]:=\{\, a + b\sqrt{d} \mid a,b\in \Integer \,\}$
+	\begin{enumerate}
+		\item \Integer$[\sqrt{d}]$ ist ein Ring mit der \"{u}blichen Addition und Multiplikation
+		\item Sei $q \in \Nature$, dann ist der Restklassenring $\ZAdjdModq$ ein Ring mit der \"{u}blichen Addition und Multiplikation modulo $q$. Falls $q \in \Prime$  und $d$ kein quadratisches Rest in $\Zmodq$ ist, dann ist $\ZAdjdModq$ ein K\"{o}rper.
+		\item Sei $q \in \Prime$, dann gilt f\"{u}r alle Elemente $a + b\sqrt{d} \in \ZAdjdModq$, mit $a,b\in \Integer$:
+		\[
+			(a + b\sqrt{d})^q  = a^q + (b\sqrt{d})^q
+		\]
+	\end{enumerate}
+\end{lemma}
+\begin{proof}[Beweis]
+	\begin{enumerate}
+		\item Man braucht nur die Abgeschlossenheit der Addition und Multiplikation zu zeigen, da alle andere Rechenregeln folgt aus der Ringstruktur der ganzen Zahlen $\Integer$. \\ Wir k\"{o}nnen aber auch anders machen, in dem wir uns an die Algebraische Zahlentheorie erinnern. Das besagt uns, dass $\Zadjd$ der Teilring der ganzen Zahlen (sogar gleich, falls $d \equiv {2,3} \pmod{4}$ ist) von dem K\"{o}rper $\Qadjd$ ist. Details, siehe z.B \cite{zahlentheorie}. Damit folgt
+		die Behauptung
+		\item 
+		Dass $\ZAdjdModq$ ein Ring ist, folgt daraus, dass $\langle q \rangle$ ein Ideal in $\ZAdjdModq$ ist.\\
+		Wir zeigen, dass jedes Element aus $\ZadjdModqOhnez$ eine Inverse hat.\\
+		Sei $a + b\sqrt{d}$ mit $a,b\in \Integer$, $o.B.d.A$ nehmen wir an, dass $b \neq 0$ ist. Wir suchen ein $m + n\sqrt{d}$, mit $m,n \in \Integer$, so dass $(a + b\sqrt{d})(m + n\sqrt{d}) = 1$ Durch Ausmultplizieren bekommen wir zwei Gleichungen:
+		\begin{align}
+		am + dbn &= 1 \label{eqz}\\
+		an + bm &= 0  \label{eqz2}
+		\end{align} 
+		Dies ist ein Lineares Gleichungssystem in $\Zmodq$, die Determinate der Matrix $A := $
+		$\begin{pmatrix}
+		a & db\\
+		b & a
+		\end{pmatrix}$
+		ist $a^2 - db^2 =: t$. $t$ ist invertierbar in $\Zmodq$, genau dann wenn $t\neq 0$ ist und 
+		\begin{align*}
+			t \neq 0 &\Leftrightarrow a^2 \neq db^2 \\
+				&\Leftrightarrow (a/b)^2 \neq d\\
+				&\Leftrightarrow d \; \QNmodq
+		\end{align*}
+		d.h, die Gleichungen (\ref{eqz}) (\ref{eqz2}) sind l\"{o}sbar, genau dann wenn
+		$d$ kein quadratisches Rest in $\Zmodq$ ist, also es folgt, dass
+		alle Elemente aus $\ZadjdModqOhnez$ eine Inverse haben.
+		\item
+		Das folgt aus dem Skript \cite{script} Seite 31, Lemma(3.15)
+	\end{enumerate}
+\end{proof}
+Erstens zeigen wir die R\"{u}ckrichtung.
+\subsection{Beweis der R\"{u}ckrichtung}
+\begin{proof}[``$\Leftarrow$"]
+Sei $n := M_p$ ein Teiler von $S_{p-1}$, und sei $q$ ein Teiler von $M_p$.
+Aus der Definition von $M_p$ wissen wir dass $q\neq2$ ist. Au\ss erdem nehmen wir an, dass $q^2 \leq n$ ist. (denn ansonsten, ist $\frac{n}{q}$ auch ein Teiler von n, was aber $(\frac{n}{q})^2 \leq n$ folgt).Wir rechnen im Ring $E  := \Integer[\sqrt{3}]/\langle q \rangle$ (der Ring ist nicht unbedingt ein K\"{o}rper)\\
+Es gilt
+\begin{alignat*}{4}
+	&\phantom{\Rightarrow a} &S_{p-1} \quad &&\equiv{\phantom{-}0} &\pmod{n} \\
+	&\Rightarrow &S_{p-1} 		\quad   &&\equiv{\phantom{-}0} &\pmod{q}\\
+	&\overset{\text{(\ref{Skpsi})}}{\Leftrightarrow} &\psi^{2^{p-2}} + \phantom{1}\bar{\psi}^{2^{p-2}} \quad &&\equiv{\phantom{-}0} &\pmod{q}\\
+	&\overset{\text{(\ref{psiProp})}}{\Leftrightarrow} &\psi^{2^{p-1}} + \,1 \phantom{\bar{\psi}^{2^{p-2}}} \quad &&\equiv{\phantom{-}0}  &\pmod{q}\\
+	&\Leftrightarrow &\psi^{2^{p-1}} \quad &&\equiv{-1} &\pmod{q}\\
+	&\Rightarrow &\psi^{2^{p\phantom{-1}}} \quad && \equiv{\phantom{-}1} &\pmod{q}
+\end{alignat*}
+insbesonere folgt dass ord($\psi$) $ = 2^p$ ist, wir wissen dass die Einheit von $E$ weniger als $q^2 - 1$ Elemente besitzt, folgt aus dem Satz von Lagrange unter Ber\"{u}cksichtigung dass $2^{p} = n + 1$:
+\[
+	n + 1 = 2^{p} \,\leq q^2-1 \,\leq n - 1
+\]
+Also ein Widerspruch. Insbesondere besitzt $n$ kein Teiler, also ist $n = M_p$ eine Primzahl
+\end{proof}
+\subsection{Beweis der Hinrichtung}
+\begin{proof}[``$\Rightarrow$'']
+Sei $n := M_p = 2^{p} - 1$ jetzt eine Primzahl. Dann wissen wir aus Lemma(\ref{lem1}), dass $p \in \Prime.$ \\Es gilt
+\begin{equation}\label{nPequ}
+ p = \frac{n + 1}{2}
+\end{equation}
+F\"{u}r $p \leq 2$ rechnen wir einfach nach und pr\"{u}fen die Richtigkeit. Jetzt nehmen wir an, dass $p \geq 3 $ und $ p \in \Prime$ ist. Dann folgt zuerst:
+\[
+	n = 2^p - 1 \equiv{-1} \pmod{8}
+\]
+also gilt $(\frac{2}{n}) = 1$ nach \cite{script} \Rmnum{2} Lemma(3.13). Insbesondere
+folgt aus Satz von Euler:
+\begin{equation}\label{twoPo}
+	2^{\frac{n-1}{2}} \equiv{1} \pmod{n}
+\end{equation}
+Wir zeigen jetzt, dass 3 $\mbox{QN}\pmod{n}$ ist.
+Aus \cite{script} Seite 84, wissen wir dass
+\[
+	\left(\frac{3}{n} \right) = 
+	\begin{cases}
+	\,1, &\text{falls $p \equiv{\pm1} \pmod{12}$,}\\
+	\,-1, &\text{falls $n \equiv{\pm5} \pmod{12}$.}
+	\end{cases}
+\]
+Es gilt
+\[
+	2^4 \equiv{2^2} \pmod{12}
+\]
+Dann folgt, da $p \geq 3, p \in \Prime$ :
+\begin{alignat*}{4}
+	&\phantom{\Rightarrow a} 2^{p}     		&&\equiv{2^3}      &&		   &&\pmod{12}\\
+	&\Leftrightarrow 2^{p} - 1 	\quad 		&&\equiv{2^3 - 1}  &&\equiv{7} &&\pmod{12}\\
+	&\Rightarrow \left( \frac{3}{n} \right) &&= -1			   &&			   &
+\end{alignat*}
+also insbesondere mithilfe Satzes von Euler:
+\begin{equation}\label{threePot}
+	3^{\frac{n-1}{2}} \equiv{-1} \pmod{n}
+\end{equation}
 
+\end{proof}
 \newpage
 \begin{appendix}
 
