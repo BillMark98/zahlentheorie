@@ -16,17 +16,17 @@
 \newcommand{\Rational}{\ensuremath{\mathbb{Q}}}
 \newcommand{\Integer}{\ensuremath{\mathbb{Z}}}
 \newcommand{\myMersen}{\emph{Mersennesche Zahl}}
-\newcommand{\Qadjd}{\ensuremath{\Rational[\sqrt{d}]}}
+\newcommand{\Qadjd}{\ensuremath{\Rational[\sqrt{d}\,]}}
 \newcommand{\ZadjdOhnez}{\ensuremath{\Zadjd \setminus\! \{ 0 \}}}
 
-\newcommand{\Zadjd}{\ensuremath{\Integer[\sqrt{d}]}}
-\newcommand{\ZAdjdModq}{\ensuremath{\Integer[\sqrt{d}]/\langle q \rangle}}
+\newcommand{\Zadjd}{\ensuremath{\Integer[\sqrt{d}\,]}}
+\newcommand{\ZAdjdModq}{\ensuremath{\Integer[\sqrt{d}\,]/\langle q \rangle}}
 \newcommand{\Zmodq}{\ensuremath{\Integer/q\Integer}}
 \newcommand{\ZadjdModqOhnez}{\ensuremath{\ZAdjdModq \setminus\! \{ 0 \}}}
 \newcommand{\QRmodq}{\ensuremath{\mbox{QR}\pmod{q}}}
 \newcommand{\QNmodq}{\ensuremath{\mbox{QN} \! \pmod{q}}}
 \newcommand{\Zmodn}{\ensuremath{\Integer/n\Integer}}
-\newcommand{\ZadThreeModn}{\ensuremath{\Integer[\sqrt{3}]/\langle n \rangle}}
+\newcommand{\ZadThreeModn}{\ensuremath{\Integer[\sqrt{3}\,]/\langle n \rangle}}
 
 \makeatletter
 \newcommand{\rmnum}[1]{\romannumeral #1}
@@ -34,7 +34,7 @@
 \makeatother
 \title{Der Lucas-Lehmer-Test}
 \date{\today}
-\author{Panwei Hu}
+\author{Panwei Hu \quad 374218\\Kai Tangelder \quad 358033}
 
 % set the contents of tables depth 
 % here 2 ----  subsection
@@ -48,16 +48,16 @@
   \pagenumbering{gobble}
   \maketitle
   \newpage
- \tableofcontents{Inhalte}
+ \tableofcontents
 	\newpage
   \newpage
   \pagenumbering{arabic}
 \newpage
 \section{Einleitung}
-Der \emph{Lucas-Lehmer-Test} ist ein Algorithmus, mit der man testen kann, ob eine gegebene
-\myMersen eine Primzahl ist. Der Test wurde erstmal von Édouard Lucas empfunden im Jahr 1856 und wurde sp\"{a}ter vom Lucas im Jahr 1878 und Derrick Henry Lehmer in den 1930s verbessert. In dieser Ausarbeitung stellen wir den Algorithmus vor und geben den Beweis f\"{u}r die Richtigkeit des Algorithmus dazu.
-\section{Mersennsche Primzahl}
-Bevor wir zur Definition von \emph{Mersennesche Primzahl} kommen, wird es
+Der \emph{Lucas-Lehmer-Test} ist ein Algorithmus, mit dem man testen kann, ob eine gegebene
+\myMersen{} eine Primzahl ist. Der Test wurde erstmal von Édouard Lucas empfunden im Jahr 1856 und wurde sp\"{a}ter vom Lucas im Jahr 1878 und Derrick Henry Lehmer in den 1930s verbessert. In dieser Ausarbeitung stellen wir den Algorithmus vor und geben den Beweis f\"{u}r die Richtigkeit des Algorithmus dazu.
+\section{Mersennsche Primzahlen}
+Bevor wir zur Definition von \emph{Mersennesche Primzahlen} kommen, ist es
 hilfreich, wenn wir uns an das folgende Lemma aus dem Skript~\cite{script} erinnern.
 \begin{lemma}\label{lem1}
 	Sei $a,m \in \mathbb{N},m > 1$, so dass $a^m - 1$ eine Primzahl ist. Dann ist
@@ -66,7 +66,7 @@ hilfreich, wenn wir uns an das folgende Lemma aus dem Skript~\cite{script} erinn
 \begin{proof}[Beweis]
 Siehe \cite{script}
 \end{proof}
-Mithilfe dieses Lemmas f\"{u}hren wir die Definition von \emph{Mersennesche Primzahl} ein, die wir auch aus dem Skript~\cite{script} kennen:
+Mithilfe dieses Lemmas f\"{u}hren wir die Definition von \emph{Mersennesche Primzahlen} ein, die wir auch aus dem Skript~\cite{script} kennen:
 \begin{definition}
 Die Zahlen
 \[
@@ -77,7 +77,7 @@ $q \in \mathbb{P}$, hei{\ss}en \emph{Mersennesche Zahl} $M_{q}$ bzw. \emph{Merse
 Wir sehen leicht, dass $M_{q}$ eine Primzahl ist, wenn $q$ eine Primzahl ist.
 Somit gibt es eine Methode f\"{u}r eine gegebene Zahl $n$ zu testen, ob $n$ eine Primzahl ist, n\"{a}mlich, wir berechnen die $n-te$ \emph{Mersennesche Zahl} $M_{n}$. Wenn wir zeigen k\"{o}nnen, dass $M_{n}$ keine Primzahl ist, dann ist $n$ nach Lemma~\ref{lem1} auch nicht prim.\\[\myparaDent]
 % Wichtig ist an der Stelle zu merken, dass die Umkehrung nicht richtig ist. Ein Gegenbeispiel ist $q = 11$ mit $M_{q} = 2^{11} -1 = 23 \cdot 89$\\[myparaDent]
-Unsere Aufgabe ist jetzt, einen Algorithmus zu suchen, so dass f\"{u}r eine beliebige $n \in \Nature$, schnell eine Aussage \"{u}ber die $n-te$ \emph{Mersennesche Zahl} $M_{n}$ zu bekommen, ob die prim oder nicht prim ist. Dieser Algorithmus ist der \emph{Lucas-Lehmer-Test}. 
+Unsere Aufgabe ist jetzt, einen Algorithmus zu suchen, so dass f\"{u}r ein beliebiges $n \in \Nature$, schnell eine Aussage \"{u}ber die $n-te$ \emph{Mersennesche Zahl} $M_{n}$ zu bekommen, ob diese prim oder nicht prim ist. Dieser Algorithmus ist der \emph{Lucas-Lehmer-Test}. 
 
 \section{Der Lucas-Lehmer-Test}
 \begin{theorem}\label{lucas}
@@ -103,15 +103,15 @@ Unsere Aufgabe ist jetzt, einen Algorithmus zu suchen, so dass f\"{u}r eine beli
 \section{Beweis des Tests}
 Wir f\"{u}hren den Beweis in zwei Teile durch.\\
 \subsection{Vor\"{u}berlegung}
-Zu dem Beweis benutzen wir zwei Hilfsvariablen,
+F\"{u}r den Beweis benutzen wir zwei Hilfsvariablen,
 \[
-	\psi = 2 + \sqrt{3}\quad \mbox{und die konjugierte}\quad \bar{\psi} = 2- \sqrt{3}
+	\psi = 2 + \sqrt{3}\quad \mbox{und die dazu konjugierte}\quad \bar{\psi} = 2- \sqrt{3}
 \]
 Es gilt $S_1 = 4 = \psi + \bar{\psi}$ und 
 \begin{equation}\label{psiProp}
 	\psi \cdot \bar{\psi} = 1
 \end{equation}
-und man zeigt sich durch Induktion leicht dass 
+und man zeigt durch Induktion leicht, dass 
 \begin{equation}\label{Skpsi}
 S_k \nobreak = \nobreak \psi^{2^{k-1}} \!+ \, \bar{\psi}^{2^{k-1}}
 \end{equation} ist. F\"{u}r den Induktionsschritt:
@@ -125,9 +125,9 @@ S_k \nobreak = \nobreak \psi^{2^{k-1}} \!+ \, \bar{\psi}^{2^{k-1}}
 F\"{u}r den Beweis ben\"{o}tigen wir noch ein Lemma
 \begin{lemma}\label{restRing}
 	Sei $d$ eine quadratfreie ganze Zahl in \Integer, dann gilt 
-	f\"{u}r die Menge \Integer$[\sqrt{d}]:=\{\, a + b\sqrt{d} \mid a,b\in \Integer \,\}$
+	f\"{u}r die Menge \Integer$[\sqrt{d}\,]:=\{\, a + b\sqrt{d} \mid a,b\in \Integer \,\}$
 	\begin{enumerate}
-		\item \Integer$[\sqrt{d}]$ ist ein Ring mit der \"{u}blichen Addition und Multiplikation
+		\item \Integer$[\sqrt{d}\,]$ ist ein Ring mit der \"{u}blichen Addition und Multiplikation
 		\item Sei $q \in \Nature$, dann ist der Restklassenring $\ZAdjdModq$ ein Ring mit der \"{u}blichen Addition und Multiplikation modulo $q$. Falls $q \in \Prime$  und $d$ kein quadratisches Rest in $\Zmodq$ ist, dann ist $\ZAdjdModq$ ein K\"{o}rper.
 		\item Sei $q \in \Prime$, dann gilt f\"{u}r alle Elemente $a + b\sqrt{d} \in \ZAdjdModq$, mit $a,b\in \Integer$:
 		\[
@@ -137,7 +137,7 @@ F\"{u}r den Beweis ben\"{o}tigen wir noch ein Lemma
 \end{lemma}
 \begin{proof}[Beweis]
 	\begin{enumerate}
-		\item Man braucht nur die Abgeschlossenheit der Addition und Multiplikation zu zeigen, da alle andere Rechenregeln aus der Ringstruktur der ganzen Zahlen $\Integer$ folgen. \\ Wir k\"{o}nnen aber auch anders machen, in dem wir uns an die Algebraische Zahlentheorie erinnern. Das besagt uns, dass $\Zadjd$ der Teilring der ganzen Zahlen (sogar gleich, falls $d \equiv {2,3} \pmod{4}$ ist) von dem K\"{o}rper $\Qadjd$ ist. Details, siehe z.B \cite{zahlentheorie}. Damit folgt
+		\item Man braucht nur die Abgeschlossenheit der Addition und Multiplikation zu zeigen, da alle andere Rechenregeln aus der Ringstruktur der ganzen Zahlen $\Integer$ folgen. \\ Wir k\"{o}nnen es aber auch anders machen, indem wir uns an die Algebraische Zahlentheorie erinnern. Diese besagt, dass $\Zadjd$ der Teilring der ganzen Zahlen (sogar gleich, falls $d \equiv {2,3} \pmod{4}$ ist) von dem K\"{o}rper $\Qadjd$ ist. Details, siehe z.B \cite{zahlentheorie}. Damit folgt
 		die Behauptung
 		\item 
 		Dass $\ZAdjdModq$ ein Ring ist, folgt daraus, dass $\langle q \rangle$ ein Ideal in $\ZAdjdModq$ ist.\\
@@ -152,24 +152,24 @@ F\"{u}r den Beweis ben\"{o}tigen wir noch ein Lemma
 		a & db\\
 		b & a
 		\end{pmatrix}$
-		ist $a^2 - db^2 =: t$. $t$ ist invertierbar in $\Zmodq$, genau dann wenn $t\neq 0$ ist und 
+		ist $a^2 - db^2 =: t$. $t$ ist invertierbar in $\Zmodq$, genau dann, wenn $t\neq 0$ ist und 
 		\begin{align*}
 			t \neq 0 &\Leftrightarrow a^2 \neq db^2 \\
 				&\Leftrightarrow (a/b)^2 \neq d\\
 				&\Leftrightarrow d \; \QNmodq
 		\end{align*}
 		d.h, die Gleichungen (\ref{eqz}) (\ref{eqz2}) sind l\"{o}sbar, genau dann wenn
-		$d$ kein quadratisches Rest in $\Zmodq$ ist, also es folgt, dass
+		$d$ kein quadratisches Rest in $\Zmodq$ ist. Es folgt also, dass
 		alle Elemente aus $\ZadjdModqOhnez$ eine Inverse haben.
 		\item
 		Das folgt aus dem Skript \cite{script} Seite 31, Lemma(3.15)
 	\end{enumerate}
 \end{proof}
-Erstens zeigen wir die R\"{u}ckrichtung.
+Zuerst zeigen wir die R\"{u}ckrichtung.
 \subsection{Beweis der R\"{u}ckrichtung}
 \begin{proof}[``$\Leftarrow$"]
 Sei $n := M_p$ ein Teiler von $S_{p-1}$, und sei $q$ ein Teiler von $M_p$.
-Aus der Definition von $M_p$ wissen wir dass $q\neq2$ ist. Au\ss erdem nehmen wir an, dass $q^2 \leq n$ ist. (denn ansonsten, ist $\frac{n}{q}$ auch ein Teiler von n, was aber $(\frac{n}{q})^2 \leq n$ folgt).Wir rechnen im Ring $E  := \Integer[\sqrt{3}]/\langle q \rangle$ (der Ring ist nicht unbedingt ein K\"{o}rper)\\
+Aus der Definition von $M_p$ wissen wir, dass $q\neq2$ ist. Au\ss erdem nehmen wir an, dass $q^2 \leq n$ ist. (denn ansonsten, ist $\frac{n}{q}$ auch ein Teiler von n, was aber $(\frac{n}{q})^2 \leq n$ folgt).Wir rechnen im Ring $E  := \Integer[\sqrt{3}\,]/\langle q \rangle$ (der Ring ist nicht unbedingt ein K\"{o}rper)\\
 Es gilt %&\phantom{\Rightarrow a} 
 \begin{alignat*}{4}
 	&\phantom{\Rightarrow a} & S_{p-1} \quad &&\equiv{\phantom{-}0} &\pmod{n} \\
@@ -179,11 +179,11 @@ Es gilt %&\phantom{\Rightarrow a}
 	&\Leftrightarrow &\psi^{2^{p-1}} \quad &&\equiv{-1} &\pmod{q}\\
 	&\Rightarrow &\psi^{2^{p\phantom{-1}}} \quad && \equiv{\phantom{-}1} &\pmod{q}
 \end{alignat*}
-insbesonere folgt dass ord($\psi$) $ = 2^p$ ist. Wir wissen, dass die Einheit von $E$ weniger als $q^2 - 1$ Elemente besitzt. Dann folgt aus dem Satz von Lagrange unter Ber\"{u}cksichtigung dass $2^{p} = n + 1$:
+insbesonere folgt, dass ord($\psi$) $ = 2^p$ ist. Wir wissen, dass die Einheit von $E$ weniger als $q^2 - 1$ Elemente besitzt. Dann folgt aus dem Satz von Lagrange unter Ber\"{u}cksichtigung,dass $2^{p} = n + 1$:
 \[
 	n + 1 = 2^{p} \,\leq q^2-1 \,\leq n - 1
 \]
-Also ein Widerspruch. Insbesondere besitzt $n$ kein Teiler, also ist $n = M_p$ eine Primzahl
+Also ein Widerspruch. Insbesondere besitzt $n$ keinen Teiler, also ist $n = M_p$ eine Primzahl
 \end{proof}
 \subsection{Beweis der Hinrichtung}
 \begin{proof}[``$\Rightarrow$'']
@@ -196,7 +196,7 @@ F\"{u}r $p \leq 2$ rechnen wir einfach nach und pr\"{u}fen die Richtigkeit. Jetz
 	n = 2^p - 1 \equiv{-1} \pmod{8}
 \]
 also gilt $(\frac{2}{n}) = 1$ nach \cite{script} \Rmnum{2} Lemma(3.13). Insbesondere
-folgt aus Satz von Euler:
+folgt aus dem Satz von Euler:
 \begin{equation}\label{twoPo}
 	2^{\frac{n-1}{2}} \equiv{1} \pmod{n}
 \end{equation}
@@ -251,7 +251,7 @@ Insgesamt folgt:
 \end{align*}
 damit ist (\ref{*}) gezeigt. \\Also ist die Hinrichtung gezeigt.\\
 \end{proof}
-Insgesamt ist die Richtigkeit von \emph{Lucas-Lehmer-Test} bewiesen.
+Insgesamt ist die Richtigkeit des \emph{Lucas-Lehmer-Tests} bewiesen.
 \newpage
 
 \newpage

@@ -16,9 +16,15 @@ align 中如果碰到equation 上要加text 可以用\mathclap(需要\mathtools 
 
 更改目录的名字 即不显示contents 而是别的 如 Inhalte
 \renewcommand{\contentsname}{Inhalte}
+\renewcommand{\refname}{Literatur}
 
 日期可以自定义
 如
 \date{2019-6-7}
 或者
 \date{\today}
+
+ 
+google 了 book之后 在“ 号处，可以生成bibTex
+
+macro 之后没有空格， \myMersen{}
