@@ -1,6 +1,7 @@
 \documentclass{article}
 \usepackage{amssymb,latexsym,amsmath,amsthm,mathtools,mathrsfs,bm}
-
+\usepackage{tikz,tikz-3dplot} 
+\usepackage{fouriernc}
 \renewcommand{\baselinestretch}{1.5} 
 
 \newtheorem{theorem}{Theorem}[section]
@@ -9,6 +10,7 @@
 \newtheorem{Algorithmus}{Algorithmus}
 \newtheorem{example}[theorem]{Example}
 \newtheorem{collary}[theorem]{Collary}
+\newtheorem{prop}[theorem]{Proposition}
 \numberwithin{equation}{theorem}
 
 \newcommand{\GExtend}{\ensuremath{\widetilde{G}}}
@@ -22,10 +24,12 @@
 \newcommand{\dDes}{\ensuremath{\mathscr{D}}}
 \newcommand{\cCodes}{\ensuremath{\mathscr{C}}}
 \newcommand{\tSet}[1]{\ensuremath{\bm{#1\mbox{-}{set}}}}
+\newcommand{\tSubset}[1]{\ensuremath{\bm{#1\mbox{-}{subset}}}}
 \newcommand{\code}[3]{\ensuremath{\bm{(#1,#2,#3)\mbox{-}code}}}
 \newcommand{\linearCode}[3]{\ensuremath{\bm{(#1,#2,#3)\mbox{-}code}}}
 \newcommand{\ftwoN}[1]{\ensuremath{\mathbb{F}_2}^{#1}}
 \newcommand{\myMatrixRing}[2]{\ensuremath{#1^{#2\times#2}}}
+\newcommand{\wloe}{w.l.o.e}
 \title{Seminar}
 \date{\today}
 \author{Panwei Hu}
@@ -148,6 +152,28 @@ Since $M$ commutes with $J$ and $M^t = ((r - \lambda) I + \lambda J)M^{-1}$ (Lem
 \]
 Based on \eqref{rowVprod} we see that any two blocks have exactly $\lambda$ points in common.
 \end{proof}
+
+\begin{prop}
+There is only one \tParamDesign{2}{11}{5}{2}
+\end{prop}
+\begin{proof}
+We have in this case according to \eqref{sDesign}:
+\begin{alignat}{3}
+	b &= \frac{2\,\binom{11}{2}}{\binom{5}{2}} & = 11 &= v \notag\\
+	r &= \frac{2 \, \binom{11-1}{2 - 1}}{\binom{5-1}{2 - 1}} & = 5 & \notag\phantom{v} 
+\end{alignat}
+Therefore, we can apply Lemma \ref{lambdaCommonPoints} and it follows that any two blocks have 2 common points.\\
+{\wloe} we choose the characteristic vector of the first block as 
+$(1 1 1 1 1 0 0 0 0 0 0)$. The remaining blocks coorespond to the {\tSubset{2}}\textbf{s} of the first five points.\\
+we can choose the second as $(1 1 0 0 0 1 1 1 0 0 0)$ and the following 4. For the $6$-th row, there are two choices, namely
+$(0 1 1 0 0 0 1 0 0 1 1)$ or $(0 1 1 0 0 0 0 1 1 0 1)$. And the rest are uniquely determined. \\
+We have for the first choice the matrix:
+\[
+	\begin{pmatrix}
+			
+	\end{pmatrix}
+\]
+\end{proof}
 Now let us come back to codes and discuss the relationship between design and codes.\\
 Let {\cCodes} be a binary code of length $n$.\\
 First we define $S_d := \{c\,|\,wt(c) = d, c \in \cCodes\}$ as the set of codes of \cCodes, s.t the weight of the codes equal $d$
@@ -196,4 +222,53 @@ For hamming \linearCode{7}{4}{3}. We have
 	A_3 = \frac{\binom{8-1}{2}}{\binom{3}{2}} = 7
 \]
 \end{example}
+
+\tdplotsetmaincoords{60}{100}
+    \begin{tikzpicture}[tdplot_main_coords,scale=1,line join=round]
+    \pgfmathsetmacro\a{2}
+    \pgfmathsetmacro{\phi}{\a*(1+sqrt(5))/2}
+    \path 
+    coordinate [label = right:3](A) at (0,\phi,\a)
+    coordinate[label = right:8](B) at (0,\phi,-\a)
+    coordinate[label = left:6](C) at (0,-\phi,\a)
+    coordinate[label = left:10](D) at (0,-\phi,-\a)
+    coordinate[label = above:2](E) at (\a,0,\phi)
+    coordinate[label = left:12](F) at (\a,0,-\phi)
+    coordinate[label = above:1](G) at (-\a,0,\phi)
+    coordinate[label = left:9](H) at (-\a,0,-\phi)
+    coordinate[label = below:7](I) at (\phi,\a,0)
+    coordinate[label = below:11](J) at (\phi,-\a,0)
+    coordinate[label = below:4](K) at (-\phi,\a,0)
+    coordinate[label = below:5](L) at (-\phi,-\a,0); 
+    \draw[dashed, thick]    (B) -- (H) -- (F) 
+    (D) -- (L) -- (H) --cycle 
+    (K) -- (L) -- (H) --cycle
+    (K) -- (L) -- (G) --cycle
+    (C) -- (L) (B)--(K) (A)--(K)
+    ;
+
+        \draw[ultra thick]
+        (A) -- (I) -- (B) --cycle 
+        (F) -- (I) -- (B) --cycle 
+        (F) -- (I) -- (J) --cycle
+        (F) -- (D) -- (J) --cycle
+        (C) -- (D) -- (J) --cycle
+        (C) -- (E) -- (J) --cycle
+        (I) -- (E) -- (J) --cycle
+        (I) -- (E) -- (A) --cycle
+        (G) -- (E) -- (A) --cycle
+        (G) -- (E) -- (C) --cycle
+        ; 
+         %\foreach \point/\position in {A/right,B/below,C/above,D/left,E/{above right},F/below,G/above,H/left,I/below,J/right,K/below,L/left}
+%{
+    %\fill (\point) circle (1.5pt);
+    %\node[\position=3pt] at (\point) {$\point$};
+%}
+
+\end{tikzpicture}
+
+
+
+
+
 \end{document}
