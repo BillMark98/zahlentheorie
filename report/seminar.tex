@@ -1,0 +1,104 @@
+\documentclass{article}
+\usepackage{amssymb,latexsym,amsmath,amsthm,mathtools,mathrsfs,bm}
+
+\renewcommand{\baselinestretch}{1.5} 
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{definition}{Definition}
+\newtheorem{Algorithmus}{Algorithmus}
+\newtheorem{example}{Example}
+\newtheorem{collary}{Collary}
+
+
+\newcommand{\GExtend}{\ensuremath{\widetilde{G}}}
+\newcommand{\Ftwo}{\ensuremath{\mathbb{F}_2}}
+\newcommand{\tCompleteDesign}{\ensuremath{\bm{t\mbox{-}(v,k,\lambda)\; design}}}
+\newcommand{\tParamDesign}[4]{\ensuremath{\bm{#1\mbox{-}(#2,#3,#4)\; design}}}
+\newcommand{\steinerSystem}[3]{\ensuremath{\bm{S(#1,#2,#3)}}}
+\newcommand{\myBlock}{\textbf{block}}
+\newcommand{\pluralMyBlock}{\textbf{blocks}}
+\newcommand{\xDesign}[1]{\ensuremath{\bm{#1\mbox{-}design}}}
+\newcommand{\dDes}{\ensuremath{\mathscr{D}}}
+\newcommand{\cCodes}{\ensuremath{\mathscr{C}}}
+\newcommand{\tSet}[1]{\ensuremath{\bm{#1\mbox{-}{set}}}}
+\newcommand{\code}[3]{\ensuremath{\bm{(#1,#2,#3)\mbox{-}code}}}
+
+\title{Seminar}
+\date{\today}
+\author{Panwei Hu}
+
+\begin{document}
+\pagenumbering{gobble}
+  \maketitle
+  \newpage
+
+\tableofcontents
+	\newpage
+  \newpage
+  \pagenumbering{arabic}
+\newpage
+\section{Introduction}
+
+This report is based on the book \emph{Lattices and Codes},from chapter 2.7 to 2.9
+\newpage
+\section{The Golay Code and thee Leech Lattice}
+In this section, we will discuss a particular type of codes, the golay codes. We will show that there exists a unique doubly even linear code  $\GExtend \subset \Ftwo^{24}$ with $A_4 = 0$ 
+
+We shall first need some definitions.
+\begin{definition}
+	\begin{enumerate}
+		\item A set with $t$ elements is called a \textbf{t-set}, a subset of a given set with $t$ elements is called a \textbf{t-subset}
+		\item Let $V$ be a \textbf{v-set} and each element is called a \textbf{point}. Let $\mathscr{D}$ be a collection of disjoint \textbf{k-subset}. Every such \textbf{k-subset} is called a \textbf{block}. If for any \textbf{t-subset} $T$, there are exactly $\mathbf{\lambda}$ \textbf{k-subsets} $B$ from $S$, s.t, $T \subset B$ then $\mathscr{D}$ is called a \tCompleteDesign . We also sometimes simply call it a $\bm{t}$-design.
+		\item A $\bm{t\mbox{-}(v,k,1)}$ design is called a \emph{Steiner System}, denoted as $\bm{S(t,k,v)}$
+	\end{enumerate}
+\end{definition}
+\begin{example}\label{projPlane}
+		The projective plane of order 2 is a $\bm{2\mbox{-}(7,3,1)}$ design, hence a $\bm{S(2,3,7)}$ \emph{Steiner System}
+\end{example}
+
+Before we begin with the proofs, let us discuss some propeties of the $\bm{t}$-design.
+\begin{lemma}\label{propTdesign}
+If $\mathscr{D}$ be a $\bm{t\mbox{-}design}$. Then $\mathscr{D}$ is also a $\bm{s\mbox{-}design}$, for $1 \leq s \leq t$
+\end{lemma}
+\begin{proof}
+Let $\mathscr{D}$ be a \tCompleteDesign.
+Let $S$ be a \textbf{s-subset}, we count the pairs $(T,B)$ with the property, that $S \subset T \subset B$, with $T$ a \textbf{t-subset} and $B$ a \textbf{block} of $\mathscr{D}$. We denote $\lambda_s$ as the number of \textbf{blocks} in $\mathscr{D}$ which contains $S$. We want to show that $\lambda_s$ is independent of the set $S$, but only depends on the size of the set. 
+For each $\binom{v-s}{t-s}$ choices of $T$ that contains $S$, we have $\lambda$ {\pluralMyBlock} $B$ whicht contains $T$. In another way, for each of the $\lambda_s$ \myBlock that contains $S$, there are $\binom{k-s}{t-s}$ choices for $T$. So we have:
+\begin{align}
+	\lambda_s \, \binom{k-s}{t-s} &= \lambda \, \binom{v-s}{t-s} \notag\\
+	\Rightarrow  \quad \lambda_s &= \frac{\lambda \, \binom{v-s}{t-s}}{\binom{k-s}{t-s}} \label{sDesign}
+\end{align}
+In particular $\lambda_s$ is only dependent on the size of the subsets. So that $\mathscr{D}$ is a \xDesign{s}
+\end{proof}
+
+\begin{collary}
+Let {\dDes} be a \tCompleteDesign.
+Then {\dDes} has $b$ blocks, where
+\[
+	b = \frac{\lambda \, \binom{v}{t}}{\binom{k}{t}}
+\]
+\end{collary}
+
+Now let us come back to codes and discuss the relationship between design and codes.\\
+Let {\cCodes} be a binary code of length $n$.\\
+First we define $S_d := \{c\,|\,wt(c) = d, c \in \cCodes\}$ as the set of codes of \cCodes, s.t the weight of the codes equal $d$
+
+\begin{definition}
+	Let $x$, $y$ two binary words of length $n$
+	\begin{enumerate}
+		\item The \textbf{support} of $x$ is the set of positions in which $x$ has no zero entries.
+		\item We say that $x$ \textbf{covers} $y$, if the support $y$ is a subset of $x$
+		\item We say that $S_d$ \textbf{holds a } {\tParamDesign{t}{n}{d}{\lambda}}, if the supports of the codewords of $S_d$ form the {\pluralMyBlock} of a {\tParamDesign{t}{n}{d}{\lambda}}. In other words, for any {\tSet{t}} $T$, there are exactly $\lambda$ words in $S_d$ s.t the codes has $1$ in position given by $T$
+	\end{enumerate}
+\end{definition}
+
+\begin{lemma}
+Let {\cCodes} be a perfect binary {\code{n}{M}{d}}. Then the set $S_d$ of all codewords of minimum distances $d$ holds a \emph{Steiner system} \steinerSystem{t+1}{d}{n}, where $d = 2t + 1$
+\end{lemma}
+
+\begin{proof}
+
+\end{proof}
+
+\end{document}
