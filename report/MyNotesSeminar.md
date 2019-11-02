@@ -30,3 +30,16 @@ e.g.
 \newtheorem{collary}[theorem]{Collary}
 \numberwithin{equation}{theorem}
 ```
+
+
+### size of matrix
+at beginning error
+```
+! Extra alignment tab has been changed to \cr
+```
+but when deleting one column ok.  
+So need to reset the maxcolumn of matrix 
+```
+\setcounter{MaxMatrixCols}{20}
+```  
+here is a link [alignment](https://texfaq.org/FAQ-altabcr)

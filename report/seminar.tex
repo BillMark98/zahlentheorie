@@ -13,6 +13,8 @@
 \newtheorem{prop}[theorem]{Proposition}
 \numberwithin{equation}{theorem}
 
+\setcounter{MaxMatrixCols}{20}
+
 \newcommand{\GExtend}{\ensuremath{\widetilde{G}}}
 \newcommand{\Ftwo}{\ensuremath{\mathbb{F}_2}}
 \newcommand{\tCompleteDesign}{\ensuremath{\bm{t\mbox{-}(v,k,\lambda)\; design}}}
@@ -170,8 +172,21 @@ $(0 1 1 0 0 0 1 0 0 1 1)$ or $(0 1 1 0 0 0 0 1 1 0 1)$. And the rest are uniquel
 We have for the first choice the matrix:
 \[
 	\begin{pmatrix}
-			
+ 1 & 1 & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
+ 1 & 1 & 0 & 0 & 0 & 1 & 1 & 1 & 0 & 0 & 0 \\
+ 1 & 0 & 1 & 0 & 0 & 1 & 0 & 0 & 1 & 1 & 0 \\
+ 1 & 0 & 0 & 1 & 0 & 0 & 1 & 0 & 1 & 0 & 1 \\
+ 1 & 0 & 0 & 0 & 1 & 0 & 0 & 1 & 0 & 1 & 1 \\
+ 0 & 1 & 1 & 0 & 0 & 0 & 1 & 0 & 0 & 1 & 1 \\
+ 0 & 1 & 0 & 1 & 0 & 0 & 0 & 1 & 1 & 1 & 0 \\
+ 0 & 1 & 0 & 0 & 1 & 1 & 0 & 0 & 1 & 0 & 1 \\
+ 0 & 0 & 1 & 1 & 0 & 1 & 0 & 1 & 0 & 0 & 1 \\
+ 0 & 0 & 1 & 0 & 1 & 0 & 1 & 1 & 1 & 0 & 0 
 	\end{pmatrix}
+	% \begin{tabular}{c|c|c|c|c|c|c|c|c|c|c}
+ % 1 & 1 & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
+ % 1 & 1 & 0 & 0 & 0 & 1 & 1 & 1 & 0 & 0 & 0
+	% \end{tabular}
 \]
 \end{proof}
 Now let us come back to codes and discuss the relationship between design and codes.\\
