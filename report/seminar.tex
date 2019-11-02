@@ -3,13 +3,13 @@
 
 \renewcommand{\baselinestretch}{1.5} 
 
-\newtheorem{theorem}{Theorem}
-\newtheorem{lemma}{Lemma}
-\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
 \newtheorem{Algorithmus}{Algorithmus}
-\newtheorem{example}{Example}
-\newtheorem{collary}{Collary}
-
+\newtheorem{example}[theorem]{Example}
+\newtheorem{collary}[theorem]{Collary}
+\numberwithin{equation}{theorem}
 
 \newcommand{\GExtend}{\ensuremath{\widetilde{G}}}
 \newcommand{\Ftwo}{\ensuremath{\mathbb{F}_2}}
@@ -23,7 +23,9 @@
 \newcommand{\cCodes}{\ensuremath{\mathscr{C}}}
 \newcommand{\tSet}[1]{\ensuremath{\bm{#1\mbox{-}{set}}}}
 \newcommand{\code}[3]{\ensuremath{\bm{(#1,#2,#3)\mbox{-}code}}}
-
+\newcommand{\linearCode}[3]{\ensuremath{\bm{(#1,#2,#3)\mbox{-}code}}}
+\newcommand{\ftwoN}[1]{\ensuremath{\mathbb{F}_2}^{#1}}
+\newcommand{\myMatrixRing}[2]{\ensuremath{#1^{#2\times#2}}}
 \title{Seminar}
 \date{\today}
 \author{Panwei Hu}
@@ -46,7 +48,7 @@ This report is based on the book \emph{Lattices and Codes},from chapter 2.7 to 2
 In this section, we will discuss a particular type of codes, the golay codes. We will show that there exists a unique doubly even linear code  $\GExtend \subset \Ftwo^{24}$ with $A_4 = 0$ 
 
 We shall first need some definitions.
-\begin{definition}
+\begin{definition}\hfill
 	\begin{enumerate}
 		\item A set with $t$ elements is called a \textbf{t-set}, a subset of a given set with $t$ elements is called a \textbf{t-subset}
 		\item Let $V$ be a \textbf{v-set} and each element is called a \textbf{point}. Let $\mathscr{D}$ be a collection of disjoint \textbf{k-subset}. Every such \textbf{k-subset} is called a \textbf{block}. If for any \textbf{t-subset} $T$, there are exactly $\mathbf{\lambda}$ \textbf{k-subsets} $B$ from $S$, s.t, $T \subset B$ then $\mathscr{D}$ is called a \tCompleteDesign . We also sometimes simply call it a $\bm{t}$-design.
@@ -59,12 +61,12 @@ We shall first need some definitions.
 
 Before we begin with the proofs, let us discuss some propeties of the $\bm{t}$-design.
 \begin{lemma}\label{propTdesign}
-If $\mathscr{D}$ be a $\bm{t\mbox{-}design}$. Then $\mathscr{D}$ is also a $\bm{s\mbox{-}design}$, for $1 \leq s \leq t$
+If $\mathscr{D}$ be a $\bm{t\mbox{-}design}$. Then $\mathscr{D}$ is also a $\bm{s\mbox{-}design}$, for $0 \leq s \leq t$
 \end{lemma}
 \begin{proof}
 Let $\mathscr{D}$ be a \tCompleteDesign.
 Let $S$ be a \textbf{s-subset}, we count the pairs $(T,B)$ with the property, that $S \subset T \subset B$, with $T$ a \textbf{t-subset} and $B$ a \textbf{block} of $\mathscr{D}$. We denote $\lambda_s$ as the number of \textbf{blocks} in $\mathscr{D}$ which contains $S$. We want to show that $\lambda_s$ is independent of the set $S$, but only depends on the size of the set. 
-For each $\binom{v-s}{t-s}$ choices of $T$ that contains $S$, we have $\lambda$ {\pluralMyBlock} $B$ whicht contains $T$. In another way, for each of the $\lambda_s$ \myBlock that contains $S$, there are $\binom{k-s}{t-s}$ choices for $T$. So we have:
+For each $\binom{v-s}{t-s}$ choices of $T$ that contains $S$, we have $\lambda$ {\pluralMyBlock} $B$ whicht contains $T$. In another way, for each of the $\lambda_s$ $\myBlock$ that contains $S$, there are $\binom{k-s}{t-s}$ choices for $T$. So we have:
 \begin{align}
 	\lambda_s \, \binom{k-s}{t-s} &= \lambda \, \binom{v-s}{t-s} \notag\\
 	\Rightarrow  \quad \lambda_s &= \frac{\lambda \, \binom{v-s}{t-s}}{\binom{k-s}{t-s}} \label{sDesign}
@@ -72,7 +74,7 @@ For each $\binom{v-s}{t-s}$ choices of $T$ that contains $S$, we have $\lambda$ 
 In particular $\lambda_s$ is only dependent on the size of the subsets. So that $\mathscr{D}$ is a \xDesign{s}
 \end{proof}
 
-\begin{collary}
+\begin{collary}\label{blockCount}
 Let {\dDes} be a \tCompleteDesign.
 Then {\dDes} has $b$ blocks, where
 \[
@@ -80,6 +82,72 @@ Then {\dDes} has $b$ blocks, where
 \]
 \end{collary}
 
+Let us denote $\lambda_0$ as $b$ (total number of blocks) and
+$\lambda_1$ as $r$ (total number of blocks containg a given point)\\
+Before proving the next lemma, we need a another fact from linear algebra.
+\begin{lemma}\label{invertible}
+Let $I$ be the identiy matrix in {$M := \myMatrixRing{\mathbb{R}}{n}$} Let $J \in M$ be the matrix with all entries equal to 1, and $k \in \mathbb{R}^*$ then $A := I + kJ$ is invertible
+\end{lemma}
+\begin{proof}
+Since $(kJ)^2 = k^2 n J$ we have for the minimal polynomial of A :
+\[
+	\mu_A(x) := (x - 1)(x - 1 - (kn))
+\]
+In particular $\mu_A(0) \neq 0$, so A is invertible.
+\end{proof}
+\begin{lemma}\label{lambdaCommonPoints}
+In a {\tParamDesign{2}{v}{k}{\lambda}} with $b = v$, $k = r$, any two blocks have exactly $\lambda$ common points.
+\end{lemma}
+\begin{proof}
+Let $I,J$ have the same meaning as in the previous lemma for $n = v$.\\
+We define the characteristic vectors of the blocks as the rows of a $b \times v$ matrix $M$. That is
+\[
+	M_{i,j} = 
+	\begin{cases}
+		1, &\text{if block $i$ contains the point $j$}\\
+		0, &\text{otherwise}
+	\end{cases}
+\]
+Denote the $i$-th block  as $B_i$, and the $j$-th point as $v_j$, $1 \leq i \leq b, 1 \leq j \leq v$
+Now we have the two equations:
+\begin{align}
+	\sum_{j = 1}^{v} M_{i,j} &= \left|\{v\,|\,v \in B_i\} \right| \label{rowSum}\\
+	\sum_{i = 1}^{b} M_{i,j} &= \left|\{i\,|\, v_j \in B_i\} \right| \label{colSum}
+\end{align}
+Based on these two equations, we can translate the condition that any block contains $k$ points and that any point lies in $r$ blocks in view of $k = r$ into following:
+\[
+	MJ = kJ = rJ = JM
+\]
+Meanwhile, if we denote $M = (w_1|w_2|\ldots|w_v)$ we have 
+\begin{align}
+	w_j^t w_i &= \,\left|\{i\,| \, v_j \in B_i \wedge v_i \in B_i\} \right|	\label{colVprod}\\
+			&\overset{\wedge}{=} \,\text{``Number of blocks that contain both $v_i$ and $v_j$''}\notag
+\end{align}
+If we denote 
+\[
+ M = 
+	\begin{pmatrix}
+		u_1\\
+		u_2\\
+		\vdots\\
+		u_b
+	\end{pmatrix}
+\]
+Then we have 
+\begin{align}
+	u_i u_j^t &= \left|\{v_i\,|\, v_i \in B_i \wedge v_i \in B_j\} \right | \label{rowVprod}\\ 
+	&\overset{\wedge}{=} \, \text{``Number of points that both block $B_i$ and $B_j$ contains''} \notag
+\end{align}
+The condition that we have a {\tParamDesign{2}{v}{k}{\lambda}}, i.e. any pair of points lies in $\lambda$ blocks can be expressed based on \eqref{colVprod} as follows:
+\[
+	M^tM = (r - \lambda)I + \lambda J
+\] 
+Since $M$ commutes with $J$ and $M^t = ((r - \lambda) I + \lambda J)M^{-1}$ (Lemma \ref{invertible}), $M$ also commutes with $M^t$ and thus:
+\[
+	MM^t = (r - \lambda)I + \lambda J
+\]
+Based on \eqref{rowVprod} we see that any two blocks have exactly $\lambda$ points in common.
+\end{proof}
 Now let us come back to codes and discuss the relationship between design and codes.\\
 Let {\cCodes} be a binary code of length $n$.\\
 First we define $S_d := \{c\,|\,wt(c) = d, c \in \cCodes\}$ as the set of codes of \cCodes, s.t the weight of the codes equal $d$
@@ -87,18 +155,45 @@ First we define $S_d := \{c\,|\,wt(c) = d, c \in \cCodes\}$ as the set of codes 
 \begin{definition}
 	Let $x$, $y$ two binary words of length $n$
 	\begin{enumerate}
+		\item The sphere around $x$ with radius $r$ is denoted as $B(x,r)$ with respect to the usual hamming distance.
 		\item The \textbf{support} of $x$ is the set of positions in which $x$ has no zero entries.
 		\item We say that $x$ \textbf{covers} $y$, if the support $y$ is a subset of $x$
 		\item We say that $S_d$ \textbf{holds a } {\tParamDesign{t}{n}{d}{\lambda}}, if the supports of the codewords of $S_d$ form the {\pluralMyBlock} of a {\tParamDesign{t}{n}{d}{\lambda}}. In other words, for any {\tSet{t}} $T$, there are exactly $\lambda$ words in $S_d$ s.t the codes has $1$ in position given by $T$
 	\end{enumerate}
 \end{definition}
 
-\begin{lemma}
+\begin{lemma}\label{perfectCdDesign}
 Let {\cCodes} be a perfect binary {\code{n}{M}{d}}. Then the set $S_d$ of all codewords of minimum distances $d$ holds a \emph{Steiner system} \steinerSystem{t+1}{d}{n}, where $d = 2t + 1$
 \end{lemma}
 
 \begin{proof}
-
+Since {\cCodes} is perfect. So all the spheres $B(c,t)$ are disjoint with one another. So given a binary word $x$ of length $t+1$, it must be included exclusively in one sphere, say $B(c,t)$. Now, since $wt(c) \leq wt(x) + d(c,x) = t + 1 + t = d$, so we deduce that $c \in S_d$. And we have
+\begin{align*}
+	2wt(x \cap c) &= wt(x) + wt(c) - d(x,c) \geq 2t+2 \\
+	\Rightarrow \quad wt(x\cap c) &\geq t + 1
+\end{align*}
+So $c$ \textbf{covers} $x$. \\
+Now if there is another $\tilde{c} \in S_d$ that also \textbf{covers} $x$. Then we must have 
+\[
+	wt(\tilde{c}) \geq wt(x\cap \tilde{c}) + d(x,\tilde{c}) \geq 2t + 2 = d + 1
+\]
+ which is impossible. \\
+So $S_d$ is a \tParamDesign{t+1}{n}{d}{1}, hence \steinerSystem{t+1}{d}{n} \emph{Steiner System}
 \end{proof}
 
+\begin{collary}\label{perfectCodeAd}
+Let {\cCodes} be a perfect binary \code{n}{M}{d}-code. Let $A_d$ denotes the number of words of {\cCodes} with weight $d$. Then
+\[
+	A_d = \frac{\binom{n}{t+1}}{\binom{d}{t+1}}
+\]
+\end{collary}
+\begin{proof}
+	Using Collary \ref{blockCount}  and Lemma \ref{perfectCdDesign}
+\end{proof}
+\begin{example}
+For hamming \linearCode{7}{4}{3}. We have
+\[
+	A_3 = \frac{\binom{8-1}{2}}{\binom{3}{2}} = 7
+\]
+\end{example}
 \end{document}
