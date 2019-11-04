@@ -2,6 +2,8 @@
 \usepackage{amssymb,latexsym,amsmath,amsthm,mathtools,mathrsfs,bm}
 \usepackage{tikz,tikz-3dplot} 
 \usepackage{fouriernc}
+% for vertical and horizontal lines in matrix
+\usepackage{mleftright}
 \renewcommand{\baselinestretch}{1.5} 
 
 \newtheorem{theorem}{Theorem}[section]
@@ -19,12 +21,16 @@
 \newcommand{\Ftwo}{\ensuremath{\mathbb{F}_2}}
 \newcommand{\tCompleteDesign}{\ensuremath{\bm{t\mbox{-}(v,k,\lambda)\; design}}}
 \newcommand{\tParamDesign}[4]{\ensuremath{\bm{#1\mbox{-}(#2,#3,#4)\; design}}}
-\newcommand{\steinerSystem}[3]{\ensuremath{\bm{S(#1,#2,#3)}}}
+\newcommand{\steinerSystem}[3]{\ensuremath{{S(#1,#2,#3)}}}
 \newcommand{\myBlock}{\textbf{block}}
 \newcommand{\pluralMyBlock}{\textbf{blocks}}
 \newcommand{\xDesign}[1]{\ensuremath{\bm{#1\mbox{-}design}}}
 \newcommand{\dDes}{\ensuremath{\mathscr{D}}}
+% codes symbol
 \newcommand{\cCodes}{\ensuremath{\mathscr{C}}}
+\newcommand{\cCodesVertical}{\cCodes^{\bot}}
+
+\newcommand{\tildcCodes}{\ensuremath{\widetilde{\mathscr{C}}}}
 \newcommand{\tSet}[1]{\ensuremath{\bm{#1\mbox{-}{set}}}}
 \newcommand{\tSubset}[1]{\ensuremath{\bm{#1\mbox{-}{subset}}}}
 \newcommand{\code}[3]{\ensuremath{\bm{(#1,#2,#3)\mbox{-}code}}}
@@ -32,6 +38,13 @@
 \newcommand{\ftwoN}[1]{\ensuremath{\mathbb{F}_2}^{#1}}
 \newcommand{\myMatrixRing}[2]{\ensuremath{#1^{#2\times#2}}}
 \newcommand{\wloe}{w.l.o.e}
+% weight function
+\newcommand{\wt}[1]{\ensuremath{\text{wt}(#1)}}
+% distance function
+\newcommand{\dist}[2]{\ensuremath{\text{d}(#1,#2)}}
+
+% some number ring, field
+\newcommand{\Integer}{\mathbb{Z}}
 \title{Seminar}
 \date{\today}
 \author{Panwei Hu}
@@ -237,7 +250,70 @@ For hamming \linearCode{7}{4}{3}. We have
 	A_3 = \frac{\binom{8-1}{2}}{\binom{3}{2}} = 7
 \]
 \end{example}
+For the following, we define the $\langle , \rangle$ as the standard inner product of vectors with values in real number. 
+For simplicity, we will denote $\langle u,v \rangle$ as $u \cdot v$, if it is clear in context that we are having a scalar product of two vectors. And we know that for two vectors $u,v$ in $\ftwoN{n}$, we have
+\begin{equation}\label{distWeightEqn}
+	\dist{u}{v} = \wt{u} + \wt{v} - 2\langle u, v\rangle 
+\end{equation}
+We come to the main theorem in this section.
+\begin{theorem}
+Let {\cCodes} be a binary {\code{24}{2^{12}}{8}} containing 0. Then {\cCodes} is a up to equivalence the only one doubly even self-dual linear {\linearCode{24}{12}{8}}. 
+\end{theorem}
+\begin{proof}
+Let {\cCodes} be such a code. We first punctuate a poisition 
+of each code word and denote the resulted code as {\tildcCodes}.
+This code is has minimum distance 7 or 8. So it is a {\code{23}{2^{12}}{7}} or {\code{23}{2^{12}}{8}}. No matter the minimum distance is 7 or 8. The sphere $B(c,3)$ are disjoint from each other for all codes $c \in \tildcCodes$.\\
+We show that the minimum distance is 7.  Indeed, we have
+\[
+	2^{12}(1 + \binom{23}{1} + \binom{23}{2} + \binom{23}{3}) = 2^{23}
+\]
+In particular this show that the spheres $B(c,3)$ covers the space {$\ftwoN{23}$} and it follows that the minimum distance is 7. (otherwise, there are ``leak points'' at the middle of the distance between these two points and these points are not covered, contradictory to the full packing) and {\tildcCodes} is perfect.\\
+Since $0 \in \tildcCodes$, $A_0 = 1$
+Now using Collary \ref{perfectCodeAd}, we have for {\tildcCodes} $A_7 = \binom{23}{4}$\\.
+To calculate $A_8$, we know that the number of vectors in $\ftwoN{23}$ are given by $\binom{23}{5}$ and they may lie in the spheres of codes with weights 7 or 8. So we have
+\[
+	A_8 = \frac{\binom{23}{5} - A_7\binom{7}{5}}{\binom{8}{5}} = 506
+\]
+Using the same idea: we have for the other weight counts:
+	\begin{align*}
+		A_9 &= \frac{\binom{23}{6} - (A_7 \cdot(7 + 16 \cdot \binom{7}{5}) + A_8\cdot \binom{8}{6})}{\binom{9}{6}} = 0\\
+		A_{10} &= \frac{\binom{23}{7} - (A_7\cdot(1 + 7\cdot 16) + A_8\cdot(8 + 15 \cdot \binom{8}{2}))}{\binom{10}{7}} = 0 \\
+		A_{11} &= \frac{\binom{23}{8} - (A_7\cdot(16 + 7\cdot \binom{16}{2}) + A_8\cdot(1 + 8 * 15))}{\binom{11}{8}} = 1288\\
+		A_{12} &= \frac{\binom{23}{9} - (A_7\cdot\binom{16}{2} + A_8\cdot(15 + 8 \cdot \binom{15}{2}) + A_{11}\cdot\binom{11}{2})}{\binom{12}{9}} = 1288 \\
+		A_{13} &= \frac{\binom{23}{10} - (A_7\cdot\binom{16}{3} + A_8 \cdot \binom{15}{2} + A_{11} \cdot(11 + \binom{11}{2} \cdot 12) + A_{12} \cdot \binom{12}{2})}{\binom{13}{10}} = 0\\
+		A_{14} &= \frac{\binom{23}{11} - (A_8 \cdot \binom{15}{3} + A_{11} \cdot(1 + 11 \cdot 12) + A_{12} \cdot(12 + \binom{12}{2} \cdot 11))}{\binom{14}{11}} = 0\\
+		A_{15} &= \frac{\binom{23}{12} - (A_{11}(12 + 11 \cdot \binom{12}{2}) + A_{12}\cdot(1 + 12\cdot 11))}{\binom{15}{12}} = 506 \\
+		A_{16} &= \frac{\binom{23}{13} - (A_{11} \cdot \binom{12}{2} + A_{12}\cdot(11 + 12 \cdot\binom{11}{2}))}{\binom{16}{13}} = 253\\
+		A_{17} &= \ldots = 0 \\
+		\vdots\\
+		A_{23} &= \frac{\binom{23}{20}}{\binom{23}{20}} = 1
+	\end{align*}
+Now if {\cCodes} contains a word of weight $w$ not divisible by 4. Then by puncturing the {\cCodes} appropriately, we will have word of weight $w$ or $w - 1$ not equal to 0 or -1 (mod 4), which contradicts the weight enumerator coefficients calculated above. So we conclude that {\cCodes} is doubly even and we have thus the weight enumerator coefficients for {\cCodes}
+\[
+	A_0 = A_{24} = 1, \, A_{8} = A_{16} = 759,\, A_{12} = 2576
+\]
+In particular all the distances between two codewords are divisible by 4. We deduce from \ref{distWeightEqn} that for all
+$u,v \in \cCodes$, $\langle u, v\rangle \in 2\Integer$, and in this case we have $\cCodes \in \cCodesVertical$. But since $\cCodesVertical$ is a linear subspace of dimensions 24 - dim$\langle \cCodes \rangle \leq 12$. It follows that $\langle \cCodes \rangle$ has less than $2^{12}$ elements. Since $\cCodes \subset \langle \cCodes \rangle$ we follow from the cardinality of $\cCodes$ that $\cCodes = \cCodesVertical$ and $\cCodes$ is linear.\\
+We prove now that the uniqueness of such codes. \\
+Consider a codeword $u$ of weight 12 in {\cCodes} and since $A_{24} = 1$, we have another codeword $\bar{u}$ s.t $u + \bar{u} = 1^{24}$ where here $1^{24}$ stands for the all-one vector in $\ftwoN{24}$. Let us denote $\cCodes_u$ as the subspace when we puncture all the positions of $\cCodes$ given by the support of $u$. Define the function $\pi_{u}$ as the canonical projection.
+We have for $c \in \cCodes$, both $c$ and $c + u$ will be projected to the same image. Since $c$ is arbitrarily chosen, we follow that $|\cCodes_u| \leq \frac{2^{12}}{2} = 2^{11}$. Now if there are two different codewords $x,y \in \cCodes$ s.t $\pi_{u}(c) = \pi_{u}(y)$ and $x - y = v \neq u$. Then we know that $u$ covers $v$ and $v \in \cCodes$ so $\wt{v} \geq 8$. It follows that $\dist{u}{v} \leq 4$, contradicting the fact that the minimum distance is 8. So $\cCodes_u$ has exactly $2^{11}$ elements hence a linear subspace of dimension 11.\\
+For all the codes $v \in \cCodes_u$, Let $x \in \cCodes$ s.t $\pi_u(x) = v$. It follows that $\wt{v} = x \cdot \bar{u} \in 2\Integer$ since $x, \bar{u} \in \cCodes$ and $\cCodes$ is doubly even. It follows that $\cCodes_u$ is of word length 12, dimension 11, and every codeword is of even length.
+So by arranging the columns of the codeword appropriately, we have the generator matrix of \cCodes:
+\[
+	G := 
+\renewcommand\arraystretch{1.3}
+\mleft[
+\begin{array}{c|c|c|c}
+  1^{11} & 1 & 0 & 0^{11} \\
+  \hline
+  A & (0^{11})^t & (1^{11})^t & I_{11}
+\end{array}
+\mright]
+\]
+where $I_{11}$ is the $11 \times 11$ identity matrix and $a^k$ denotes a row vector of length $k$ and every entry is $a$.
+The matrix $A$ has the properties:
 
+\end{proof}
 \tdplotsetmaincoords{60}{100}
     \begin{tikzpicture}[tdplot_main_coords,scale=1,line join=round]
     \pgfmathsetmacro\a{2}

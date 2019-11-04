@@ -43,3 +43,27 @@ So need to reset the maxcolumn of matrix
 \setcounter{MaxMatrixCols}{20}
 ```  
 here is a link [alignment](https://texfaq.org/FAQ-altabcr)
+
+### align problem
+I have the error
+```
+Package amsmath Error: Erroneous nesting of equation structures;
+```
+it's because I use like
+```
+\[
+	\begin{align*}
+
+	\end{align*}
+\]
+```  
+Since `\begin` already in math mode, dont need to encapsulate it in a equation environment any more.
+
+### horizontal and vertical lines in matrix
+
+here is a link for [draw lines in matrix](https://tex.stackexchange.com/questions/253739/vertical-and-horizontal-line-in-a-matrix)
+### Problems
+```
+\newcommand{\steinerSystem}[3]{\ensuremath{{S(#1,#2,#3)}}}
+```  
+won't print like t+1 just print t 1
