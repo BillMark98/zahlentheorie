@@ -62,8 +62,28 @@ Since `\begin` already in math mode, dont need to encapsulate it in a equation e
 ### horizontal and vertical lines in matrix
 
 here is a link for [draw lines in matrix](https://tex.stackexchange.com/questions/253739/vertical-and-horizontal-line-in-a-matrix)
+### display math environment should end with $$
+it's possible that there is a extra new line at the end of the block. Deleting the extraneous line would clear the issue
+
+### labeling the icosahedron
+the `tikzpicture` alone cannot be numbered, so capsulate it into a figure and number it. To follow the numbering of theorems, using the same technique as in equation. `\numberwithin`
+
+### matrix 
+to print different parentheses, using `\left [` for example
 ### Problems
+*
 ```
 \newcommand{\steinerSystem}[3]{\ensuremath{{S(#1,#2,#3)}}}
 ```  
 won't print like t+1 just print t 1
+* the figure and the label not aligned
+
+* 
+One solution for typing non-equivalent sign
+```
+\usepackage{unicode-math}
+```  
+error:
+```
+/usr/local/texlive/2018/texmf-dist/tex/latex/unicode-math/unicode-math.sty:35: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! [  }]
+```
