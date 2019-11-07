@@ -79,6 +79,9 @@ use `\substack` command, e.g
 ```
 G_k(\tau) \; = \sum_{\substack{(m,n) \in \Integer^2\\				 (m,n) \neq (0,0)}} \frac{1}{(m\tau + n)^k}
 ```
+
+### fontsize
+dont use `mbox` since it will not consider the font size in the context, use `\text` instead
 ### Problems
 *
 ```

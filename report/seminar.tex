@@ -5,6 +5,8 @@
 % for vertical and horizontal lines in matrix
 \usepackage{mleftright}
 
+% for roman number numerate
+\usepackage{enumerate}
 % % for not equivalent
 % \usepackage{unicode-math}
 \renewcommand{\baselinestretch}{1.5} 
@@ -85,8 +87,8 @@
 \newpage
 \section{Introduction}
 
-This report is based on the book \cite{ebeling2013lattices} from chapter 2.7 to 2.9
-We have dealt mainly with lattices in the previous two lectures. Now we will discuss the relationship between lattices and code. So the first step is to construct a bridge between these two. We will discuss the binary case only.\\
+This report is based on the book \cite{ebeling2013lattices} from chapter 2.7 to 2.9.\\ 
+We have dealt mainly with lattices in the previous two lectures. Now we will discuss the relationship between lattices and codes. So the first step is to construct a bridge between these two. Throughtout the report, we will only discuss the binary case.\\
 Before discussing further the codes, let us recall some results from the theta function and modular forms, which we simply state without proof.\\
 Let $\Gamma \subset \Real^n$ be a lattice. We define $q = e^{2\pi\imaginary\tau}$, for $\tau \in \HalfPlane$.\\
 The theta function $\thetaFunction{\Gamma}$ of the lattice $\Gamma$ is defined as 
@@ -214,7 +216,7 @@ We recognize $\langle , \rangle$ as the standard inner product of vectors with v
  	By adding an extra parity bit in the generator matrix of $H$, we obtained the extended Hamming code $\widetilde{H}$.\\
  	The weight enumerator is
  	\[
- 		\weightEnumerator{\widetilde{H}} = X^8 + 14X^4Y^4 + Y^8
+ 		\weightEnumerator{\widetilde{H}}{X}{Y} = X^8 + 14X^4Y^4 + Y^8
  	\]
 \end{example}
 Based on the lecture of theta series and modular forms, we have the following proposition.
@@ -252,7 +254,7 @@ Note first that from (\ref{xsumCYEqu})
 a) if $c$ = $0^{24}$, where $0^{24}$ denotes the zero vector in $\Ftwo^{24}$, then since $(\pm2)^2 = 4$. We can choose one position to fill $\pm2$ and 0 elsewhere. This gives $24 \cdot 2$ choices\\
 b) if $\wt{c} = 4$, then at the support(see definition \ref{coverSupportHoldDefinition}) of $c$, $y$ can be chosen $\pm1$ and 0 elsewhere. This gives $2^4 A_4$ choices.
 Since for other cases, (\ref{sumCode_a1Eqn}) would be impossible. These are the only two possible cases. Combining the result, we have consequently (\ref{a1Eqn}).\\
-For $a_2$, we do the similar analysis. First, we know that
+For $a_2$, we perform the similar analysis. First, we know that
 \begin{equation}\label{sumCY_a2Eqn}
 	\sum_{i = 1}^{24}(c_i \, + \, 2y_i)^2 \overset{!}{=} 8
 \end{equation}
@@ -283,11 +285,11 @@ Let $\Gamma \subset \Real^24$ be an even unimodular lattice. Then
 \] 
 \end{prop}
 \begin{proof}
-We know that from theorem \ref{evenUniLattice}, that the theta function $\thetaFunction{\Gamma}$ is a modular form of weight 12. We now use lemma \ref{a2a0a1} combining the fact that $a_0 = 1$ for $\thetaFunction{\Gamma}$
+We know that from theorem \ref{evenUniLattice}, the theta function $\thetaFunction{\Gamma}$ is a modular form of weight 12. We now use lemma \ref{a2a0a1} combining the fact that $a_0 = 1$ for $\thetaFunction{\Gamma}$
 \end{proof}
 We now combine the proposition \ref{a2a1} to complete the proof of proposition \ref{A8A4}.
 
-\begin{example}{exampleA8A4}
+\begin{example}\label{exampleA8A4}
 \begin{enumerate}
 	\item
 We consider the direct sum of extended Hamming code {\simpleCodes} = $\widetilde{H} \bigoplus \widetilde{H} \bigoplus \widetilde{H} \subset \Ftwo^{24}$. Since $\widetilde{H}$ is self-dual, so is the direct sum. Hence {\simpleCodes} is self-dual doubly even code with dimension 12.\\
@@ -517,7 +519,16 @@ To calculate $A_8$, we know that the number of vectors in $\ftwoN{23}$ are given
 \[
 	A_8 = \frac{\binom{23}{5} - A_7\binom{7}{5}}{\binom{8}{5}} = 506
 \]
-Using the same idea: we have for the other weight counts:
+Using the same idea, we could easily infer that
+\begin{equation}\label{AxEqn}
+	A_k = \frac{B}{\binom{k}{k-3}}\quad,\; \mbox{for}\; 8 \leq k \leq 23
+\end{equation}
+where $B$ stands for
+\begin{align*}
+B := \binom{23}{k-3} &- \{\,A_{k-6} \cdot \binom{23- (k - 6)}{3} + A_{k - 5} \cdot \binom{23 - (k - 5)}{2}\\ &+ A_{k - 4} \cdot \left[\,(k - 4)\cdot \binom{23 - (k-4)}{2} +
+	(23 - (k-4))\,\right] \\&+ A_{k - 3} \cdot \left[\,(k - 3) \cdot (23 - (k - 3))\,\right] + A_{k - 2} \cdot \left[\,(k-2) + \binom{k - 2}{2} \cdot (23 - (k - 2))\,\right]\\ &+ A_{k-1} \cdot \binom{k-1}{2}\,\}
+\end{align*}
+we obtain thus the following weight counts:
 	\begin{align*}
 		A_9 &= \frac{\binom{23}{6} - (A_7 \cdot(7 + 16 \cdot \binom{7}{5}) + A_8\cdot \binom{8}{6})}{\binom{9}{6}} = 0\\
 		A_{10} &= \frac{\binom{23}{7} - (A_7\cdot(1 + 7\cdot 16) + A_8\cdot(8 + 15 \cdot \binom{8}{2}))}{\binom{10}{7}} = 0 \\
@@ -529,9 +540,10 @@ Using the same idea: we have for the other weight counts:
 		A_{16} &= \frac{\binom{23}{13} - (A_{11} \cdot \binom{12}{2} + A_{12}\cdot(11 + 12 \cdot\binom{11}{2}))}{\binom{16}{13}} = 253\\
 		A_{17} &= \ldots = 0 \\
 		\vdots\\
+		A_{22} &= \ldots = 0\\
 		A_{23} &= \frac{\binom{23}{20}}{\binom{23}{20}} = 1
 	\end{align*}
-Now if {\cCodes} contains a word of weight $w$ not divisible by 4. Then by puncturing the {\cCodes} appropriately, we will have word of weight $w$ or $w - 1$ not equal to 0 or -1 (mod 4), which contradicts the weight enumerator coefficients calculated above. So we conclude that {\cCodes} is doubly even and we have thus the weight enumerator coefficients for {\cCodes}
+Now if {\cCodes} contains a codeword of weight $w$ which is not divisible by 4, then by puncturing the {\cCodes} appropriately, we will have codeword of weight $w$ or $w - 1$ not equal to 0 or -1 (mod 4), which contradicts the weight enumerator coefficients calculated above. So we conclude that {\cCodes} is doubly even and we have thus the weight enumerator coefficients for {\cCodes}
 \[
 	A_0 = A_{24} = 1, \, A_{8} = A_{16} = 759,\, A_{12} = 2576
 \]
@@ -596,10 +608,10 @@ $v_i + v_j \in {10,8}, v_i^tv_j \in {2,0} in \Integer$, in particular, all the t
 Then the row of the matrix $G := (I_{12} B)$ generate the the {\linearCode{24}{12}{8}} \cCodes.
 \begin{proof}
 The generated code is certainly linear, of length 24 and has dimension 12. The only thing to prove is the minimum distance.\\
-By observing the matrix of $G$ we find that each row of $G$ has weight 8, in particular divisable by 4. So using \ref{distWeightEqn}, we deduce that {\cCodes} is doubly even.\\
+By observing the matrix of $G$ we find that each row of $G$ has weight 8, in particular divisable by 4. So using (\ref{distWeightEqn}), we deduce that {\cCodes} is doubly even.\\
 Observing that $G^tG = I_{24}$, we have {\cCodes} is self-dual.\\
-For the linear combination of more than three rows of $G$ we have on the first 12 position at least four 1s. And by using \ref{JMinusA} it is impossible on the right half of the 12 position of codeword to be complete 0. (other wise $B$ would have nontrivial kernel which contradicts the fact that $B$ is invertible). In particular every such combination creates codeword with codeword $\geq$ 5, hence at least 8. So the only case to consider choice of two or three vectors. \\
-Retrospecting the icosahedron, from which the adjacency matrix $A$ is derived.  We could make a similar interpretation of $B$, that is 
+For the linear combination of more than three rows of $G$ we have on the first 12 position at least four 1s. And by using (\ref{JMinusA}) it is impossible on the right half of the 12 position of codeword to be complete 0. (other wise $B$ would have nontrivial kernel which contradicts the fact that $B$ is invertible). In particular every such combination creates codeword with codeword $\geq$ 5, hence at least 8. So the only case to consider choice of two or three vectors. \\
+On reconsidering the icosahedron, from which the adjacency matrix $A$ is derived, we could make a similar interpretation of $B$, that is 
 \[
 	B_{i,j} = 
 	\begin{cases}
@@ -668,7 +680,53 @@ Similarly, for the sum of three vectors $v_i$ ,$v_j$ and $v_k$, there is a 1 at 
 \end{figure}
 
 Now we want to construct an even unimodular lattice with $a_1 = 0$, i.e., does not contains roots, using the extended golay code {\cCodes}.
+We recall that $\rho :\Integer^{24} \rightarrow \Ftwo^{24}$ defines a canonical projection and the corresponding lattice of the {\cCodes} is $\buildLattice{\cCodes} := \frac{1}{\sqrt{2}}\rho^{-1}(\cCodes)$. We denote $\Gamma := \rho^{-1}(\cCodes)$ .\\ The goal is to construct a lattice which contains no roots based on $\Gamma$. We recall that an element $x$ in a lattice is called a root if and only if $x^2 = 2$. We want to construct a lattice of the form $\frac{1}{\sqrt{2}}\Gamma_1$, for some sublattice $\Gamma_1$ of $\Gamma$, so we want to find a lattice which contains no elements of squared length 4, i.e. $x^2 = 4$. \\For every element $x$ of $\Gamma$, $x = c + 2y$, for $c \in \cCodes , y\in \Integer^{24}$. \\
+It's instructive to consider $a_1$ of the theta function for $\buildLattice{\cCodes}$ first. We have according to (\ref{a1Eqn}):
+\[
+	a_1 = 48
+\]
+We know from the proof of proposition \ref{A8A4}, that all the vectors which contribute to $a_1$ is of the form $(\pm2)^10^{23}$, where the notation $a^kb^j$ means a vector in whose entry $a$ appears $k$ times and $b$ $j$ times. We want to get rid of these 48 vectors, so that we could have no roots in the lattice. \\
+We define
+\begin{align*}
+	\alpha: \Gamma &\rightarrow \Ftwo \\
+			x &\mapsto \frac{1}{2}\sum{x_i} \pmod 2
+\end{align*}
+% We note that actually $\sum{x_i} \equiv \sum{x_i}^2 \pmod 2$. So 
+We note that since all the codewords in $\cCodes$ has weight divisable by 4:
+\[
+\frac{1}{2} \sum{x_i} \equiv \sum{y_i} \pmod 2
+\]
+In particular all the roots in $\buildLattice{\cCodes}$ will be mapped to 1.\\
+So by defining $A:= \alpha^{-1}(0)$, we obtain a sublattice which contains no roots of  $\buildLattice{\cCodes}$. \\
+We define $N := \alpha^{-1}(1)$ and $O := A \, \bigcup \,(\frac{1}{2}1^{24} + N)$.
+\begin{prop}\label{propLeechPreliminary}
+$O$ is a lattice and every element has squared length divisable by $4$
+\end{prop}
+\begin{proof}
+For simplicity of notation, we define $M = \buildLattice{\cCodes}$\\
+Note first that $M$ is symmetric, since given $v \in M$, then $v = \frac{1}{2}1^{24} + c + 2y$ , $c \in \cCodes$, $y \in \Integer^{24}$ with $\sum{y_i}$ odd. 
+\begin{align*}	
+ -v &= -\frac{1}{2}1^{24} - c - 2y\\
+ 	&= -\frac{1}{2}1^{24} - c - 2(y + 1^{24}) + 2^{24}\\
+ 	&= \frac{1}{2}1^{24} + \underbrace{(1^{24} - c)}_{\substack{\in \,\cCodes, \\ \text{since} \, 1^{24} \in \cCodes}} - 2\tilde{y} \;\in M 
+\end{align*}
+To prove that $O$ is a lattice,  we only need to prove that $O$ is closed under addition. Since $A$ is as kernel of a homomorphism automatically a additive group, we only need to check the following two cases:
+\begin{enumerate}[i)]
+	\item $u \in A$, $v \in M$, then $u = e + 2r$, $e \in \cCodes$, $r \in \Integer^{24}$ with $\sum r_i $ even and $v = \frac{1}{2}1^{24} + c + 2y$ , $c \in \cCodes$, $y \in \Integer^{24}$ with $\sum{y_i}$ odd. Then $u + v$ = $\frac{1}{2}1^{24} + \tilde{c} + 2\tilde{y}$, for some $\tilde{c} \in \cCodes$ and $\tilde{y} \in \Integer^{24}$ with $\sum{\tilde{y}_i}$ odd. So $u + v \in M$
+	\item $u \in M$, $v \in M$, then $u = \frac{1}{2}1^{24}+ e + 2r$, $e \in \cCodes$, $r \in \Integer^{24}$ with $\sum r_i $ odd and $v = \frac{1}{2}1^{24} + c + 2y$ , $c \in \cCodes$, $y \in \Integer^{24}$ with $\sum{y_i}$ odd. Then 
+	\begin{align*}
+	u + v &= \overbrace{1^{24}\, +\, c \,+ \,e}^{\in \,\cCodes}\, +\, 2(r\, + \,y)\\
+		 &= \tilde{c}\, + \,2\tilde{y} \; \in A
+	\end{align*}
+	for some $\tilde{c} \in \cCodes$ and $\tilde{y} \in \Integer^{24}$ with $\sum{\tilde{y}_i}$ even. So $u + v \in M$, 
+\end{enumerate}
+To prove the property of squared length. We consider first the vector in $A$
+\begin{align*}
 
+\end{align*}
+\end{proof}
+Now we note that $A$ has index 2 in $\Gamma$ using homomorphism theorem. We want 
+%Note that $\wt{c}$ is divisable by 4. so $x^2 \equiv \sum{y_i}$
 
 \section{The MacWilliams Identity and Gleason's Theorem}\label{sectionMacWill}
 We have till now studied the theta function for the lattices and the weight enumerator for the binary codes. And we have learned there is a relationship between the binary codes and the corresponding lattices. It may be interesting to study the relevance between the theta function and the weight enumerator.
@@ -700,7 +758,7 @@ So the sum of the two functions is the theta function of the dual lattice of $\G
 \end{equation}
 By replacing the $\tau$ into $-\frac{1}{\tau}$, we have from (\ref{AMinusTau})
 \begin{align}
-	[A(-\frac{1}{\tau}) + B(-\frac{1}{\tau})]\; \frac{1}{\sqrt{2}}\; (\frac{1}{-\tau \imaginary})^{\frac{1}{2}} &= A(\tau) \notag \\
+	A(\tau)&= [A(-\frac{1}{\tau}) + B(-\frac{1}{\tau})]\; \frac{1}{\sqrt{2}}\; (\frac{1}{-\tau \imaginary})^{\frac{1}{2}}  \notag \\
 	\Rightarrow \quad B(-\frac{1}{\tau}) &= \frac{\sqrt{2}}{(-\frac{1}{\tau \imaginary})^{\frac{1}{2}}} \; A(\tau) \,- \,(\frac{\tau}{\imaginary})^{1/2} \; \frac{1}{\sqrt{2}}\,(A(\tau) + B(\tau))\notag\\
 	&= (\frac{\tau}{\imaginary})^{\frac{1}{2}} \;\frac{1}{\sqrt{2}}\;(A(\tau) - B(\tau)) \label{BMinusTau}
 \end{align}
