@@ -16,6 +16,7 @@
 \newtheorem{example}[theorem]{Example}
 \newtheorem{collary}[theorem]{Corollary}
 \newtheorem{prop}[theorem]{Proposition}
+\newtheorem{remark}[theorem]{Remark}
 \numberwithin{equation}{theorem}
 \numberwithin{figure}{theorem}
 
@@ -84,7 +85,7 @@
 \newpage
 \section{Introduction}
 
-This report is based on the book \emph{Lattices and Codes},from chapter 2.7 to 2.9
+This report is based on the book \cite{ebeling2013lattices} from chapter 2.7 to 2.9
 We have dealt mainly with lattices in the previous two lectures. Now we will discuss the relationship between lattices and code. So the first step is to construct a bridge between these two. We will discuss the binary case only.\\
 Before discussing further the codes, let us recall some results from the theta function and modular forms, which we simply state without proof.\\
 Let $\Gamma \subset \Real^n$ be a lattice. We define $q = e^{2\pi\imaginary\tau}$, for $\tau \in \HalfPlane$.\\
@@ -177,6 +178,9 @@ We recall some definitions from the coding theory
 		where $A_i$ denotes the number of codewords of length $i$ in {\simpleCodes}
 	\end{enumerate}
 \end{definition}
+\begin{remark}
+We recognize $\langle , \rangle$ as the standard inner product of vectors with values in real number. For simplicity, we will denote $\langle u,v \rangle$ as $u \cdot v$, if it is clear in context that we are having a scalar product of two vectors. For the latter case, if we have two identical vectors $u$, we will abuse the notation $u^2$.
+\end{remark}
 \begin{example}\label{hammingExample}
 	For the Hamming code H $\subset$ $\Ftwo^7$ with the generator matrix:
 	\[
@@ -207,6 +211,11 @@ We recall some definitions from the coding theory
 	\[
 		\weightEnumerator{\buildVertical{H}}{X}{Y} = X^7 + 7X^3Y^4 + Y^7
  	\]
+ 	By adding an extra parity bit in the generator matrix of $H$, we obtained the extended Hamming code $\widetilde{H}$.\\
+ 	The weight enumerator is
+ 	\[
+ 		\weightEnumerator{\widetilde{H}} = X^8 + 14X^4Y^4 + Y^8
+ 	\]
 \end{example}
 Based on the lecture of theta series and modular forms, we have the following proposition.
 \begin{prop}
@@ -219,6 +228,44 @@ We now want to prove a relationship between $A_8$ and $A_4$ for the special case
 \begin{prop}\label{A8A4}
 Let $n$ = 24. $\simpleCodes \subset \Ftwo^{24}$ a self-dual doubly even code, and let {\weightEnumerator{\simpleCodes}{X}{Y}} be the Hamming weight enumerator. Then we have $A_i$ = 0, if $i$ $\not\equiv 0 \pmod 4$ and $A_8 = 759 - 4 A_4$
 \end{prop}
+\begin{proof}
+Since {\simpleCodes} is self-dual doubly even, it follows that the theta function of $\buildLattice{\simpleCodes}$ is a modular form of weight $\frac{n}{2}$.\\
+\[
+	\thetaFunction{\buildLattice{\simpleCodes}} = \sum_{r = 0}^{\infty} a_r \, q^r
+\]
+where $a_r$ denotes the number of elements $x = \frac{1}{\sqrt{2}}(c + 2y) \in \buildLattice{\simpleCodes},\, c \in \simpleCodes, \, y\in \Integer^{24}$, with $x^2 = 2r$. \\
+The idea of the proof is to first find out a relationship between $a_1, a_2$ and $A_4, A_8$. By using the following lemma \ref{a2a0a1} and proposition \ref{a2a1}, we could prove the equation.\\
+In this proof, we do the first step of the proof, i.e. find the relationship between $a_1, a_2$ and $A_4, A_8$.\\
+For further analysis, it's helpful to note that:
+\begin{equation}\label{xsumCYEqu}
+	x^2 = \frac{1}{2}(c \,+\,2y)^2 = \sum_{i = 1}^{24}(c_i \, + \, 2y_i)^2
+\end{equation}
+For $a_1$, we have
+\begin{equation}\label{a1Eqn}
+	a_1 = 24 \cdot 2 \,+ \,A_4
+\end{equation}
+It can be understood as following:\\
+Note first that from (\ref{xsumCYEqu})
+\begin{equation}\label{sumCode_a1Eqn}
+	\sum_{i = 1}^{24}(c_i \, + \, 2y_i)^2 \overset{!}{=} 4
+\end{equation}
+a) if $c$ = $0^{24}$, where $0^{24}$ denotes the zero vector in $\Ftwo^{24}$, then since $(\pm2)^2 = 4$. We can choose one position to fill $\pm2$ and 0 elsewhere. This gives $24 \cdot 2$ choices\\
+b) if $\wt{c} = 4$, then at the support(see definition \ref{coverSupportHoldDefinition}) of $c$, $y$ can be chosen $\pm1$ and 0 elsewhere. This gives $2^4 A_4$ choices.
+Since for other cases, (\ref{sumCode_a1Eqn}) would be impossible. These are the only two possible cases. Combining the result, we have consequently (\ref{a1Eqn}).\\
+For $a_2$, we do the similar analysis. First, we know that
+\begin{equation}\label{sumCY_a2Eqn}
+	\sum_{i = 1}^{24}(c_i \, + \, 2y_i)^2 \overset{!}{=} 8
+\end{equation}
+There are three cases:
+a) $c = 0^{24}$, then since $(\pm2)^2 + (\pm2)^2 = 8$, we have $\binom{24}{2} \cdot 2^2$ choices for the $y_i$.\\
+b) $\wt{c} = 4$, then $y$ could choose $\pm1$ at the support of $c$ and choose $\pm1$ at another position where $c$ is 0, since $(\pm1)^2 + (\pm1)^2+ (\pm1)^2+ (\pm1)^2 + (\pm2)^2 = 8$. This gives $A_4 \cdot 2^4 \cdot 20 \cdot 2$.\\
+c) $wt{c} = 8$, then $y$ could only choose $\pm1$ at the support of $c$. This gives $A_8 \cdot 2^8$.\\
+These are the only possible cases. Combining these results, it follows that 
+\begin{equation}\label{a2A8A4Eqn}
+	a_2 = 2^8A_8 \, + \,  16 A_4 \cdot 20 \cdot 2 \, + \, \binom{24}{2}\cdot 4
+\end{equation}
+\end{proof}
+We state the following lemma without proof.
 \begin{lemma}\label{a2a0a1}
 Let $f$ be a modular form of weight 12 and
 \[
@@ -235,10 +282,33 @@ Let $\Gamma \subset \Real^24$ be an even unimodular lattice. Then
 	a_2 = 196560 - 24a_1
 \] 
 \end{prop}
-\newpage
-\section{The Golay Code and thee Leech Lattice}
-In this section, we will discuss a particular type of codes, the golay codes. We will show that there exists a unique doubly even linear code  $\GExtend \subset \Ftwo^{24}$ with $A_4 = 0$ 
+\begin{proof}
+We know that from theorem \ref{evenUniLattice}, that the theta function $\thetaFunction{\Gamma}$ is a modular form of weight 12. We now use lemma \ref{a2a0a1} combining the fact that $a_0 = 1$ for $\thetaFunction{\Gamma}$
+\end{proof}
+We now combine the proposition \ref{a2a1} to complete the proof of proposition \ref{A8A4}.
 
+\begin{example}{exampleA8A4}
+\begin{enumerate}
+	\item
+We consider the direct sum of extended Hamming code {\simpleCodes} = $\widetilde{H} \bigoplus \widetilde{H} \bigoplus \widetilde{H} \subset \Ftwo^{24}$. Since $\widetilde{H}$ is self-dual, so is the direct sum. Hence {\simpleCodes} is self-dual doubly even code with dimension 12.\\
+\begin{align*}
+	\weightEnumerator{\simpleCodes}{X}{Y} &= (X^8 + 14X^4Y^4 + Y^8)^3 \\
+	&= X^{24} \,+\, 42X^{20}Y^4 \,+\, 591X^{16}Y^8 \, + \ldots
+\end{align*}
+Since 591 = 759 - 168. It conforms with what proposition \ref{A8A4} asserts.
+\item
+consider the extended Golay code {\cCodes} (see section \ref{golaySection} and \ref{sectionMacWill}).  {\cCodes} is a self-dual doubly even code with minimum distance 8. It follows that
+\[
+	A_8 = 759
+\]
+which we will see in section \ref{golaySection}
+\end{enumerate}
+\end{example}
+Proposition \ref{A8A4} and \ref{a2a1} raises the question whether there exists code $\simpleCodes$ with $A_4 = 0$ and lattice where $a_1 = 0$. We will answer that question in the next section.
+\newpage
+\section{The Golay Code and thee Leech Lattice}\label{golaySection}
+In this section, we will discuss a particular type of codes, the golay codes. We will show that there exists a unique doubly even linear code  $\GExtend \subset \Ftwo^{24}$ with $A_4 = 0$ 
+The following discussion on designs is largely based on chapter 4, section 3 of \cite{roman1992coding}
 We shall first need some definitions.
 \begin{definition}\label{designDef} \hfill
 	\begin{enumerate}
@@ -379,7 +449,7 @@ Now let us come back to codes and discuss the relationship between design and co
 Let {\cCodes} be a binary code of length $n$.\\
 First we define $S_d := \{c\,|\,wt(c) = d, c \in \cCodes\}$ as the set of codes of \cCodes, s.t the weight of the codes equal $d$
 
-\begin{definition}
+\begin{definition}\label{coverSupportHoldDefinition}
 	Let $x$, $y$ two binary words of length $n$
 	\begin{enumerate}
 		\item The sphere around $x$ with radius $r$ is denoted as $B(x,r)$ with respect to the usual hamming distance.
@@ -600,7 +670,7 @@ Similarly, for the sum of three vectors $v_i$ ,$v_j$ and $v_k$, there is a 1 at 
 Now we want to construct an even unimodular lattice with $a_1 = 0$, i.e., does not contains roots, using the extended golay code {\cCodes}.
 
 
-\section{The MacWilliams Identity and Gleason's Theorem}
+\section{The MacWilliams Identity and Gleason's Theorem}\label{sectionMacWill}
 We have till now studied the theta function for the lattices and the weight enumerator for the binary codes. And we have learned there is a relationship between the binary codes and the corresponding lattices. It may be interesting to study the relevance between the theta function and the weight enumerator.
 We consider first two functions:
 % \begin{equation}\label{Afunc}
@@ -736,7 +806,7 @@ Thus it follows in consideration of proposition \ref{E8isomorphProp}
 \]
 \end{example}
 We are now able to prove the \emph{MacWilliams identity}.
-\begin{theorem}
+\begin{theorem}\label{MacWilliamsTheorem}
 Let {\simpleCodes} $\subset$ $\Ftwo^n$ be a binary \linearCode{n}{k}{d} . Then
 \[
 	\weightEnumerator{\buildVertical{\simpleCodes}}{X}{Y} = \frac{1}{2^k} \weightEnumerator{\simpleCodes}{X}{Y}
@@ -803,4 +873,54 @@ and
 	\xi := \polyAB{X}{Y}
 \]
 \end{theorem}
+\begin{proof}
+We consider the function \weightEnumerator{\simpleCodes}{A}{B}, where $A$ and $B$ are defined in (\ref{Afunc}) and (\ref{Bfunc}). We have seen in proposition \ref{ABHammingProp}, that 
+\[
+	\thetaFunction{\buildLattice{\simpleCodes}} = \weightEnumerator{\simpleCodes}{A}{B}
+\]
+Since {\simpleCodes} is doubly even and self-dual, it follows from proposition \ref{codeLatticeProp}, that $\buildLattice{\simpleCodes}$ is even and unimodular. The theorem \ref{evenUniLattice} can be applied. We deduce that {\weightEnumerator{\simpleCodes}{A}{B}} is a modular form of weight $\frac{n}{2}$ and $\frac{n}{2} \equiv 0 \pmod 4$.\\
+We have seen in the proof of theorem \ref{MacWilliamsTheorem}, that the algebra of modular form of weight divisable by 4 is generated as algebra by $E_4$ and $\Delta$. Hence, {\weightEnumerator{\simpleCodes}{A}{B}} is generated by $\twoFourDegreeAB$ and $A^8 + 14A^4B^4 + B^8$. Replace $A$ and $B$ as $X$ and $Y$.
+% The function is thus expressed as polynomial in $A$ and $B$ which is homogeneous of degree $n$. 
+\end{proof}
+\begin{example}\label{golayEnumerExample}
+As an application of \emph{Gleason Theorem}, we would like to calculate the \emph{hamming weight enumerator} of the extended Golay code {\cCodes}.\\
+We have known from section \ref{golaySection}, that {\cCodes} is self-dual and doubly even. So according to \emph{Gleason Theorem}, {\weightEnumerator{\cCodes}{X}{Y}} $\in \Integer[\phi,\rho]$ (since all the coefficients must be integer).\\
+Since {\weightEnumerator{\cCodes}{X}{Y}} is homogeneous of degree 24, and the leading coefficient of $X^24$ is 1, it follows that:
+\[
+	\weightEnumerator{\cCodes}{X}{Y} = \phi^3 + k \cdot \xi, \quad \quad \mbox{for some k $\in \Integer$}
+\]
+To determine the value of $k$, we can make use of the fact that $A_4 = 0$ in $\cCodes$. So it follows that 
+\[
+	14 \cdot 3 \,+\, k \, =\, 0 \qquad \; \Rightarrow k \,=\, -42
+\]
+Thus, the \emph{hamming weight enumerator} of {\cCodes} is 
+\[
+	\weightEnumerator{\cCodes}{X}{Y} = (X^8 \,+ \, 14X^4 Y^4 \,+\, Y^8) ^3 \; - \; 42 X^4Y^4 \,(X^4 \, - \, Y^4)^4
+\]
+\end{example}
+\section{Outlook}
+Now we want to pose the question that given a certain $n = 24m + 8k$, $k = 0,1,2$ how much can we achieve such that given $\simpleCodes \subset \Ftwo^n$ be a doubly even self-dual code, the minimum distance is as large as possible.\\
+With the help of theorem \ref{GleasonTheorem}, the weight enumerator of $\simpleCodes$ is given by
+\[
+	W_{\simpleCodes} = \sum_{j = 0}^{m}\,b_j\,\phi^{3(m-j)+k} \,\xi^j, \qquad b_j \in \Complex
+\]
+Now we can choose the coefficients of $b_j$, such that $A_{4l} = 0$, for $l = 1,\ldots,m$ (it's possible, by solving $m$ equations in $m$ variables). Then the possibly non-zero coefficient $A_{4m + 4}$ is uniquely determined by $b_j$, whcih we denote by $A_{4m+4}^{*}$ .The code, with such property is called an \emph{extremal code}. An extremal code has thus minimum distance at least $4m + 4$. It can be shown that the minimum distance is $4m + 4$ by showing that $A_{4m + 4}^* \neq 0$ for all $m \geq 1$, details see chapter 19, section 5 of \cite{macwilliams1977theory}\\
+But this $m$ cannot be large, since it is shown by Mallows, that for $m$ sufficiently large, $n = 24m$
+\[
+	A_{4m + 8}^* < 0
+\]
+One knows that for $n \leq 64$, and some $n > 72$, there exists extremal doubly even self-dual code. It is still unknown whether this is true for $n = 72$\\
+There are also similar results for lattices. Let $\Gamma$ be an even unimodular lattice in $\Real^n$, $n = 24 + 8k$ , $k = 0,1,2$. We know from the proof of theorem \ref{MacWilliamsTheorem}, that we can write the theta function of $\Gamma$ as:
+\[
+	\thetaFunction{\Gamma} = \sum_{j = 0}^m \, b_j E_4^{3(m - j) + k} \, \Delta^j,	\qquad b_j \in \Complex
+\]
+With the analog argument, we can find coefficients, such that we can cancel all the first $2m + 1$ term up to the constant term, i.e.
+\[
+	\thetaFunction{\Gamma}(\tau) = 1 \,+\, a_{2m + 2}^* q^{2m + 2}\, +\, \ldots
+\]
+Such lattice is called an \emph{extremal lattice}. One can also show that $m$ can not be too large. The last thing worth noting is that Frau Nebe has proven in 2010 the existence of an extremal even unimodular lattice in $\Real^{72}$
+
+\newpage
+\bibliography{seminarReference}
+\bibliographystyle{ieeetr}
 \end{document}
