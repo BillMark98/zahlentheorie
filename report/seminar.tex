@@ -779,4 +779,28 @@ Now we use \emph{MacWilliams Identity} to caculate the weight enumerator for the
 \end{align*}
 which is the exact result we obtained in the previous example
 \end{example}
+\begin{collary}\label{macWilliamsSelfDualCoroll}
+If {\simpleCodes} $\subset \Ftwo^n$ is a self-dual code, then 
+\[
+	\weightEnumerator{\simpleCodes}{X}{Y} = \weightEnumerator{\simpleCodes}{\frac{X + Y}{\sqrt{2}}}{\frac{X - Y}{\sqrt{2}}}
+\]
+\end{collary}
+\begin{proof}
+Since {\simpleCodes} is self-dual. So it is a {\linearCode{n}{\frac{n}{2}}{d}} . Since {\simpleCodes} = {\buildVertical{\simpleCodes}}, it follows by using \emph{MacWilliams Identity}
+\begin{align*}
+	\weightEnumerator{\simpleCodes}{X}{Y} &= \frac{1}{2^{\frac{n}{2}}} \, \weightEnumerator{\simpleCodes}{X+Y}{X-Y} \\
+	&= \weightEnumerator{\simpleCodes}{\frac{X+Y}{\sqrt{2}}}{\frac{X-Y}{\sqrt{2}}} \tag{\weightEnumerator{\simpleCodes}{X}{Y} is homogen of degree n}
+\end{align*}
+\end{proof}
+Another important theorem is the \emph{Gleason Theorem}, which characterizes the \emph{hamming weight enumerator} of a binary doubly self-dual even code.
+\begin{theorem}\label{GleasonTheorem}
+Let {\simpleCodes} $\subset \Ftwo^n$ be a doubly even self-dual code. Then the \emph{Hamming weight enumerator} {\weightEnumerator{\simpleCodes}{X}{Y}} is a polynomial in
+\[
+	\phi := \weightEnumerator{\widetilde{H}}{X}{Y} = X^8 + 14X^4Y^4 + Y^8
+\]  
+and
+\[
+	\xi := \polyAB{X}{Y}
+\]
+\end{theorem}
 \end{document}
