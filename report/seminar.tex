@@ -38,6 +38,12 @@
 \newcommand{\buildLattice}[1]{\ensuremath{\Gamma_{#1}}}
 \newcommand{\weightEnumerator}[3]{\ensuremath{W_{#1}(#2,#3)}}
 
+
+% theta function and modular form
+\newcommand{\thetaFunction}[1]{\ensuremath{\vartheta_{#1}}}
+\newcommand{\modularK}[1]{\ensuremath{M_{#1}}}
+\newcommand{\eisenSeries}[1]{\ensuremath{E_{#1}}}
+
 \newcommand{\tildcCodes}{\ensuremath{\widetilde{\mathscr{C}}}}
 \newcommand{\tSet}[1]{\ensuremath{\bm{#1\mbox{-}{set}}}}
 \newcommand{\tSubset}[1]{\ensuremath{\bm{#1\mbox{-}{subset}}}}
@@ -46,6 +52,8 @@
 \newcommand{\ftwoN}[1]{\ensuremath{\mathbb{F}_2}^{#1}}
 \newcommand{\myMatrixRing}[2]{\ensuremath{#1^{#2\times#2}}}
 \newcommand{\wloe}{w.l.o.e}
+
+\newcommand{\polyAB}[2]{\ensuremath{#1^4#2^4\,(#1^4 - #2^4)^4}}
 % weight function
 \newcommand{\wt}[1]{\ensuremath{\text{wt}(#1)}}
 % distance function
@@ -54,6 +62,12 @@
 % some number ring, field
 \newcommand{\Integer}{\ensuremath{\mathbb{Z}}}
 \newcommand{\Real}{\ensuremath{\mathbb{R}}}
+\newcommand{\Complex}{\ensuremath{\mathbb{C}}}
+\newcommand{\imaginary}{\ensuremath{i}}
+\newcommand{\HalfPlane}{\ensuremath{\mathbb{H}}}
+
+% some variables
+\newcommand{\twoFourDegreeAB}{\ensuremath{A^4\,B^4\;(A^4 \,-\, B^4)^4}}
 \title{Seminar}
 \date{\today}
 \author{Panwei Hu}
@@ -72,6 +86,60 @@
 
 This report is based on the book \emph{Lattices and Codes},from chapter 2.7 to 2.9
 We have dealt mainly with lattices in the previous two lectures. Now we will discuss the relationship between lattices and code. So the first step is to construct a bridge between these two. We will discuss the binary case only.\\
+Before discussing further the codes, let us recall some results from the theta function and modular forms, which we simply state without proof.\\
+Let $\Gamma \subset \Real^n$ be a lattice. We define $q = e^{2\pi\imaginary\tau}$, for $\tau \in \HalfPlane$.\\
+The theta function $\thetaFunction{\Gamma}$ of the lattice $\Gamma$ is defined as 
+\[
+	\thetaFunction{\Gamma}(\tau) \, := \,\sum_{x \in \Gamma} q^{\frac{1}{2}(x\cdot x)} 
+\] 
+We recall the main theorem introduced on the lecture of Mr.Caspers. 
+\begin{theorem}\label{evenUniLattice}
+Let $\Gamma$ be an even unimodular lattice in $\Real^n$. Then
+\begin{enumerate}
+	\item n $\equiv$ 0 $\pmod 8$
+	\item {\thetaFunction{\Gamma}} is a modular form of weight $\frac{n}{2}$
+\end{enumerate}
+\end{theorem}
+
+\begin{prop}\label{latticeAndDualThetaProp}
+	$\thetaFunction{\Gamma}(-\frac{1}{\tau})$ = $(\frac{\tau}{i})^{\frac{n}{2}} \frac{1}{\mbox{vol}(\,\Real^n/\Gamma)}\,\thetaFunction{\Gamma^{*}}(\tau)$
+\end{prop}
+is called the \emph{Eisenstein series of index k}.
+
+\begin{definition}
+Let $k \in \Integer$, $k$ even, $k > 2.$ The series
+\[
+	G_k(\tau) \; = \sum_{\substack{(m,n) \in \Integer^2\\				 (m,n) \neq (0,0)}} \frac{1}{(m\tau + n)^k}
+\]
+The \emph{normalized Eisenstein series} is defined as
+\[
+	\eisenSeries{k}(\tau) := \frac{1}{2\zeta(k)} G_k(\tau)
+\]
+where $\zeta(k)$ is the \emph{Rieann $\zeta$-function}
+\end{definition}
+We define
+\[
+	\Delta := \frac{1}{1728}\,(\eisenSeries{4}^3 \, - \, \eisenSeries{6}^2) 
+\]
+The $\Delta$ function has the following form:
+\begin{prop}\label{deltaExpansionProp}
+\[
+	\Delta = q \prod_{r = 1}^{\infty}(1 - q^r)^{24}
+\]
+\end{prop}
+\begin{definition}
+	The modular form of weight k is a $\Complex$-vector space, and is denoted as {\modularK{k}}. $\modularK{k}^0$ denotes the $\Complex$-vector space of cusp forms of weight k.
+\end{definition}
+\begin{theorem}\label{cuspFormTheo}\hfill
+\begin{enumerate}
+	\item $\modularK{k}$ = 0 for $k$ odd, for $k < 0$ and for k = 2
+	\item $\modularK{0} = \Complex$, $\modularK{0}^0 = 0$ and for $k$ = 4, 6, 8, 10, $\modularK{k}^0 $ = 0, $\modularK{k}$ = $\Complex \cdot \eisenSeries{k}$\
+	\item Multiplication by $\Delta = \frac{1}{1728}(\eisenSeries{4}^3 -\eisenSeries{6}^2)$ defines an isomorphism of $\modularK{k-12}$ onto $\modularK{k}^0$
+\end{enumerate}
+\end{theorem}
+\begin{collary}\label{E4E6collary}
+The algebra $M$ of mdular forms is isomorphic to the polynomial algebra $\Complex[{\eisenSeries{4}}, {\eisenSeries{6}}]$.
+\end{collary}
 We consider first the standard $\Integer^{n}$ lattices and define the canonical projection onto $\Ftwo^{n}$
 \[
 	\rho: \Integer^n \rightarrow \Ftwo^{n}, x \mapsto \bar{x}
@@ -506,5 +574,105 @@ Similarly, for the sum of three vectors $v_i$ ,$v_j$ and $v_k$, there is a 1 at 
 Now we want to construct an even unimodular lattice with $a_1 = 0$, i.e., does not contains roots, using the extended golay code {\cCodes}.
 
 
-
+\section{The MacWilliams Identity and Gleason's Theorem}
+We have till now studied the theta function for the lattices and the weight enumerator for the binary codes. And we have learned there is a relationship between the binary codes and the corresponding lattices. It may be interesting to study the relevance between the theta function and the weight enumerator.
+We consider first two functions:
+% \begin{equation}\label{Afunc}
+% 	A(\tau) := \sum_{x \in \Integer}q^{x\cdot x} = 1 + 2q + 2q^4 + 2q^9 + \ldots
+% \end{equation}
+% We see that $A(\tau)$ is actually the theta function of the lattice $\Gamma = \sqrt{2}\Integer$.
+Let $A(\tau)$ denote the theta function of the lattice $\Gamma = \sqrt{2}\Integer$, i.e.
+	\begin{align}
+	A(\tau) &= \sum_{x \in \Gamma}q^{\frac{1}{2}x\cdot x} \notag\\
+			&= \sum_{x \in \Integer}q^{x\cdot x} \notag\\
+			&= \sum_{x \in 2\Integer}q^{\frac{1}{4}(x\cdot x)}\label{Afunc}\\
+			&= 1 + 2q + 2q^4 + 2q^9 + \ldots \notag
+	\end{align}
+Consider another function:
+\begin{equation}\label{Bfunc}
+	B(\tau) := \sum_{x \in 2\Integer + 1}q^{\frac{1}{4}(x\cdot x)}
+\end{equation}
+Note that $B(\tau)$ is not a theta function of a lattice, since the constant term is 0.
+By adding the two functions together, it follows that
+\begin{equation}\label{sumABfuncEq}
+	A(\tau) + B(\tau) = \sum_{x \in \Integer}q^{\frac{1}{4}(x\cdot x)} = \sum_{x \in \frac{1}{2}\Integer}q^{\frac{1}{2}x \cdot x}
+			= \sum_{x\in \Gamma^{*}}q^{\frac{1}{2}(x\cdot x)}
+\end{equation}
+So the sum of the two functions is the theta function of the dual lattice of $\Gamma$. Using proposition \ref{latticeAndDualThetaProp}, we have:
+\begin{equation}\label{AMinusTau}
+	A(-\frac{1}{\tau}) = (\frac{\tau}{\imaginary})^{1/2} \, \frac{1}{\sqrt{2}}(A(\tau) + B(\tau)).
+\end{equation}
+By replacing the $\tau$ into $-\frac{1}{\tau}$, we have from (\ref{AMinusTau})
+\begin{align}
+	[A(-\frac{1}{\tau}) + B(-\frac{1}{\tau})]\; \frac{1}{\sqrt{2}}\; (\frac{1}{-\tau \imaginary})^{\frac{1}{2}} &= A(\tau) \notag \\
+	\Rightarrow \quad B(-\frac{1}{\tau}) &= \frac{\sqrt{2}}{(-\frac{1}{\tau \imaginary})^{\frac{1}{2}}} \; A(\tau) \,- \,(\frac{\tau}{\imaginary})^{1/2} \; \frac{1}{\sqrt{2}}\,(A(\tau) + B(\tau))\notag\\
+	&= (\frac{\tau}{\imaginary})^{\frac{1}{2}} \;\frac{1}{\sqrt{2}}\;(A(\tau) - B(\tau)) \label{BMinusTau}
+\end{align}
+When we consider $A$ and $B$ as two variables, and consider now the ``rotation by $45^{\circ}$ followed by a reflection'',i.e.
+\[
+	Q := \frac{1}{\sqrt{2}}
+	\left [
+	\begin{matrix}
+		1 & 1\\
+		1 & -1
+	\end{matrix}
+	\right]
+\] in the $(A,B)$-plane. For simplicity of notation we identify $A$ as $(A,0)^t$ and $B$ as $(0,B)$, then it follows that:
+\begin{align*}
+	QA &= \frac{1}{\sqrt{2}}\,(A + B)\\
+	QB &= \frac{1}{\sqrt{2}}\,(A - B) 
+\end{align*}
+After doing elementary algebra, we find that the following homogeneous polynomial in $A$ and $B$ of degree 24 is invariant under such transformation.
+\[
+	A^4B^4 \,(A^2 - B^2)^4 \, (A^2 + B^2)^4 \; = \; A^4B^4\,(A^4 - B^4)^4
+\]
+For simplicity, we define $g := {\twoFourDegreeAB}$  and $p := \polyAB{X}{Y} \in \Complex[X,Y]_{hom,24}$
+\begin{prop}\label{twoFourABInvarProp}
+	{\twoFourDegreeAB} is invariant under the transformation 
+	$\tau \mapsto -\frac{1}{\tau}$
+\end{prop}
+\begin{proof}
+We have
+\[
+	g(-\frac{1}{\tau}) = \polyAB{A(-\frac{1}{\tau})}{B(-\frac{1}{\tau})}
+\]
+\begin{align*}
+ &= \polyAB{((\frac{\tau}{\imaginary})^{\frac{1}{2}}\,Q\,A)}{((\frac{\tau}{\imaginary})^{\frac{1}{2}}\,Q\,B)}\\
+ &= (\frac{\tau}{\imaginary})^{12} \, p(QA, QB) \\
+ &= \tau^{12}p(A,B) = g(\tau)
+\end{align*}
+\end{proof}
+Since $A$ is invariant under the transformation $\tau \mapsto \tau + 1$ and so does $B^4$. It follows that {\twoFourDegreeAB} is invariant under this transformation.\\
+Combining these two results, we deduce that $\twoFourDegreeAB$ is a modular form of weight 12.
+\begin{prop}\label{twoFourDegABDelta}
+\[
+	g := {\twoFourDegreeAB} \;= \; 16 \Delta \;= \; 16\,q\prod_{n = 1}^{\infty}\,(1 - q^n)^{24}
+\]
+\end{prop}
+\begin{proof}
+Since the constant term of $B$ is zero, so is the constant term of $g$. It follows that $g$ is a cusp form of weight 12. \\
+According to theorem \ref{cuspFormTheo},  $g = k \Delta$ for a $k \in \Complex$. We could determine $k$ by looking at the coefficient of the term of the first order.\\
+Since
+\[
+	B(\tau) = 2 q^{\frac{1}{4}} \; + \; 2q^{\frac{9}{4}} \;+\; 2q^{\frac{25}{4}} \; + \; \ldots 
+\]
+So, it follows that
+\[
+	B(\tau)^4 = 16 q \; + \; \mbox{high order terms}
+\]
+As a result
+\[
+	\twoFourDegreeAB = 16 q \; + \; \mbox{high order terms} 
+\]
+So, we deduce that $\twoFourDegreeAB$ = $16 \Delta$
+\end{proof}
+\begin{prop}\label{ABHammingProp}
+Let {\simpleCodes} $\subset \Ftwo^n$ be a binary linear code with Hamming weight enumerator {\weightEnumerator{\simpleCodes}{X}{Y}} . Then
+\[
+	\thetaFunction{\buildLattice{\simpleCodes}} = \weightEnumerator{\simpleCodes}{A}{B}
+\]
+\end{prop}
+\begin{proof}
+Let $c \in \simpleCodes$, and let $\rho : \Integer^n \rightarrow \Ftwo^n$ the canonical
+\end{proof}
 \end{document}

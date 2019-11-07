@@ -70,6 +70,15 @@ the `tikzpicture` alone cannot be numbered, so capsulate it into a figure and nu
 
 ### matrix 
 to print different parentheses, using `\left [` for example
+
+### align and equation
+cannot embed `align` in an `equation` command
+
+### multiple lines in the summation index
+use `\substack` command, e.g
+```
+G_k(\tau) \; = \sum_{\substack{(m,n) \in \Integer^2\\				 (m,n) \neq (0,0)}} \frac{1}{(m\tau + n)^k}
+```
 ### Problems
 *
 ```
