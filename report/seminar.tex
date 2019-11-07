@@ -14,7 +14,7 @@
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{Algorithmus}{Algorithmus}
 \newtheorem{example}[theorem]{Example}
-\newtheorem{collary}[theorem]{Collary}
+\newtheorem{collary}[theorem]{Corollary}
 \newtheorem{prop}[theorem]{Proposition}
 \numberwithin{equation}{theorem}
 \numberwithin{figure}{theorem}
@@ -104,13 +104,12 @@ Let $\Gamma$ be an even unimodular lattice in $\Real^n$. Then
 \begin{prop}\label{latticeAndDualThetaProp}
 	$\thetaFunction{\Gamma}(-\frac{1}{\tau})$ = $(\frac{\tau}{i})^{\frac{n}{2}} \frac{1}{\mbox{vol}(\,\Real^n/\Gamma)}\,\thetaFunction{\Gamma^{*}}(\tau)$
 \end{prop}
-is called the \emph{Eisenstein series of index k}.
-
 \begin{definition}
 Let $k \in \Integer$, $k$ even, $k > 2.$ The series
 \[
 	G_k(\tau) \; = \sum_{\substack{(m,n) \in \Integer^2\\				 (m,n) \neq (0,0)}} \frac{1}{(m\tau + n)^k}
 \]
+is called the \emph{Eisenstein series of index k}.
 The \emph{normalized Eisenstein series} is defined as
 \[
 	\eisenSeries{k}(\tau) := \frac{1}{2\zeta(k)} G_k(\tau)
@@ -140,6 +139,13 @@ The $\Delta$ function has the following form:
 \begin{collary}\label{E4E6collary}
 The algebra $M$ of mdular forms is isomorphic to the polynomial algebra $\Complex[{\eisenSeries{4}}, {\eisenSeries{6}}]$.
 \end{collary}
+\begin{prop}\label{E8isomorphProp}
+Let $\Gamma$ be an even unimodular lattice in $\Real^8$. Then
+$\Gamma$ is isomorphic to $E_8$. And the theta function 
+\[
+	\thetaFunction{\Gamma} = E_4
+\]
+\end{prop}
 We consider first the standard $\Integer^{n}$ lattices and define the canonical projection onto $\Ftwo^{n}$
 \[
 	\rho: \Integer^n \rightarrow \Ftwo^{n}, x \mapsto \bar{x}
@@ -153,6 +159,12 @@ By defining $\Gamma_{\simpleCodes} := \frac{1}{\sqrt{2}}\rho^{-1}(\simpleCodes)$
 		\item {\simpleCodes} is self-dual if and only if {\buildLattice{\simpleCodes}} is a unimodular Lattice.
 	\end{enumerate}
 \end{prop}
+\begin{lemma}\label{latticeDualcodeVertLemma}
+Let {\simpleCodes} $\subset \Ftwo^n$ be a binary linear code.Then
+\[
+	\buildLattice{\simpleCodes}^* = \buildLattice{\buildVertical{\simpleCodes}}
+\]
+\end{lemma}
 We recall some definitions from the coding theory
 \begin{definition} Let {\simpleCodes} $\subset$ $\Ftwo^{n}$ a \linearCode{n}{k}{d}. 
 	\begin{enumerate}
@@ -165,7 +177,7 @@ We recall some definitions from the coding theory
 		where $A_i$ denotes the number of codewords of length $i$ in {\simpleCodes}
 	\end{enumerate}
 \end{definition}
-\begin{example}
+\begin{example}\label{hammingExample}
 	For the Hamming code H $\subset$ $\Ftwo^7$ with the generator matrix:
 	\[
 	\left[
@@ -181,6 +193,20 @@ We recall some definitions from the coding theory
 	\[
 		\weightEnumerator{H}{X}{Y} = X^7 + 7X^4Y^3 + 7X^3Y^4 + 1
 	\]
+	In this case, it's also convenient to find the generator matrix of its dual code.
+	\[
+		\left[
+			\begin{matrix}
+				0 & 1 & 1 & 1 & 1 & 0 & 0 \\
+				1 & 0 & 1 & 1 & 0 & 1 & 0 \\
+				1 & 1 & 0 & 1 & 0 & 0 & 1
+			\end{matrix}
+		\right]
+	\]
+	And we can find that the weight enumerator is 
+	\[
+		\weightEnumerator{\buildVertical{H}}{X}{Y} = X^7 + 7X^3Y^4 + Y^7
+ 	\]
 \end{example}
 Based on the lecture of theta series and modular forms, we have the following proposition.
 \begin{prop}
@@ -673,6 +699,84 @@ Let {\simpleCodes} $\subset \Ftwo^n$ be a binary linear code with Hamming weight
 \]
 \end{prop}
 \begin{proof}
-Let $c \in \simpleCodes$, and let $\rho : \Integer^n \rightarrow \Ftwo^n$ the canonical
+Let $c \in \simpleCodes$, and let $\rho : \Integer^n \rightarrow \Ftwo^n$ the canonical reduction modulo 2 projection. Then
+\begin{align*}
+	\sum_{x \in \frac{1}{\sqrt{2}}\rho^{-1}(c)} q^{\frac{1}{2}(x\cdot x)} &= \sum_{x \in \rho^{-1}(c)} q^{\frac{1}{4}(x\cdot x)}\\
+	&= \sum_{(y_1,y_2,\ldots,y_n) \in \Integer^n}q^{\frac{1}{4}\sum_{i = 1}^{n}(c_i + 2y_i)^2}\\
+	&= \prod_{i = 1}^{n}\,(\sum_{y\in \Integer}q^{\frac{1}{4}(c_i + 2y)^2})
+\end{align*}
+Since
+\begin{align*}
+\sum_{y\in \Integer}q^{\frac{1}{4}(c_i + 2y)^2}) &= 
+	\begin{cases}
+	\sum_{y\in \Integer}q^{y^2}, &\text{if $c_i$ = 0}\\
+	\sum_{y\in \Integer}q^{\frac{1}{4}(1 + 2y)^2}, &\text{if $c_i$ = 1} 
+	\end{cases}\\
+	&= 
+	\begin{cases}
+	A, &\text{if $c_i$ = 0} \\
+	B, &\text{if $c_i$ = 1}
+	\end{cases}
+\end{align*}
+It follows that
+\[
+\sum_{x \in \frac{1}{\sqrt{2}}\rho^{-1}(c)} q^{\frac{1}{2}(x\cdot x)} = A^{n - \wt{c}}\,B^{\wt{c}}
+\] 
+The rest follows by summing over all the codewords in $\simpleCodes$
 \end{proof}
+\begin{example}\label{e8Example}
+For the extended Hamming code $\widetilde{H}$ we have
+\[
+\weightEnumerator{\widetilde{H}}{X}{Y} = X^8 + 14X^4Y^4 + Y^8
+\]
+We know that the corresponding lattice $\buildLattice{\widetilde{H}}$ is $E_8$ .
+Thus it follows in consideration of proposition \ref{E8isomorphProp}
+\[
+	\thetaFunction{\buildLattice{\widetilde{H}}} = E_4 = A^8 + 14A^4B^4 + B^8
+\]
+\end{example}
+We are now able to prove the \emph{MacWilliams identity}.
+\begin{theorem}
+Let {\simpleCodes} $\subset$ $\Ftwo^n$ be a binary \linearCode{n}{k}{d} . Then
+\[
+	\weightEnumerator{\buildVertical{\simpleCodes}}{X}{Y} = \frac{1}{2^k} \weightEnumerator{\simpleCodes}{X}{Y}
+\]
+\end{theorem}
+\begin{proof}
+We observe first that
+\begin{align*}
+	\weightEnumerator{\buildVertical{\simpleCodes}}{A(-\frac{1}{\tau})}{B(-\frac{1}{\tau})} &= \thetaFunction{\buildLattice{\simpleCodes}}(-\frac{1}{\tau}) \tag{by proposition \ref{ABHammingProp}} \\ %&\overset{\text{Prop.(\ref{ABHammingProp})}}{=}
+	&= (\frac{\tau}{\imaginary})^{\frac{n}{2}} \, \frac{1}{2^{\frac{n}{2}} - k} \,\thetaFunction{\buildLattice{\simpleCodes}^*}(\tau) \tag{by proposition \ref{latticeAndDualThetaProp}}\\  %&\overset{\text{Prop.(\ref{latticeAndDualThetaProp})}}{=}
+		&= (\frac{\tau}{\imaginary})^{\frac{n}{2}} \, \frac{1}{2^{\frac{n}{2}} - k} \,\thetaFunction{\buildLattice{\buildVertical{\simpleCodes}}}(\tau)\tag{by Lemma \ref{latticeDualcodeVertLemma}}\\ %&\overset{\text{Lemma \ref{latticeDualcodeVertLemma}}}{=}
+		&= (\frac{\tau}{\imaginary})^{\frac{n}{2}} \, \frac{1}{2^{\frac{n}{2}} - k} \,\weightEnumerator{\buildVertical{\simpleCodes}}{A(\tau)}{B(\tau)} \tag{by proposition \ref{ABHammingProp}}
+\end{align*}
+Since the weight enumerator is homogen, and by the transformation formula \ref{AMinusTau}, \ref{BMinusTau}. We have
+\[
+	\weightEnumerator{\simpleCodes}{A(-\frac{1}{\tau})}{B(-\frac{1}{\tau})} = (\frac{\tau}{\imaginary})^{\frac{n}{2}} \, \frac{1}{2^{\frac{n}{2}}} \, \weightEnumerator{\simpleCodes}{A(\tau)\, + \,B(\tau)}{A(\tau) \,- \,B(\tau)}
+\]
+Thus
+\[
+	\weightEnumerator{\buildVertical{\simpleCodes}}{A}{B} = \frac{1}{2^k} \weightEnumerator{\simpleCodes}{A \,+\, B}{A \, - \, B}
+\]
+We only need to prove that $A$ and $B$ are algebraic independent. But recall that from corollary \ref{E4E6collary}, all the modular forms is generated by the $E_4$ and $E_6$ (as algebra). This implies that the modular form with weight divisable by 4 is generated by $E_4$ and $\Delta$ . But recall example \ref{e8Example} and proposition \ref{twoFourDegABDelta}:
+\begin{align*}
+	E_4 &= A^8 + 14A^4B^4 + B^8\\
+	\Delta &= \frac{1}{16}A^4B^4(A^4 - B^4)^4
+\end{align*}
+It follows that $A$ and $B$ are algebraically independent and we are done.
+\end{proof}
+\begin{example}\label{macWilliamsHamingExample}
+Let's now reexamine the example \ref{hammingExample}.
+We have the weight enumerator for $H$
+\[
+	\weightEnumerator{H}{X}{Y} = X^7 + 7X^4Y^3 + 7X^3Y^4 + 1
+\]
+Now we use \emph{MacWilliams Identity} to caculate the weight enumerator for the dual code. We have
+\begin{align*}
+	\weightEnumerator{\buildVertical{H}}{X}{Y} 
+	&= \frac{1}{2^4}\weightEnumerator{H}{X+Y}{X-Y}\\
+	&= X^7 + 7X^3Y^4 + Y^7
+\end{align*}
+which is the exact result we obtained in the previous example
+\end{example}
 \end{document}
