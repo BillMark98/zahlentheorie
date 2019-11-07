@@ -592,7 +592,23 @@ We now want to construct such a code. For that purpose, let us consider the regu
 		0, &\text{otherwise}
 	\end{cases}
 \]
-It follows that $A has the form$
+It follows that $A$ has the form:
+\[
+	A =
+	\begin{pmatrix}
+		 1 & 1 & 1 & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\ 
+1 & 1 & 1 & 0 & 0 & 1 & 1 & 0 & 0 & 0 & 1 & 0 \\ 
+1 & 1 & 1 & 1 & 0 & 0 & 1 & 1 & 0 & 0 & 0 & 0 \\ 
+1 & 0 & 1 & 1 & 1 & 0 & 0 & 1 & 1 & 0 & 0 & 0 \\ 
+1 & 0 & 0 & 1 & 1 & 1 & 0 & 0 & 1 & 1 & 0 & 0 \\ 
+1 & 1 & 0 & 0 & 1 & 1 & 0 & 0 & 0 & 1 & 1 & 0 \\ 
+0 & 1 & 1 & 0 & 0 & 0 & 1 & 1 & 0 & 0 & 1 & 1 \\ 
+0 & 0 & 1 & 1 & 0 & 0 & 1 & 1 & 1 & 0 & 0 & 1 \\ 
+0 & 0 & 0 & 1 & 1 & 0 & 0 & 1 & 1 & 1 & 0 & 1 \\ 
+0 & 0 & 0 & 0 & 1 & 1 & 0 & 0 & 1 & 1 & 1 & 1 \\ 
+0 & 1 & 0 & 0 & 0 & 1 & 1 & 0 & 0 & 1 & 1 & 1
+	\end{pmatrix}
+\]
 
 More over, define $B := J_{12} - A$. We have 
 \begin{equation}\label{JMinusA}
@@ -720,12 +736,49 @@ To prove that $O$ is a lattice,  we only need to prove that $O$ is closed under 
 	\end{align*}
 	for some $\tilde{c} \in \cCodes$ and $\tilde{y} \in \Integer^{24}$ with $\sum{\tilde{y}_i}$ even. So $u + v \in M$, 
 \end{enumerate}
-To prove the property of squared length. We consider first the vector in $A$
+To prove the property of squared length. We consider first the vector in $A$.\\
+Let $v = c + 2y \in A$, $c \in \cCodes$, $y \in \Integer^{24}$ with $\sum{y_i}$ even.
 \begin{align*}
-
+	v^2 &= \sum(c_i + 2y_i)^2 \\
+		&\equiv \sum c_i \pmod 4\\
+		&\equiv \wt{c} \pmod 4 \\
+		&\equiv 0 \pmod 4
+\end{align*}
+Now let $v = \frac{1}{2}1^{24} + c + 2y \, \in M$ , $c \in \cCodes$, $y \in \Integer^{24}$ with $\sum{y_i}$ odd.
+\begin{align*}
+	v^2 &= \sum(\frac{1}{2} + c_i + 2y_i)^2 \\
+		&\equiv \sum(1/4 + c_i + c_i + 2y_i) \pmod 4\\
+		&\equiv 6 + 2\wt{c} + 2\sum{y_i} \pmod 4 \\
+		&\equiv 0 \pmod 4
 \end{align*}
 \end{proof}
-Now we note that $A$ has index 2 in $\Gamma$ using homomorphism theorem. We want 
+\begin{remark}\label{remarkLeechPreli}
+We know from theorem of homomorphism that $A$ has index 2 in $\Gamma$ and it follows that $A$ also has index 2 in $O$
+\end{remark}
+We are now able to construct the \emph{Leech lattice}
+\begin{definition}\label{defLeech}\
+The \emph{Leech lattice} is defined as
+	\[
+		\Lambda_{24} := \frac{1}{\sqrt{2}} \left( A \, \bigcup \,(\frac{1}{2}1^{24} + N) \right)
+	\]
+\end{definition}
+\begin{lemma}\label{lemmaLeech}
+The lattice $\Lambda_{24}$ is well-defined and is an even unimodular lattice, which contains no roots.
+\end{lemma}
+\begin{proof}
+It follows from proposition \ref{propLeechPreliminary}, that $\Lambda_{24}$ is a indeed a lattice (so well-defined) and it's even.\\
+To prove unimodularity:\\
+We know from remark \ref{remarkLeechPreli}, that $A$ has index $2$ in $O$, so $A_1 := \frac{1}{\sqrt{2}}A$ is a sublattice with index $2$ in $\buildLattice{\cCodes}$. Note that $A_1$ also has index $2$ in $\Lambda_{24}$.
+\[
+	\text{vol}(\Real^{24}/{\Lambda_{24}}) \cdot |\Lambda_{24}/A_1| \;=\; \text{vol}(\Real^{24}/A_1 \;=\; \text{vol}(\Real^{24}/\buildLattice{\cCodes}) \cdot |\buildLattice{\cCodes}/A_1|
+\]
+it follows that 
+\[
+	\text{vol}(\Real^{24}/{\Lambda_{24}}) \; = \; \text{vol}(\Real^{24}/\buildLattice{\cCodes}) \; = \; 1
+\]
+So $\Lambda_{24}$ is unimodular.
+\end{proof}
+%Now we note that $A$ has index 2 in $\Gamma$ using homomorphism theorem. We want 
 %Note that $\wt{c}$ is divisable by 4. so $x^2 \equiv \sum{y_i}$
 
 \section{The MacWilliams Identity and Gleason's Theorem}\label{sectionMacWill}
