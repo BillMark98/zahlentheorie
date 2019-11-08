@@ -1,5 +1,6 @@
-\documentclass{article}
-\usepackage{amssymb,latexsym,amsmath,amsthm,mathtools,mathrsfs,bm}
+\documentclass[12pt]{article}
+
+\usepackage{amssymb,latexsym,amsmath,amsthm,mathtools,bm}
 \usepackage{tikz,tikz-3dplot} 
 \usepackage{fouriernc}
 % for vertical and horizontal lines in matrix
@@ -7,10 +8,14 @@
 
 % for roman number numerate
 \usepackage{enumerate}
+
+%for layout
+\usepackage{layout}
+
 % % for not equivalent
 % \usepackage{unicode-math}
 \renewcommand{\baselinestretch}{1.5} 
-
+\theoremstyle{definition}
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{definition}[theorem]{Definition}
@@ -29,12 +34,12 @@
 \newcommand{\tCompleteDesign}{\ensuremath{\bm{t\mbox{-}(v,k,\lambda)\; design}}}
 \newcommand{\tParamDesign}[4]{\ensuremath{\bm{#1\mbox{-}(#2,#3,#4)\; design}}}
 \newcommand{\steinerSystem}[3]{\ensuremath{{S(#1,#2,#3)}}}
-\newcommand{\myBlock}{\textbf{block}}
+\newcommand{\myBlock}{{block}}
 \newcommand{\pluralMyBlock}{\textbf{blocks}}
 \newcommand{\xDesign}[1]{\ensuremath{\bm{#1\mbox{-}design}}}
-\newcommand{\dDes}{\ensuremath{\mathscr{D}}}
+\newcommand{\dDes}{\ensuremath{\mathcal{D}}}
 % codes symbol
-\newcommand{\cCodes}{\ensuremath{\widetilde{\mathscr{G}}}}
+\newcommand{\cCodes}{\ensuremath{\widetilde{\mathcal{G}}}}
 \newcommand{\simpleCodes}{\ensuremath{\mathrm{C}}}
 \newcommand{\cCodesVertical}{\cCodes^{\bot}}
 \newcommand{\buildVertical}[1]{\ensuremath{#1^{\bot}}}
@@ -47,7 +52,7 @@
 \newcommand{\modularK}[1]{\ensuremath{M_{#1}}}
 \newcommand{\eisenSeries}[1]{\ensuremath{E_{#1}}}
 
-\newcommand{\tildcCodes}{\ensuremath{\widetilde{\mathscr{C}}}}
+\newcommand{\tildcCodes}{\ensuremath{\widetilde{\mathcal{C}}}}
 \newcommand{\tSet}[1]{\ensuremath{\bm{#1\mbox{-}{set}}}}
 \newcommand{\tSubset}[1]{\ensuremath{\bm{#1\mbox{-}{subset}}}}
 \newcommand{\code}[3]{\ensuremath{\bm{(#1,#2,#3)\mbox{-}code}}}
@@ -71,10 +76,14 @@
 
 % some variables
 \newcommand{\twoFourDegreeAB}{\ensuremath{A^4\,B^4\;(A^4 \,-\, B^4)^4}}
-\title{Seminar}
-\date{\today}
+% \title{Weight Enumerator, MacWilliams Identity and Gleason's Theorem from a perspective of lattice}
+\title{Weight Enumerator of binary self-dual codes}
+% \date{\today}
 \author{Panwei Hu}
 
+\setlength{\marginparwidth}{80pt}
+\setlength{\topmargin}{0pt}
+% \setlength{\textheight}{700pt}
 \begin{document}
 \pagenumbering{gobble}
   \maketitle
@@ -85,11 +94,11 @@
   \newpage
   \pagenumbering{arabic}
 \newpage
-\section{Introduction}
 
-This report is based on the book \cite{ebeling2013lattices} from chapter 2.7 to 2.9.\\ 
-We have dealt mainly with lattices in the previous two lectures. Now we will discuss the relationship between lattices and codes. So the first step is to construct a bridge between these two. Throughtout the report, we will only discuss the binary case.\\
-Before discussing further the codes, let us recall some results from the theta function and modular forms, which we simply state without proof.\\
+This report is largely based on the book \cite{ebeling2013lattices} from chapter 2.7 to 2.9 and will deal with the \emph{hamming weight enumerator} of a binary code. We will first draw a conclusion about the specific case when the code is of length $24$ and self-dual doubly even. We will also consider the relationship between the \emph{theta function} of the corresponding lattice and the \emph{hamming weight enumerator} of the code. Next we will give a specific example of the binary self-dual doubly even code of length $24$ and a lattice with certain property. In the end, we will prove the famous \emph{MacWilliams Identity Theorem} and \emph{Gleason's Theorem} using what we have learnt about \emph{modular form}.
+\section{Introduction}
+We have dealt mainly with lattices in the previous two lectures. Now we will discuss the relationship between lattices and codes. So the first step is to construct a bridge between these two. Throughout the report, we will only discuss the binary case.\\
+Before discussing further the codes, let us recall some results from the \emph{theta function} and \emph{modular form}, which we simply state without proof.\\
 Let $\Gamma \subset \Real^n$ be a lattice. We define $q = e^{2\pi\imaginary\tau}$, for $\tau \in \HalfPlane$.\\
 The theta function $\thetaFunction{\Gamma}$ of the lattice $\Gamma$ is defined as 
 \[
@@ -117,7 +126,7 @@ The \emph{normalized Eisenstein series} is defined as
 \[
 	\eisenSeries{k}(\tau) := \frac{1}{2\zeta(k)} G_k(\tau)
 \]
-where $\zeta(k)$ is the \emph{Rieann $\zeta$-function}
+where $\zeta(k)$ is the \emph{Riemann $\zeta$-function}
 \end{definition}
 We define
 \[
@@ -171,7 +180,7 @@ Let {\simpleCodes} $\subset \Ftwo^n$ be a binary linear code.Then
 We recall some definitions from the coding theory
 \begin{definition} Let {\simpleCodes} $\subset$ $\Ftwo^{n}$ a \linearCode{n}{k}{d}. 
 	\begin{enumerate}
-		\item Let $c \in \simpleCodes$, the hamming weight is defined as \wt{c} := |\{\,i| c(i) = 1\,\}|.
+		\item Let $c \in \simpleCodes$, the hamming weight is defined as $\wt{c} := \,|\{\,i| c(i) = 1\,\}|$.
 		\item The \emph{Hamming weight enumerator} of {\simpleCodes} is a polynomial of $\Integer[X,Y]$ defined as:
 		\begin{align*}
 			\weightEnumerator{\simpleCodes}{X}{Y} &:= \sum_{c \in \simpleCodes}X^{n - \wt{c}}Y^{\wt{c}}\\
@@ -181,7 +190,12 @@ We recall some definitions from the coding theory
 	\end{enumerate}
 \end{definition}
 \begin{remark}
+\begin{enumerate}[i)]
+\item
 We recognize $\langle , \rangle$ as the standard inner product of vectors with values in real number. For simplicity, we will denote $\langle u,v \rangle$ as $u \cdot v$, if it is clear in context that we are having a scalar product of two vectors. For the latter case, if we have two identical vectors $u$, we will abuse the notation $u^2$.
+\item
+For the brevity, we will simply call the \emph{hamming weight enumerator} as \emph{weight enumerator} in the following discussion.
+\end{enumerate}
 \end{remark}
 \begin{example}\label{hammingExample}
 	For the Hamming code H $\subset$ $\Ftwo^7$ with the generator matrix:
@@ -195,7 +209,7 @@ We recognize $\langle , \rangle$ as the standard inner product of vectors with v
 		\end{matrix}
 	\right]
 	\]
-	has the weight enumerator:
+	and the weight enumerator:
 	\[
 		\weightEnumerator{H}{X}{Y} = X^7 + 7X^4Y^3 + 7X^3Y^4 + 1
 	\]
@@ -224,7 +238,7 @@ Based on the lecture of theta series and modular forms, we have the following pr
 Let {\simpleCodes} $\subset \Ftwo^n$ be a self-dual doubly even code. Then n $\equiv$ 0 $\pmod 8$ 
 \end{prop}
 \begin{proof}
-Using the main theorem in the lecture of theta series and proposition \ref{codeLatticeProp}
+Using the theorem \ref{evenUniLattice} and proposition \ref{codeLatticeProp}
 \end{proof}
 We now want to prove a relationship between $A_8$ and $A_4$ for the special case $n = 24$ and $\simpleCodes$ self-dual and doubly even.
 \begin{prop}\label{A8A4}
@@ -236,7 +250,7 @@ Since {\simpleCodes} is self-dual doubly even, it follows that the theta functio
 	\thetaFunction{\buildLattice{\simpleCodes}} = \sum_{r = 0}^{\infty} a_r \, q^r
 \]
 where $a_r$ denotes the number of elements $x = \frac{1}{\sqrt{2}}(c + 2y) \in \buildLattice{\simpleCodes},\, c \in \simpleCodes, \, y\in \Integer^{24}$, with $x^2 = 2r$. \\
-The idea of the proof is to first find out a relationship between $a_1, a_2$ and $A_4, A_8$. By using the following lemma \ref{a2a0a1} and proposition \ref{a2a1}, we could prove the equation.\\
+The idea of the proof is to first find out a relationship between $a_1, a_2$ and $A_4, A_8$. By using the following lemma \ref{a2a0a1} and proposition \ref{a2a1}, we could prove the equation in this proposition.\\
 In this proof, we do the first step of the proof, i.e. find the relationship between $a_1, a_2$ and $A_4, A_8$.\\
 For further analysis, it's helpful to note that:
 \begin{equation}\label{xsumCYEqu}
@@ -247,21 +261,22 @@ For $a_1$, we have
 	a_1 = 24 \cdot 2 \,+ \,A_4
 \end{equation}
 It can be understood as following:\\
-Note first that from (\ref{xsumCYEqu})
+Note firstly that from (\ref{xsumCYEqu}), we have to solve:
 \begin{equation}\label{sumCode_a1Eqn}
 	\sum_{i = 1}^{24}(c_i \, + \, 2y_i)^2 \overset{!}{=} 4
 \end{equation}
+The possible cases are following:
 a) if $c$ = $0^{24}$, where $0^{24}$ denotes the zero vector in $\Ftwo^{24}$, then since $(\pm2)^2 = 4$. We can choose one position to fill $\pm2$ and 0 elsewhere. This gives $24 \cdot 2$ choices\\
-b) if $\wt{c} = 4$, then at the support(see definition \ref{coverSupportHoldDefinition}) of $c$, $y$ can be chosen $\pm1$ and 0 elsewhere. This gives $2^4 A_4$ choices.
+b) if $\wt{c} = 4$, then at the support(see definition \ref{coverSupportHoldDefinition}) of $c$, $y$ can be chosen $\pm1$ and 0 elsewhere. This gives $2^4 \cdot A_4$ choices.
 Since for other cases, (\ref{sumCode_a1Eqn}) would be impossible. These are the only two possible cases. Combining the result, we have consequently (\ref{a1Eqn}).\\
 For $a_2$, we perform the similar analysis. First, we know that
 \begin{equation}\label{sumCY_a2Eqn}
 	\sum_{i = 1}^{24}(c_i \, + \, 2y_i)^2 \overset{!}{=} 8
 \end{equation}
-There are three cases:
+There are three cases:\\
 a) $c = 0^{24}$, then since $(\pm2)^2 + (\pm2)^2 = 8$, we have $\binom{24}{2} \cdot 2^2$ choices for the $y_i$.\\
 b) $\wt{c} = 4$, then $y$ could choose $\pm1$ at the support of $c$ and choose $\pm1$ at another position where $c$ is 0, since $(\pm1)^2 + (\pm1)^2+ (\pm1)^2+ (\pm1)^2 + (\pm2)^2 = 8$. This gives $A_4 \cdot 2^4 \cdot 20 \cdot 2$.\\
-c) $wt{c} = 8$, then $y$ could only choose $\pm1$ at the support of $c$. This gives $A_8 \cdot 2^8$.\\
+c) $\wt{c} = 8$, then $y$ could only choose $\pm1$ at the support of $c$. This gives $A_8 \cdot 2^8$.\\
 These are the only possible cases. Combining these results, it follows that 
 \begin{equation}\label{a2A8A4Eqn}
 	a_2 = 2^8A_8 \, + \,  16 A_4 \cdot 20 \cdot 2 \, + \, \binom{24}{2}\cdot 4
@@ -310,12 +325,12 @@ Proposition \ref{A8A4} and \ref{a2a1} raises the question whether there exists c
 \newpage
 \section{The Golay Code and thee Leech Lattice}\label{golaySection}
 In this section, we will discuss a particular type of codes, the golay codes. We will show that there exists a unique doubly even linear code  $\GExtend \subset \Ftwo^{24}$ with $A_4 = 0$ 
-The following discussion on designs is largely based on chapter 4, section 3 of \cite{roman1992coding}
+The following discussion on designs is largely based on chapter 4, section 3 of \cite{roman1992coding}.\\
 We shall first need some definitions.
 \begin{definition}\label{designDef} \hfill
 	\begin{enumerate}
 		\item A set with $t$ elements is called a \textbf{t-set}, a subset of a given set with $t$ elements is called a \textbf{t-subset}
-		\item Let $V$ be a \textbf{v-set} and each element is called a \textbf{point}. Let $\mathscr{D}$ be a collection of disjoint \textbf{k-subset}. Every such \textbf{k-subset} is called a \textbf{block}. If for any \textbf{t-subset} $T$, there are exactly $\mathbf{\lambda}$ \textbf{k-subsets} $B$ from $S$, s.t, $T \subset B$ then $\mathscr{D}$ is called a \tCompleteDesign . We also sometimes simply call it a $\bm{t}$-design.
+		\item Let $V$ be a \textbf{v-set} and each element is called a \textbf{point}. Let {\dDes} be a collection of disjoint \textbf{k-subset}. Every such \textbf{k-subset} is called a \textbf{block}. If for any \textbf{t-subset} $T$, there are exactly $\mathbf{\lambda}$ \textbf{k-subsets} $B$ from $S$, s.t, $T \subset B$ then {\dDes} is called a \tCompleteDesign . We also sometimes simply call it a $\bm{t}$-design.
 		\item A $\bm{t\mbox{-}(v,k,1)}$ design is called a \emph{Steiner System}, denoted as $\bm{S(t,k,v)}$
 	\end{enumerate}
 \end{definition}
@@ -325,17 +340,17 @@ We shall first need some definitions.
 
 Before we begin with the proofs, let us discuss some propeties of the $\bm{t}$-design.
 \begin{lemma}\label{propTdesign}
-If $\mathscr{D}$ be a $\bm{t\mbox{-}design}$. Then $\mathscr{D}$ is also a $\bm{s\mbox{-}design}$, for $0 \leq s \leq t$
+If {\dDes} be a $\bm{t\mbox{-}design}$. Then {\dDes} is also a $\bm{s\mbox{-}design}$, for $0 \leq s \leq t$
 \end{lemma}
 \begin{proof}
-Let $\mathscr{D}$ be a \tCompleteDesign.
-Let $S$ be a \textbf{s-subset}, we count the pairs $(T,B)$ with the property, that $S \subset T \subset B$, with $T$ a \textbf{t-subset} and $B$ a \textbf{block} of $\mathscr{D}$. We denote $\lambda_s$ as the number of \textbf{blocks} in $\mathscr{D}$ which contains $S$. We want to show that $\lambda_s$ is independent of the set $S$, but only depends on the size of the set. 
+Let {\dDes} be a \tCompleteDesign.
+Let $S$ be a s-subset, we count the pairs $(T,B)$ with the property, that $S \subset T \subset B$, with $T$ a t-subset and $B$ a block of {\dDes}. We denote $\lambda_s$ as the number of blocks in {\dDes} which contains $S$. We want to show that $\lambda_s$ is independent of the set $S$, but only depends on the size of the set. 
 For each $\binom{v-s}{t-s}$ choices of $T$ that contains $S$, we have $\lambda$ {\pluralMyBlock} $B$ whicht contains $T$. In another way, for each of the $\lambda_s$ $\myBlock$ that contains $S$, there are $\binom{k-s}{t-s}$ choices for $T$. So we have:
 \begin{align}
 	\lambda_s \, \binom{k-s}{t-s} &= \lambda \, \binom{v-s}{t-s} \notag\\
 	\Rightarrow  \quad \lambda_s &= \frac{\lambda \, \binom{v-s}{t-s}}{\binom{k-s}{t-s}} \label{sDesign}
 \end{align}
-In particular $\lambda_s$ is only dependent on the size of the subsets. So that $\mathscr{D}$ is a \xDesign{s}
+In particular $\lambda_s$ is only dependent on the size of the subsets. So that {\dDes} is a \xDesign{s}
 \end{proof}
 
 \begin{collary}\label{blockCount}
@@ -446,6 +461,7 @@ We have for the first choice the matrix:
  % 1 & 1 & 0 & 0 & 0 & 1 & 1 & 1 & 0 & 0 & 0
 	% \end{tabular}
 \]
+For the second choice of the matrix, we just interchange the column $4$ and $5$ , $7$ and $8$, and $9$ and $10$ and the corresponding rows. In other words, it's just the same matrix, when we renumber the points.
 \end{proof}
 Now let us come back to codes and discuss the relationship between design and codes.\\
 Let {\cCodes} be a binary code of length $n$.\\
@@ -466,7 +482,7 @@ Let {\cCodes} be a perfect binary {\code{n}{M}{d}}. Then the set $S_d$ of all co
 \end{lemma}
 
 \begin{proof}
-Since {\cCodes} is perfect. So all the spheres $B(c,t)$ are disjoint with one another. So given a binary word $x$ of length $t+1$, it must be included exclusively in one sphere, say $B(c,t)$. Now, since $wt(c) \leq wt(x) + d(c,x) = t + 1 + t = d$, so we deduce that $c \in S_d$. And we have
+Since {\cCodes} is perfect, so all the spheres $B(c,t)$ are disjoint with one another. So given a binary word $x$ of length $t+1$, it must be included exclusively in one sphere, say $B(c,t)$. Now, since $wt(c) \leq wt(x) + d(c,x) = t + 1 + t = d$, so we deduce that $c \in S_d$. And we have
 \begin{align*}
 	2wt(x \cap c) &= wt(x) + wt(c) - d(x,c) \geq 2t+2 \\
 	\Rightarrow \quad wt(x\cap c) &\geq t + 1
@@ -495,26 +511,24 @@ For hamming \linearCode{7}{4}{3}. We have
 	A_3 = \frac{\binom{8-1}{2}}{\binom{3}{2}} = 7
 \]
 \end{example}
-For the following, we define the $\langle , \rangle$ as the standard inner product of vectors with values in real number. 
-For simplicity, we will denote $\langle u,v \rangle$ as $u \cdot v$, if it is clear in context that we are having a scalar product of two vectors. And we know that for two vectors $u,v$ in $\ftwoN{n}$, we have
+Before we discuss the main theorem, it's helpful to recall that for two vectors $u,v$ in $\ftwoN{n}$, we have
 \begin{equation}\label{distWeightEqn}
 	\dist{u}{v} = \wt{u} + \wt{v} - 2\langle u, v\rangle 
 \end{equation}
 We come to the main theorem in this section.
 \begin{theorem}
-Let {\cCodes} be a binary {\code{24}{2^{12}}{8}} containing 0. Then {\cCodes} is a up to equivalence the only one doubly even self-dual linear {\linearCode{24}{12}{8}}. 
+Let {\cCodes} be a binary {\code{24}{2^{12}}{8}} containing 0. Then {\cCodes} is a up to equivalence the only one doubly even self-dual linear {\linearCode{24}{12}{8}}. We call {\cCodes} the \emph{extended Golay code}
 \end{theorem}
 \begin{proof}
 Let {\cCodes} be such a code. We first punctuate a poisition 
 of each code word and denote the resulted code as {\tildcCodes}.
-This code is has minimum distance 7 or 8. So it is a {\code{23}{2^{12}}{7}} or {\code{23}{2^{12}}{8}}. No matter the minimum distance is 7 or 8. The sphere $B(c,3)$ are disjoint from each other for all codes $c \in \tildcCodes$.\\
+This code has minimum distance 7 or 8. So it is a {\code{23}{2^{12}}{7}} or {\code{23}{2^{12}}{8}}. No matter the minimum distance is 7 or 8, the sphere $B(c,3)$ are disjoint from each other for all codes $c \in \tildcCodes$.\\
 We show that the minimum distance is 7.  Indeed, we have
 \[
-	2^{12}(1 + \binom{23}{1} + \binom{23}{2} + \binom{23}{3}) = 2^{23}
+	2^{12}\cdot(1 + \binom{23}{1} + \binom{23}{2} + \binom{23}{3}) = 2^{23}
 \]
 In particular this show that the spheres $B(c,3)$ covers the space {$\ftwoN{23}$} and it follows that the minimum distance is 7. (otherwise, there are ``leak points'' at the middle of the distance between these two points and these points are not covered, contradictory to the full packing) and {\tildcCodes} is perfect.\\
-Since $0 \in \tildcCodes$, $A_0 = 1$
-Now using Collary \ref{perfectCodeAd}, we have for {\tildcCodes} $A_7 = \binom{23}{4}$\\.
+Since $0 \in \tildcCodes$, $A_0 = 1$ , using Collary \ref{perfectCodeAd}, we obtain $A_7 = \binom{23}{4}$\\.
 To calculate $A_8$, we know that the number of vectors in $\ftwoN{23}$ are given by $\binom{23}{5}$ and they may lie in the spheres of codes with weights 7 or 8. So we have
 \[
 	A_8 = \frac{\binom{23}{5} - A_7\binom{7}{5}}{\binom{8}{5}} = 506
@@ -548,8 +562,8 @@ Now if {\cCodes} contains a codeword of weight $w$ which is not divisible by 4, 
 	A_0 = A_{24} = 1, \, A_{8} = A_{16} = 759,\, A_{12} = 2576
 \]
 In particular all the distances between two codewords are divisible by 4. We deduce from \ref{distWeightEqn} that for all
-$u,v \in \cCodes$, $\langle u, v\rangle \in 2\Integer$, and in this case we have $\cCodes \in \cCodesVertical$. But since $\cCodesVertical$ is a linear subspace of dimensions 24 - dim$\langle \cCodes \rangle \leq 12$. It follows that $\langle \cCodes \rangle$ has less than $2^{12}$ elements. Since $\cCodes \subset \langle \cCodes \rangle$ we follow from the cardinality of $\cCodes$ that $\cCodes = \cCodesVertical$ and $\cCodes$ is linear.\\
-We prove now that the uniqueness of such codes. \\
+$u,v \in \cCodes$, $\langle u, v\rangle \in 2\Integer$, and in this case we have $\cCodes \subset \cCodesVertical$. But since $\cCodesVertical$ is a linear subspace of dimensions 24 - dim$\langle \cCodes \rangle \leq 12$. It follows that $\langle \cCodes \rangle$ has less than $2^{12}$ elements. Since $\cCodes \subset \langle \cCodes \rangle$ we follow from the cardinality of $\cCodes$ that $\cCodes = \cCodesVertical$ and $\cCodes$ is linear.\\
+Now we prove the uniqueness of such codes. \\
 Consider a codeword $u$ of weight 12 in {\cCodes} and since $A_{24} = 1$, we have another codeword $\bar{u}$ s.t $u + \bar{u} = 1^{24}$ where here $1^{24}$ stands for the all-one vector in $\ftwoN{24}$. Let us denote $\cCodes_u$ as the subspace when we puncture all the positions of $\cCodes$ given by the support of $u$. Define the function $\pi_{u}$ as the canonical projection.
 We have for $c \in \cCodes$, both $c$ and $c + u$ will be projected to the same image. Since $c$ is arbitrarily chosen, it follow that $|\cCodes_u| \leq \frac{2^{12}}{2} = 2^{11}$. Now if there are two different codewords $x,y \in \cCodes$ s.t $\pi_{u}(c) = \pi_{u}(y)$ and $x - y = v \neq u$. Then we know that $u$ covers $v$ and $v \in \cCodes$ so $\wt{v} \geq 8$. It follows that $\dist{u}{v} \leq 4$, contradicting the fact that the minimum distance is 8. So $\cCodes_u$ has exactly $2^{11}$ elements hence a linear subspace of dimension 11.\\
 For all the codes $v \in \cCodes_u$, Let $x \in \cCodes$ s.t $\pi_u(x) = v$. It follows that $\wt{v} = x \cdot \bar{u} \in 2\Integer$ since $x, \bar{u} \in \cCodes$ and $\cCodes$ is doubly even. It follows that $\cCodes_u$ is of word length 12, dimension 11, and every codeword is of even length.
@@ -606,7 +620,7 @@ It follows that $A$ has the form:
 0 & 0 & 1 & 1 & 0 & 0 & 1 & 1 & 1 & 0 & 0 & 1 \\ 
 0 & 0 & 0 & 1 & 1 & 0 & 0 & 1 & 1 & 1 & 0 & 1 \\ 
 0 & 0 & 0 & 0 & 1 & 1 & 0 & 0 & 1 & 1 & 1 & 1 \\ 
-0 & 1 & 0 & 0 & 0 & 1 & 1 & 0 & 0 & 1 & 1 & 1
+0 & 1 & 0 & 0 & 0 & 1 & 1 & 0 & 0 & 1 & 1 & 1		
 	\end{pmatrix}
 \]
 
@@ -620,8 +634,7 @@ we have for the column vector $B_{-,i} = u + v_i$,where $u = J_{12\,-,i}$ and $v
 						 &= 12 + a + b
 \end{align*}
 Now by observing the figure \ref{icosahedron}, it follows that
-$v_i + v_j \in {10,8}, v_i^tv_j \in {2,0} in \Integer$, in particular, all the three terms above are 0 in $\Ftwo$. So 
-Then the row of the matrix $G := (I_{12} B)$ generate the the {\linearCode{24}{12}{8}} \cCodes.
+$v_i + v_j \in {10,8}, v_i^tv_j \in {2,0} in \Integer$, in particular, all the three terms above are 0 in $\Ftwo$. So  the row of the matrix $G := (I_{12} B)$  generate the the {\linearCode{24}{12}{8}} \cCodes.
 \begin{proof}
 The generated code is certainly linear, of length 24 and has dimension 12. The only thing to prove is the minimum distance.\\
 By observing the matrix of $G$ we find that each row of $G$ has weight 8, in particular divisable by 4. So using (\ref{distWeightEqn}), we deduce that {\cCodes} is doubly even.\\
@@ -799,7 +812,7 @@ Consider another function:
 \begin{equation}\label{Bfunc}
 	B(\tau) := \sum_{x \in 2\Integer + 1}q^{\frac{1}{4}(x\cdot x)}
 \end{equation}
-Note that $B(\tau)$ is not a theta function of a lattice, since the constant term is 0.
+Note that $B(\tau)$ is not a theta function of a lattice, since the constant term is not 0.
 By adding the two functions together, it follows that
 \begin{equation}\label{sumABfuncEq}
 	A(\tau) + B(\tau) = \sum_{x \in \Integer}q^{\frac{1}{4}(x\cdot x)} = \sum_{x \in \frac{1}{2}\Integer}q^{\frac{1}{2}x \cdot x}
@@ -931,7 +944,7 @@ We observe first that
 		&= (\frac{\tau}{\imaginary})^{\frac{n}{2}} \, \frac{1}{2^{\frac{n}{2}} - k} \,\thetaFunction{\buildLattice{\buildVertical{\simpleCodes}}}(\tau)\tag{by Lemma \ref{latticeDualcodeVertLemma}}\\ %&\overset{\text{Lemma \ref{latticeDualcodeVertLemma}}}{=}
 		&= (\frac{\tau}{\imaginary})^{\frac{n}{2}} \, \frac{1}{2^{\frac{n}{2}} - k} \,\weightEnumerator{\buildVertical{\simpleCodes}}{A(\tau)}{B(\tau)} \tag{by proposition \ref{ABHammingProp}}
 \end{align*}
-Since the weight enumerator is homogen, and by the transformation formula \ref{AMinusTau}, \ref{BMinusTau}. We have
+Since the weight enumerator is a homogeneous polynomial, and by the transformation formula (\ref{AMinusTau}), (\ref{BMinusTau}). We have
 \[
 	\weightEnumerator{\simpleCodes}{A(-\frac{1}{\tau})}{B(-\frac{1}{\tau})} = (\frac{\tau}{\imaginary})^{\frac{n}{2}} \, \frac{1}{2^{\frac{n}{2}}} \, \weightEnumerator{\simpleCodes}{A(\tau)\, + \,B(\tau)}{A(\tau) \,- \,B(\tau)}
 \]
@@ -1029,7 +1042,7 @@ With the analog argument, we can find coefficients, such that we can cancel all 
 \[
 	\thetaFunction{\Gamma}(\tau) = 1 \,+\, a_{2m + 2}^* q^{2m + 2}\, +\, \ldots
 \]
-Such lattice is called an \emph{extremal lattice}. One can also show that $m$ can not be too large. The last thing worth noting is that Frau Nebe has proven in 2010 the existence of an extremal even unimodular lattice in $\Real^{72}$
+Such lattice is called an \emph{extremal lattice}. One can also show that $m$ can not be too large. The is worth noting is that our dear Prof.Nebe has proven in 2010 the existence of an extremal even unimodular lattice in $\Real^{72}$
 
 \newpage
 \bibliography{seminarReference}

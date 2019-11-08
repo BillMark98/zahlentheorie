@@ -82,6 +82,9 @@ G_k(\tau) \; = \sum_{\substack{(m,n) \in \Integer^2\\				 (m,n) \neq (0,0)}} \fr
 
 ### fontsize
 dont use `mbox` since it will not consider the font size in the context, use `\text` instead
+
+### numerating with different symbols
+use for example `\begin{enumerate}[i)]`
 ### Problems
 *
 ```
