@@ -65,9 +65,12 @@ here is a link for [draw lines in matrix](https://tex.stackexchange.com/question
 ### display math environment should end with $$
 it's possible that there is a extra new line at the end of the block. Deleting the extraneous line would clear the issue
 
+### drawing the icosahedron
+here is a link [to draw a icosahedron](https://tex.stackexchange.com/questions/88760/how-to-draw-an-icosahedron) or [to draw a polyhedra](https://tex.stackexchange.com/questions/17204/drawing-polyhedra-using-tikz-with-semi-transparent-and-shading-effect)
 ### labeling the icosahedron
 the `tikzpicture` alone cannot be numbered, so capsulate it into a figure and number it. To follow the numbering of theorems, using the same technique as in equation. `\numberwithin`
-
+### positioning the icosahedron
+use the `\begin{center}` command, here is [a similar question](https://tex.stackexchange.com/questions/8625/force-figure-placement-in-text)
 ### matrix 
 to print different parentheses, using `\left [` for example
 
@@ -85,6 +88,9 @@ dont use `mbox` since it will not consider the font size in the context, use `\t
 
 ### numerating with different symbols
 use for example `\begin{enumerate}[i)]`
+
+### Too many math alphabet
+I guess it's because too many fontstyle in an environment. Be thrifty. Here is a link to [a similar question](https://tex.stackexchange.com/questions/3676/too-many-math-alphabets-error)
 ### Problems
 *
 ```
@@ -101,4 +107,9 @@ One solution for typing non-equivalent sign
 error:
 ```
 /usr/local/texlive/2018/texmf-dist/tex/latex/unicode-math/unicode-math.sty:35: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! [  }]
+
+*
+```
+LaTeX Font Warning: Size substitutions with differences(Font) up to 0.43996pt have occurred.
+```
 ```

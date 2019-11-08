@@ -35,11 +35,11 @@
 \newcommand{\tParamDesign}[4]{\ensuremath{\bm{#1\mbox{-}(#2,#3,#4)\; design}}}
 \newcommand{\steinerSystem}[3]{\ensuremath{{S(#1,#2,#3)}}}
 \newcommand{\myBlock}{{block}}
-\newcommand{\pluralMyBlock}{\textbf{blocks}}
+\newcommand{\pluralMyBlock}{{blocks}}
 \newcommand{\xDesign}[1]{\ensuremath{\bm{#1\mbox{-}design}}}
 \newcommand{\dDes}{\ensuremath{\mathcal{D}}}
 % codes symbol
-\newcommand{\cCodes}{\ensuremath{\widetilde{\mathcal{G}}}}
+\newcommand{\cCodes}{\ensuremath{\widetilde{\mathrm{G}}}}
 \newcommand{\simpleCodes}{\ensuremath{\mathrm{C}}}
 \newcommand{\cCodesVertical}{\cCodes^{\bot}}
 \newcommand{\buildVertical}[1]{\ensuremath{#1^{\bot}}}
@@ -52,7 +52,7 @@
 \newcommand{\modularK}[1]{\ensuremath{M_{#1}}}
 \newcommand{\eisenSeries}[1]{\ensuremath{E_{#1}}}
 
-\newcommand{\tildcCodes}{\ensuremath{\widetilde{\mathcal{C}}}}
+\newcommand{\tildcCodes}{\ensuremath{{\mathrm{G}}}}
 \newcommand{\tSet}[1]{\ensuremath{\bm{#1\mbox{-}{set}}}}
 \newcommand{\tSubset}[1]{\ensuremath{\bm{#1\mbox{-}{subset}}}}
 \newcommand{\code}[3]{\ensuremath{\bm{(#1,#2,#3)\mbox{-}code}}}
@@ -104,7 +104,7 @@ The theta function $\thetaFunction{\Gamma}$ of the lattice $\Gamma$ is defined a
 \[
 	\thetaFunction{\Gamma}(\tau) \, := \,\sum_{x \in \Gamma} q^{\frac{1}{2}(x\cdot x)} 
 \] 
-We recall the main theorem introduced on the lecture of Mr.Caspers. 
+We recall the main theorem on even unimodular lattice
 \begin{theorem}\label{evenUniLattice}
 Let $\Gamma$ be an even unimodular lattice in $\Real^n$. Then
 \begin{enumerate}
@@ -330,7 +330,7 @@ We shall first need some definitions.
 \begin{definition}\label{designDef} \hfill
 	\begin{enumerate}
 		\item A set with $t$ elements is called a \textbf{t-set}, a subset of a given set with $t$ elements is called a \textbf{t-subset}
-		\item Let $V$ be a \textbf{v-set} and each element is called a \textbf{point}. Let {\dDes} be a collection of disjoint \textbf{k-subset}. Every such \textbf{k-subset} is called a \textbf{block}. If for any \textbf{t-subset} $T$, there are exactly $\mathbf{\lambda}$ \textbf{k-subsets} $B$ from $S$, s.t, $T \subset B$ then {\dDes} is called a \tCompleteDesign . We also sometimes simply call it a $\bm{t}$-design.
+		\item Let $V$ be a \textbf{v-set} and each element is called a \textbf{point}. Let {\dDes} be a collection of disjoint \textbf{k-subset}. Every such \textbf{k-subset} is called a \textbf{block}. If for any \textbf{t-subset} $T$, there are exactly $\mathbf{\lambda}$ \textbf{k-subsets} $B$ from $S$, s.t, $T \subset B$ then {\dDes} is called a \tCompleteDesign . We sometimes simply call it a $\bm{t}$-design.
 		\item A $\bm{t\mbox{-}(v,k,1)}$ design is called a \emph{Steiner System}, denoted as $\bm{S(t,k,v)}$
 	\end{enumerate}
 \end{definition}
@@ -345,7 +345,7 @@ If {\dDes} be a $\bm{t\mbox{-}design}$. Then {\dDes} is also a $\bm{s\mbox{-}des
 \begin{proof}
 Let {\dDes} be a \tCompleteDesign.
 Let $S$ be a s-subset, we count the pairs $(T,B)$ with the property, that $S \subset T \subset B$, with $T$ a t-subset and $B$ a block of {\dDes}. We denote $\lambda_s$ as the number of blocks in {\dDes} which contains $S$. We want to show that $\lambda_s$ is independent of the set $S$, but only depends on the size of the set. 
-For each $\binom{v-s}{t-s}$ choices of $T$ that contains $S$, we have $\lambda$ {\pluralMyBlock} $B$ whicht contains $T$. In another way, for each of the $\lambda_s$ $\myBlock$ that contains $S$, there are $\binom{k-s}{t-s}$ choices for $T$. So we have:
+For each $\binom{v-s}{t-s}$ choices of $T$ that contains $S$, we have $\lambda$ {\pluralMyBlock} $B$ which contains $T$. In another way, for each of the $\lambda_s$ $\myBlock$ that contains $S$, there are $\binom{k-s}{t-s}$ choices for $T$. So we have:
 \begin{align}
 	\lambda_s \, \binom{k-s}{t-s} &= \lambda \, \binom{v-s}{t-s} \notag\\
 	\Rightarrow  \quad \lambda_s &= \frac{\lambda \, \binom{v-s}{t-s}}{\binom{k-s}{t-s}} \label{sDesign}
@@ -365,7 +365,7 @@ Let us denote $\lambda_0$ as $b$ (total number of blocks) and
 $\lambda_1$ as $r$ (total number of blocks containg a given point)\\
 Before proving the next lemma, we need a another fact from linear algebra.
 \begin{lemma}\label{invertible}
-Let $I$ be the identiy matrix in {$M := \myMatrixRing{\mathbb{R}}{n}$} Let $J \in M$ be the matrix with all entries equal to 1, and $k \in \mathbb{R}^*$ then $A := I + kJ$ is invertible
+Let $I$ be the identity matrix in {$M := \myMatrixRing{\mathbb{R}}{n}$} Let $J \in M$ be the matrix with all entries equal to 1, and $k \in \mathbb{R}^*$ then $A := I + kJ$ is invertible
 \end{lemma}
 \begin{proof}
 Since $(kJ)^2 = k^2 n J$ we have for the minimal polynomial of A :
@@ -520,7 +520,7 @@ We come to the main theorem in this section.
 Let {\cCodes} be a binary {\code{24}{2^{12}}{8}} containing 0. Then {\cCodes} is a up to equivalence the only one doubly even self-dual linear {\linearCode{24}{12}{8}}. We call {\cCodes} the \emph{extended Golay code}
 \end{theorem}
 \begin{proof}
-Let {\cCodes} be such a code. We first punctuate a poisition 
+Let {\cCodes} be such a code. We first punctuate a position 
 of each code word and denote the resulted code as {\tildcCodes}.
 This code has minimum distance 7 or 8. So it is a {\code{23}{2^{12}}{7}} or {\code{23}{2^{12}}{8}}. No matter the minimum distance is 7 or 8, the sphere $B(c,3)$ are disjoint from each other for all codes $c \in \tildcCodes$.\\
 We show that the minimum distance is 7.  Indeed, we have
@@ -557,14 +557,14 @@ we obtain thus the following weight counts:
 		A_{22} &= \ldots = 0\\
 		A_{23} &= \frac{\binom{23}{20}}{\binom{23}{20}} = 1
 	\end{align*}
-Now if {\cCodes} contains a codeword of weight $w$ which is not divisible by 4, then by puncturing the {\cCodes} appropriately, we will have codeword of weight $w$ or $w - 1$ not equal to 0 or -1 (mod 4), which contradicts the weight enumerator coefficients calculated above. So we conclude that {\cCodes} is doubly even and we have thus the weight enumerator coefficients for {\cCodes}
+Now if {\cCodes} contains a codeword of weight $w$ which is not divisible by 4, then by puncturing the {\cCodes} appropriately, we will obtain codeword of weight $w$ or $w - 1$ not equal to 0 or -1 (mod 4), which contradicts the weight enumerator coefficients calculated above. So we conclude that {\cCodes} is doubly even and we have thus the weight enumerator coefficients for {\cCodes}
 \[
 	A_0 = A_{24} = 1, \, A_{8} = A_{16} = 759,\, A_{12} = 2576
 \]
 In particular all the distances between two codewords are divisible by 4. We deduce from \ref{distWeightEqn} that for all
 $u,v \in \cCodes$, $\langle u, v\rangle \in 2\Integer$, and in this case we have $\cCodes \subset \cCodesVertical$. But since $\cCodesVertical$ is a linear subspace of dimensions 24 - dim$\langle \cCodes \rangle \leq 12$. It follows that $\langle \cCodes \rangle$ has less than $2^{12}$ elements. Since $\cCodes \subset \langle \cCodes \rangle$ we follow from the cardinality of $\cCodes$ that $\cCodes = \cCodesVertical$ and $\cCodes$ is linear.\\
 Now we prove the uniqueness of such codes. \\
-Consider a codeword $u$ of weight 12 in {\cCodes} and since $A_{24} = 1$, we have another codeword $\bar{u}$ s.t $u + \bar{u} = 1^{24}$ where here $1^{24}$ stands for the all-one vector in $\ftwoN{24}$. Let us denote $\cCodes_u$ as the subspace when we puncture all the positions of $\cCodes$ given by the support of $u$. Define the function $\pi_{u}$ as the canonical projection.
+Consider a codeword $u$ of weight 12 in {\cCodes} and since $A_{24} = 1$, we have another codeword $\bar{u}$ s.t $u + \bar{u} = 1^{24}$ where $1^{24}$ stands for the all-one vector in $\ftwoN{24}$. Let us denote $\cCodes_u$ as the subspace when we puncture all the positions of $\cCodes$ given by the support of $u$. Define the function $\pi_{u}$ as the canonical projection.
 We have for $c \in \cCodes$, both $c$ and $c + u$ will be projected to the same image. Since $c$ is arbitrarily chosen, it follow that $|\cCodes_u| \leq \frac{2^{12}}{2} = 2^{11}$. Now if there are two different codewords $x,y \in \cCodes$ s.t $\pi_{u}(c) = \pi_{u}(y)$ and $x - y = v \neq u$. Then we know that $u$ covers $v$ and $v \in \cCodes$ so $\wt{v} \geq 8$. It follows that $\dist{u}{v} \leq 4$, contradicting the fact that the minimum distance is 8. So $\cCodes_u$ has exactly $2^{11}$ elements hence a linear subspace of dimension 11.\\
 For all the codes $v \in \cCodes_u$, Let $x \in \cCodes$ s.t $\pi_u(x) = v$. It follows that $\wt{v} = x \cdot \bar{u} \in 2\Integer$ since $x, \bar{u} \in \cCodes$ and $\cCodes$ is doubly even. It follows that $\cCodes_u$ is of word length 12, dimension 11, and every codeword is of even length.
 So by arranging the columns of the codeword appropriately, we have the generator matrix of \cCodes:
@@ -587,10 +587,10 @@ The matrix $A$ has consequently two properties:
 	\item every two rows have distance $\geq 6$ \label{ArowDist}
 \end{enumerate}
 We claim that we have actually in both properties equality.\\
-First equality: take for example, $G_{1,-}$ and $G_{2,-}$. We have $\dist{G_{1,-}}{G_{2,-}} = \dist{1^{11}}{A_{1,-}} + 3 \geq 8$. So $\wt{A_{1,-}} \leq 6$. Combining the property \ref{ApropWt}, $\wt{A_{1,-}} = 6$. Similarly, all the row of $A$ must have weight 6.\\
-Second equality: since {\cCodes} is doubly even and linear, $4 \,|\, \dist{G_{i,-}}{G_{j,-}}$, for $1 \leq i,j \leq 12$. Using the equality in property \ref{ApropWt}, we have $\dist{A_{i,-}}{A_{j,-}} \in \{ 6, 10 \}$. If $\dist{A_{i,-}}{A_{j,-}} = 10$, then it follows that $\dist{1^{11}}{A_{i,-} - A_{j,-}} = 1$, and hence $\dist{G_{1,-}}{G_{i,-}- G_{j,-}} = 4$, contradicting the fact that {\cCodes} has minimum weight 8. So equality holds.\\
-Now, we only need to prove the uniqueness, where we resort to proposition \ref{onlyOneDesign}.\\
-The idea is to prove that the $A$ submatrix in $G$ up to column and corresponding row permutation %(i.e the automorphism of {\cCodes} restricted on the ) 
+\underline{First equality}: take for example, $G_{1,-}$ and $G_{2,-}$. We have $\dist{G_{1,-}}{G_{2,-}} = \dist{1^{11}}{A_{1,-}} + 3 \geq 8$. So $\wt{A_{1,-}} \leq 6$. Combining the property \ref{ApropWt}, $\wt{A_{1,-}} = 6$. Similarly, all the row of $A$ must have weight 6.\\
+\underline{Second equality}: since {\cCodes} is doubly even and linear, $4 \,|\, \dist{G_{i,-}}{G_{j,-}}$, for $1 \leq i,j \leq 12$. Using the equality in property \ref{ApropWt}, we have $\dist{A_{i,-}}{A_{j,-}} \in \{ 6, 10 \}$. If $\dist{A_{i,-}}{A_{j,-}} = 10$, then it follows that $\dist{1^{11}}{A_{i,-} - A_{j,-}} = 1$, and hence $\dist{G_{1,-}}{G_{i,-}- G_{j,-}} = 4$, contradicting the fact that {\cCodes} has minimum weight 8. So equality holds.\\
+Now, we only need to prove the uniqueness. We resort to proposition \ref{onlyOneDesign}.\\
+The idea is to prove that the submatrix $A$ in $G$ is up to column and corresponding row permutation %(i.e the automorphism of {\cCodes} restricted on the ) 
 unique. We define $B := J_{11} - A$, where $J$ is the $11 \times 11$ matrix with all entries 1. We have $\wt{B_{i,-}} = 5$, for all $1 \leq i \leq 11$. And $\dist{B_{i,-}}{B_{j,-}} = 6$. Using \ref{distWeightEqn}, it follows $\wt{B_{i,-} \cap B_{j,-}} = 2$. We define a set of elevent elements $P$ and a collection {\dDes} of eleven {\tSubset{5}} of $P$. For clarity, we denote each element of $P$ as point, and each element of {\dDes} as block. Note it is not a coincidence with the definition \ref{designDef}, since we will see {\dDes} is actually a design. We identify $B$ as the incidence matrix of the collection {\dDes}. We have $BJ = 5J$. Since each two blocks of {\dDes} has exactly two points in common and $|P| = |\dDes|$, there is a bijection between $M  := {D| D \subset \dDes, |D| = 2}$ and $N := {T|T \subset P, |T| = 2}$ by defining 
 \[
 	\phi: M \rightarrow N, \quad \{\,B_1,B_2\,\} \mapsto B_1 \bigcap B_2
@@ -623,47 +623,13 @@ It follows that $A$ has the form:
 0 & 1 & 0 & 0 & 0 & 1 & 1 & 0 & 0 & 1 & 1 & 1		
 	\end{pmatrix}
 \]
-
-More over, define $B := J_{12} - A$. We have 
-\begin{equation}\label{JMinusA}
-	B^tB = I_{12} \,\in \,{\myMatrixRing{\Ftwo}{12}}.\\
-\end{equation}
-we have for the column vector $B_{-,i} = u + v_i$,where $u = J_{12\,-,i}$ and $v = A_{-,i}$:
-\begin{align*}
-	(u + v_i)^t(u + v_j) &= u^tu + u^t(v_i + v_j) + v_i^tv_j\\
-						 &= 12 + a + b
-\end{align*}
-Now by observing the figure \ref{icosahedron}, it follows that
-$v_i + v_j \in {10,8}, v_i^tv_j \in {2,0} in \Integer$, in particular, all the three terms above are 0 in $\Ftwo$. So  the row of the matrix $G := (I_{12} B)$  generate the the {\linearCode{24}{12}{8}} \cCodes.
-\begin{proof}
-The generated code is certainly linear, of length 24 and has dimension 12. The only thing to prove is the minimum distance.\\
-By observing the matrix of $G$ we find that each row of $G$ has weight 8, in particular divisable by 4. So using (\ref{distWeightEqn}), we deduce that {\cCodes} is doubly even.\\
-Observing that $G^tG = I_{24}$, we have {\cCodes} is self-dual.\\
-For the linear combination of more than three rows of $G$ we have on the first 12 position at least four 1s. And by using (\ref{JMinusA}) it is impossible on the right half of the 12 position of codeword to be complete 0. (other wise $B$ would have nontrivial kernel which contradicts the fact that $B$ is invertible). In particular every such combination creates codeword with codeword $\geq$ 5, hence at least 8. So the only case to consider choice of two or three vectors. \\
-On reconsidering the icosahedron, from which the adjacency matrix $A$ is derived, we could make a similar interpretation of $B$, that is 
-\[
-	B_{i,j} = 
-	\begin{cases}
-		0, &\text{there is an edge between point $i$ and point $j$}\\
-		1, &\text{otherwise}
-	\end{cases}
-\]
-And for the sum $c_{i,j} := B_{i,-} + B_{j,-} $ of two row vectors of $B$
-\[
-	c_{i,j}(k) = 
-	\begin{cases}
-		1, &\text{there is an edge from point $i$ or $j$ to $k$, but not both}\\
-		0, &\text{otherwise}
-	\end{cases}
-\]
-% The symmetry group of icosahedron acts on the pair of points and have three orbits.
-The possible results are $\{\,6,10\,\}$. With two 1s on the left 12 positions,  the weights are $\{\,8,12\,\}$
-Similarly, for the sum of three vectors $v_i$ ,$v_j$ and $v_k$, there is a 1 at position $l$ if vertice $l$ is connected to exactly two of the three or none of the three.
-  the possible results are $\{\,5,9\,\}$. With three 1s on the left 12 poisitions, the weights are $\{\,8,12\,\}$. 
-\end{proof}
 \begin{figure}
+\begin{center}
+\advance\leftskip-3cm
+\advance\rightskip-3cm
+
 \tdplotsetmaincoords{60}{100}
-    \begin{tikzpicture}[tdplot_main_coords,scale=1,line join=round]
+    \begin{tikzpicture}[tdplot_main_coords,scale=0.5,line join=round]
     \pgfmathsetmacro\a{2}
     \pgfmathsetmacro{\phi}{\a*(1+sqrt(5))/2}
     \path 
@@ -706,7 +672,47 @@ Similarly, for the sum of three vectors $v_i$ ,$v_j$ and $v_k$, there is a 1 at 
 \end{tikzpicture}
 \caption{icosahedron}
 \label{icosahedron}
+\end{center}
 \end{figure}
+
+More over, define $B := J_{12} - A$. We have 
+\begin{equation}\label{JMinusA}
+	B^tB = I_{12} \,\in \,{\myMatrixRing{\Ftwo}{12}}.\\
+\end{equation}
+we have for the column vector $B_{-,i} = u + v_i$,where $u = J_{12\,-,i}$ and $v = A_{-,i}$:
+\begin{align*}
+	(u + v_i)^t(u + v_j) &= u^tu + u^t(v_i + v_j) + v_i^tv_j\\
+						 &= 12 + a + b
+\end{align*}
+Now by observing the figure \ref{icosahedron}, it follows that
+$v_i + v_j \in {10,8}, v_i^tv_j \in {2,0} in \Integer$, in particular, all the three terms above are 0 in $\Ftwo$. So  the row of the matrix $G := (I_{12} B)$  generate the the {\linearCode{24}{12}{8}} \cCodes.
+\begin{proof}
+The generated code is certainly linear, of length 24 and has dimension 12. The only thing to prove is the minimum distance.\\
+By observing the matrix of $G$ we find that each row of $G$ has weight 8, in particular divisable by 4. So using (\ref{distWeightEqn}), we deduce that {\cCodes} is doubly even.\\
+Observing that $G^tG = I_{24}$, we have {\cCodes} is self-dual.\\
+For the linear combination of more than three rows of $G$ we have on the first 12 position at least four 1s. And by using (\ref{JMinusA}) it is impossible on the right half of the 12 position of codeword to be complete 0. (other wise $B$ would have nontrivial kernel which contradicts the fact that $B$ is invertible). In particular every such combination creates codeword with codeword $\geq$ 5, hence at least 8. So the only case to consider choice of two or three vectors. \\
+On reconsidering the icosahedron, from which the adjacency matrix $A$ is derived, we could make a similar interpretation of $B$, that is 
+\[
+	B_{i,j} = 
+	\begin{cases}
+		0, &\text{there is an edge between point $i$ and point $j$}\\
+		1, &\text{otherwise}
+	\end{cases}
+\]
+And for the sum $c_{i,j} := B_{i,-} + B_{j,-} $ of two row vectors of $B$
+\[
+	c_{i,j}(k) = 
+	\begin{cases}
+		1, &\text{there is an edge from point $i$ or $j$ to $k$, but not both}\\
+		0, &\text{otherwise}
+	\end{cases}
+\]
+% The symmetry group of icosahedron acts on the pair of points and have three orbits.
+The possible results are $\{\,6,10\,\}$. With two 1s on the left 12 positions,  the weights are $\{\,8,12\,\}$
+Similarly, for the sum of three vectors $v_i$ ,$v_j$ and $v_k$, there is a 1 at position $l$ if vertice $l$ is connected to exactly two of the three or none of the three.
+  the possible results are $\{\,5,9\,\}$. With three 1s on the left 12 poisitions, the weights are $\{\,8,12\,\}$. 
+\end{proof}
+
 
 Now we want to construct an even unimodular lattice with $a_1 = 0$, i.e., does not contains roots, using the extended golay code {\cCodes}.
 We recall that $\rho :\Integer^{24} \rightarrow \Ftwo^{24}$ defines a canonical projection and the corresponding lattice of the {\cCodes} is $\buildLattice{\cCodes} := \frac{1}{\sqrt{2}}\rho^{-1}(\cCodes)$. We denote $\Gamma := \rho^{-1}(\cCodes)$ .\\ The goal is to construct a lattice which contains no roots based on $\Gamma$. We recall that an element $x$ in a lattice is called a root if and only if $x^2 = 2$. We want to construct a lattice of the form $\frac{1}{\sqrt{2}}\Gamma_1$, for some sublattice $\Gamma_1$ of $\Gamma$, so we want to find a lattice which contains no elements of squared length 4, i.e. $x^2 = 4$. \\For every element $x$ of $\Gamma$, $x = c + 2y$, for $c \in \cCodes , y\in \Integer^{24}$. \\
@@ -795,7 +801,8 @@ So $\Lambda_{24}$ is unimodular.
 %Note that $\wt{c}$ is divisable by 4. so $x^2 \equiv \sum{y_i}$
 
 \section{The MacWilliams Identity and Gleason's Theorem}\label{sectionMacWill}
-We have till now studied the theta function for the lattices and the weight enumerator for the binary codes. And we have learned there is a relationship between the binary codes and the corresponding lattices. It may be interesting to study the relevance between the theta function and the weight enumerator.
+We have till now studied the theta function of the lattices and the weight enumerator of the binary codes. And we have learned there is a relationship between the binary codes and the corresponding lattices. We will study in this section first the relevance between the theta function and the weight enumerator, then we will prove the \emph{MacWilliams Identity} and \emph{Gleason's Theorem} using the properties of theta functions.\\
+
 We consider first two functions:
 % \begin{equation}\label{Afunc}
 % 	A(\tau) := \sum_{x \in \Integer}q^{x\cdot x} = 1 + 2q + 2q^4 + 2q^9 + \ldots
@@ -837,7 +844,7 @@ When we consider $A$ and $B$ as two variables, and consider now the ``rotation b
 		1 & -1
 	\end{matrix}
 	\right]
-\] in the $(A,B)$-plane. For simplicity of notation we identify $A$ as $(A,0)^t$ and $B$ as $(0,B)$, then it follows that:
+\] in the $(A,B)$-plane. For simplicity of notation we identify $A$ as $(A,0)^t$ and $B$ as $(0,B)^t$, then it follows that:
 \begin{align*}
 	QA &= \frac{1}{\sqrt{2}}\,(A + B)\\
 	QB &= \frac{1}{\sqrt{2}}\,(A - B) 
@@ -862,7 +869,7 @@ We have
  &= \tau^{12}p(A,B) = g(\tau)
 \end{align*}
 \end{proof}
-Since $A$ is invariant under the transformation $\tau \mapsto \tau + 1$ and so does $B^4$. It follows that {\twoFourDegreeAB} is invariant under this transformation.\\
+Since $A$ is invariant under the transformation $\tau \mapsto \tau + 1$ and so does $B^4$, it follows that {\twoFourDegreeAB} is invariant under this transformation.\\
 Combining these two results, we deduce that $\twoFourDegreeAB$ is a modular form of weight 12.
 \begin{prop}\label{twoFourDegABDelta}
 \[
@@ -952,7 +959,7 @@ Thus
 \[
 	\weightEnumerator{\buildVertical{\simpleCodes}}{A}{B} = \frac{1}{2^k} \weightEnumerator{\simpleCodes}{A \,+\, B}{A \, - \, B}
 \]
-We only need to prove that $A$ and $B$ are algebraic independent. But recall that from corollary \ref{E4E6collary}, all the modular forms is generated by the $E_4$ and $E_6$ (as algebra). This implies that the modular form with weight divisable by 4 is generated by $E_4$ and $\Delta$ . But recall example \ref{e8Example} and proposition \ref{twoFourDegABDelta}:
+We only need to prove that $A$ and $B$ are algebraically independent. But recall that from corollary \ref{E4E6collary}, all the modular forms is generated by the $E_4$ and $E_6$ (as algebra). This implies that the modular form with weight divisable by 4 is generated by $E_4$ and $\Delta$ . But recall example \ref{e8Example} and proposition \ref{twoFourDegABDelta}:
 \begin{align*}
 	E_4 &= A^8 + 14A^4B^4 + B^8\\
 	\Delta &= \frac{1}{16}A^4B^4(A^4 - B^4)^4
@@ -961,11 +968,11 @@ It follows that $A$ and $B$ are algebraically independent and we are done.
 \end{proof}
 \begin{example}\label{macWilliamsHamingExample}
 Let's now reexamine the example \ref{hammingExample}.
-We have the weight enumerator for $H$
+We have the weight enumerator of $H$
 \[
 	\weightEnumerator{H}{X}{Y} = X^7 + 7X^4Y^3 + 7X^3Y^4 + 1
 \]
-Now we use \emph{MacWilliams Identity} to caculate the weight enumerator for the dual code. We have
+Now we use \emph{MacWilliams Identity} to caculate the weight enumerator of the dual code. We have
 \begin{align*}
 	\weightEnumerator{\buildVertical{H}}{X}{Y} 
 	&= \frac{1}{2^4}\weightEnumerator{H}{X+Y}{X-Y}\\
@@ -1009,7 +1016,7 @@ We have seen in the proof of theorem \ref{MacWilliamsTheorem}, that the algebra 
 \begin{example}\label{golayEnumerExample}
 As an application of \emph{Gleason Theorem}, we would like to calculate the \emph{hamming weight enumerator} of the extended Golay code {\cCodes}.\\
 We have known from section \ref{golaySection}, that {\cCodes} is self-dual and doubly even. So according to \emph{Gleason Theorem}, {\weightEnumerator{\cCodes}{X}{Y}} $\in \Integer[\phi,\rho]$ (since all the coefficients must be integer).\\
-Since {\weightEnumerator{\cCodes}{X}{Y}} is homogeneous of degree 24, and the leading coefficient of $X^24$ is 1, it follows that:
+Since {\weightEnumerator{\cCodes}{X}{Y}} is homogeneous of degree 24, and the leading coefficient of $X^{24}$ is 1, it follows that:
 \[
 	\weightEnumerator{\cCodes}{X}{Y} = \phi^3 + k \cdot \xi, \quad \quad \mbox{for some k $\in \Integer$}
 \]
@@ -1028,7 +1035,7 @@ With the help of theorem \ref{GleasonTheorem}, the weight enumerator of $\simple
 \[
 	W_{\simpleCodes} = \sum_{j = 0}^{m}\,b_j\,\phi^{3(m-j)+k} \,\xi^j, \qquad b_j \in \Complex
 \]
-Now we can choose the coefficients of $b_j$, such that $A_{4l} = 0$, for $l = 1,\ldots,m$ (it's possible, by solving $m$ equations in $m$ variables). Then the possibly non-zero coefficient $A_{4m + 4}$ is uniquely determined by $b_j$, whcih we denote by $A_{4m+4}^{*}$ .The code, with such property is called an \emph{extremal code}. An extremal code has thus minimum distance at least $4m + 4$. It can be shown that the minimum distance is $4m + 4$ by showing that $A_{4m + 4}^* \neq 0$ for all $m \geq 1$, details see chapter 19, section 5 of \cite{macwilliams1977theory}\\
+Now we can choose the coefficients of $b_j$, such that $A_{4l} = 0$, for $l = 1,\ldots,m$ (it's possible, by solving $m$ equations in $m$ variables). Then the possibly non-zero coefficient $A_{4m + 4}$ is uniquely determined by $b_j$, which we denote by $A_{4m+4}^{*}$ . The code with such property is called an \emph{extremal code}. An extremal code has thus minimum distance at least $4m + 4$. It can be shown that the minimum distance is $4m + 4$ by showing that $A_{4m + 4}^* \neq 0$ for all $m \geq 1$, details see chapter 19, section 5 of \cite{macwilliams1977theory}\\
 But this $m$ cannot be large, since it is shown by Mallows, that for $m$ sufficiently large, $n = 24m$
 \[
 	A_{4m + 8}^* < 0
@@ -1042,7 +1049,7 @@ With the analog argument, we can find coefficients, such that we can cancel all 
 \[
 	\thetaFunction{\Gamma}(\tau) = 1 \,+\, a_{2m + 2}^* q^{2m + 2}\, +\, \ldots
 \]
-Such lattice is called an \emph{extremal lattice}. One can also show that $m$ can not be too large. The is worth noting is that our dear Prof.Nebe has proven in 2010 the existence of an extremal even unimodular lattice in $\Real^{72}$
+Such lattice is called an \emph{extremal lattice}. One can also show that $m$ can not be too large. The is worth noting is that our dear Prof. Nebe has proven in 2010 the existence of an extremal even unimodular lattice in $\Real^{72}$
 
 \newpage
 \bibliography{seminarReference}
