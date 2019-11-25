@@ -113,3 +113,40 @@ error:
 LaTeX Font Warning: Size substitutions with differences(Font) up to 0.43996pt have occurred.
 ```
 ```
+
+### omitting the date 
+use `\date{}`
+
+###  customize contents setting
+here is a link to [content customization](https://tex.stackexchange.com/questions/157396/formatting-of-the-table-of-contents)  
+In the code , I use
+```
+\usepackage{titletoc}
+....
+
+\dottedcontents{section}[0em]{\bfseries}{2.9em}{1pc}
+\dottedcontents{subsection}[0em]{}{3.3em}{1pc}
+```
+
+### draw horizontal line
+```
+\begin{center}
+\line(1,0){500}
+\end{center}
+```
+
+### page layout
+* to reduce top margin
+```
+\setlength{\topmargin}{0pt}
+```  
+* to reduce the space to the top edge
+```
+\setlength{\voffset}{-0.75in}
+```  
+here is a [link](https://tex.stackexchange.com/questions/62448/remove-vertical-space-at-start-of-latex-document)  
+here is another link [setting margin](https://tex.stackexchange.com/questions/46175/setting-exact-margins)  
+I have used
+```
+\usepackage[left=2cm, right=2cm, top=2cm]{geometry}
+```
