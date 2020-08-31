@@ -17,6 +17,7 @@
 \newcommand{\WLOG}{w.l.o.g}
 \newcommand{\abs}[1]{\ensuremath{|#1|}}
 \newcommand{\warningTheorem}{\emph{Warning Theorem}}
+\newcommand{\polyDeg}[1]{deg(\ensuremath{#1})}
 
 \begin{document}
     \section{Proof of Kemnitz Conjecture}
@@ -38,5 +39,25 @@
             &\phantom{\Rightarrow}\quad\quad\quad&1 + (p-1)^p (p|J) + (p-1)^{2p}(2p-1|J) &\equiv 0 \\
             &\Rightarrow &1 - (p|J) + (2p|J) &\equiv 0
         \end{alignat}
+    \end{proof}
+    \begin{remark}
+        Note that in the case where $\abs{J} = 3p-1$ or $3p-2$, the three polynomials we examined
+        all have the same number of monomials, i.e. $\abs{J}$, diffrent from in the case in $\abs{J} = 3p-3$. This
+        is due to the fact the total degrees of the three polynomials (denoted as $f_i, i \in \{1,2,3\}$) natuarlly satisfy $\sum_{i} \polyDeg{f_i} < \abs{J}$
+    \end{remark}
+
+    \begin{corollary}
+        If $\abs{X} = 4p-3$, then
+        \begin{enumerate}
+            \item $-1 + (p|X) - (2p|X) + (3p|X) \equiv 0$
+            \item $(p-1|X) - (2p-1|X) + (3p-1|X) \equiv 0$
+        \end{enumerate}
+    \end{corollary}
+    \begin{proof}
+        Consider the polynomials $f_1,f_2,f_3$
+        \[\sum_{n = 1}^{4p-3}x_n^{p-1}, \quad \sum_{n=1}^{4p-3}a_nx_n^{p-1} \hbox{and}\sum_{n=1}^{4p-3}b_n x_n^{p-1}\]
+        The polynomials satisfy $\deg_i \polyDeg{f_i} < 4p-3$, so the \warningTheorem{} is applicable.
+        By doing the analogous as in Corollary~\ref{cor:origCountingJ3p}, we obtain the first equation.
+        
     \end{proof}
 \end{document}
