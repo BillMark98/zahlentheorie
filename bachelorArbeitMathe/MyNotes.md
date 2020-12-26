@@ -14,3 +14,8 @@ see e.g. [here](https://latexref.xyz/_005cwlog.html).
 * [cayley graph for abelian group](https://people.eecs.berkeley.edu/~luca/expanders2016/lecture15.pdf)
 * [graph partitioning](https://people.eecs.berkeley.edu/~luca/expanders2016/)
 * [cheeger inequality](https://people.eecs.berkeley.edu/~luca/expanders2016/lecture03.pdf), [intro](https://people.eecs.berkeley.edu/~luca/expanders2016/lecture01.pdf)
+
+# tex
+
+1. [stack multilines under sum symbol](https://tex.stackexchange.com/questions/80460/expression-under-summation-on-multiple-lines), use `\sum_{\substack{some things}}`
+2. 
