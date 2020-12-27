@@ -18,4 +18,41 @@ see e.g. [here](https://latexref.xyz/_005cwlog.html).
 # tex
 
 1. [stack multilines under sum symbol](https://tex.stackexchange.com/questions/80460/expression-under-summation-on-multiple-lines), use `\sum_{\substack{some things}}`
-2. 
+2. [vertical bar for set condition and abs](https://tex.stackexchange.com/questions/187162/vertical-bar-for-absolute-value-and-conditional-expectation)
+I have used the code 
+
+```latex
+\usepackage{mathtools,nccmath}%
+\usepackage{ etoolbox, xparse} 
+
+\DeclarePairedDelimiterX{\abs}[1]\lvert\rvert{\ifblank{#1}{\,\cdot\,}{#1}}
+
+\let\oldabs\abs
+\def\abs{\futurelet\testchar\MaybeOptArgAbs}
+\def\MaybeOptArgAbs{\ifx[\testchar\let\next\OptArgAbs
+\else \let\next\NoOptArgAbs\fi \next}
+\def\OptArgAbs[#1]#2{\oldabs[#1]{#2}}
+\def\NoOptArgAbs#1{\ifblank{#1}{\oldabs{}}{\oldabs[\big]{#1}}}
+
+\def\Abs{\oldabs*}
+
+\DeclarePairedDelimiterX{\set}[1]\{\}{\setargs{#1}}
+\NewDocumentCommand{\setargs}{>{\SplitArgument{1}{;}}m}
+{\setargsaux#1}
+\NewDocumentCommand{\setargsaux}{mm}
+{\IfNoValueTF{#2}{#1}{\nonscript\,#1\nonscript\;\delimsize\vert\nonscript\:\allowbreak #2\nonscript\,}}
+%%% Syntaxe : \set{x ; P(x)})
+\let\oldset\set
+\def\set{\futurelet\testchar\MaybeOptArgSet}
+\def\MaybeOptArgSet{\ifx[\testchar \let\next\OptArgSet
+\else \let\next\NoOptArgSet \fi \next}
+\def\OptArgSet[#1]#2{\oldset[#1]{#2}}
+\def\NoOptArgSet#1{\OptArgSet[\big]{#1}}
+
+\def\Set{\oldset*}%
+```
+
+see also [here](https://tex.stackexchange.com/questions/43008/absolute-value-symbols) for more info, the `\mid` can be used as a simple set condition command.
+
+3. 
+4. 

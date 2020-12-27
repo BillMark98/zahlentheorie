@@ -12,16 +12,55 @@
 \numberwithin{equation}{theorem}
 \numberwithin{figure}{theorem}
 
+
+% ===============================
+% For abs and set
+\usepackage{mathtools,nccmath}%
+\usepackage{ etoolbox, xparse} 
+
+\DeclarePairedDelimiterX{\abs}[1]\lvert\rvert{\ifblank{#1}{\,\cdot\,}{#1}}
+
+\let\oldabs\abs
+\def\abs{\futurelet\testchar\MaybeOptArgAbs}
+\def\MaybeOptArgAbs{\ifx[\testchar\let\next\OptArgAbs
+\else \let\next\NoOptArgAbs\fi \next}
+\def\OptArgAbs[#1]#2{\oldabs[#1]{#2}}
+\def\NoOptArgAbs#1{\ifblank{#1}{\oldabs{}}{\oldabs[\big]{#1}}}
+
+\def\Abs{\oldabs*}
+
+\DeclarePairedDelimiterX{\set}[1]\{\}{\setargs{#1}}
+\NewDocumentCommand{\setargs}{>{\SplitArgument{1}{;}}m}
+{\setargsaux#1}
+\NewDocumentCommand{\setargsaux}{mm}
+{\IfNoValueTF{#2}{#1}{\nonscript\,#1\nonscript\;\delimsize\vert\nonscript\:\allowbreak #2\nonscript\,}}
+%%% Syntaxe : \set{x ; P(x)})
+\let\oldset\set
+\def\set{\futurelet\testchar\MaybeOptArgSet}
+\def\MaybeOptArgSet{\ifx[\testchar \let\next\OptArgSet
+\else \let\next\NoOptArgSet \fi \next}
+\def\OptArgSet[#1]#2{\oldset[#1]{#2}}
+\def\NoOptArgSet#1{\OptArgSet[\big]{#1}}
+
+\def\Set{\oldset*}
+% ==============================
+
+
 \newcommand{\Field}[1]{\ensuremath{\mathbb{F}_{#1}}}
+\newcommand{\IntegerP}[1]{\ensuremath{\mathbb{Z}_{#1}}}
 \newcommand{\PolynomialRing}[2]{\ensuremath{#1[x_1,x_2,\ldots,x_{#2}]}}
 \newcommand{\WLOG}{w.l.o.g}
-\newcommand{\abs}[1]{\ensuremath{|#1|}}
+% \newcommand{\abs}[1]{\ensuremath{|#1|}}
+\newcommand{\setCondition}{\mid}
 \newcommand{\warningTheorem}{\emph{Warning Theorem}}
 \newcommand{\polyDeg}[1]{deg(\ensuremath{#1})}
 \newcommand{\numSumSubset}[2]{\ensuremath{(#1|#2)}}
 
 \begin{document}
     \section{Proof of Kemnitz Conjecture}
+    For the following section, I use the notation $\equiv$ to denote the modulo in $\IntegerP{p}$.\\
+    The $0$ denotes the usual neutral element of addition in the corresponding abelian group. In particular,
+    $0$ denotes the standard $0$ in the abelian group $\IntegerP{p}$ and $(0,0)$ in the case of $\IntegerP{p}\times \IntegerP{p}$.
     \begin{corollary}\label{cor:origCountingJ3p}
         If $\abs{J} = 3p-3$, then $1 - \numSumSubset{p - 1}{J} - \numSumSubset{p}{J} + \numSumSubset{2p-1}{J} + \numSumSubset{2p}{J}\equiv 0$
     \end{corollary}
@@ -47,9 +86,37 @@
         is due to the fact the total degrees of the three polynomials (denoted as $f_i, i \in \{1,2,3\}$) natuarlly satisfy $\sum_{i} \polyDeg{f_i} < \abs{J}$
     \end{remark}
 
-    % \begin{corollary}
-    %     If $\abs
-    % \end{corollary}}
+    \begin{corollary}\label{cor:3pM13pM2_pJE0Imply2P}
+        If $\abs{J} = 3p-2$ or $\abs{J} = 3p-1$, then $\numSumSubset{p}{J} = 0$ implies $\numSumSubset{2p}{J}\equiv -1$.
+    \end{corollary}
+    \begin{proof}
+        This follows directly from Corollary~\ref{cor:corCountingJ3p} by setting $\numSumSubset{p}{J} = 0$.
+    \end{proof}
+    \begin{corollary}\label{cor:Exact3pZeroSum}
+        If $J$ contains exactly $3p$ elements, and $\sum_{x \in J} x \equiv 0$, then $\numSumSubset{p}{J} > 0$.
+    \end{corollary}
+    \begin{proof}
+        Assume that $\numSumSubset{p}{J} = 0$, this means that there are no subsets in $J$, of cardinality $p$ which 
+        builds a zero-sum sequence. In particular, if we randomly pick an $x \in J$ and consider the set $J-x$, it follows that
+        $\numSumSubset{p}{J-x} = 0$. Now, since $\abs{J-x} = 3p-1$, we can apply Corollary~\ref{cor:3pM13pM2_pJE0Imply2P} to obtain that 
+        $\numSumSubset{2p}{J-x} \equiv -1$, in particular, this implies that $\numSumSubset{2p}{J-x} > 0$. \\
+        We observe that $\forall A \subset J$, s.t. $\sum_{a \in A} a \equiv 0$,
+        \begin{align*}
+            \sum_{a\in A} a + \sum_{b\in J-A} b = \sum_{j \in J} j &\equiv 0\\
+            \Rightarrow \sum_{b \in J-A} b &\equiv 0
+        \end{align*}
+        We could see that the map $T$
+        \begin{align*}
+        T: \set{A\subset J; \abs[]{A} = p, \sum_{a \in A} a \equiv 0}
+        &\rightarrow \set{A\subset J; \abs[]{A} = 2p, \sum_{a\in A}a \equiv 0}\\
+            A &\mapsto J - A
+        \end{align*}
+        is a bijection. It follows that:
+        \begin{equation*}
+            \numSumSubset{p}{J} = \numSumSubset{2p}{J} \geq \numSumSubset{2p}{J - x} > 0,
+        \end{equation*}
+        which is a contradiction to the assumption $\numSumSubset{p}{J} = 0$
+    \end{proof}
     \begin{corollary}
         If $\abs{X} = 4p-3$, then
         \begin{enumerate}
@@ -84,21 +151,42 @@
                 &=\sum_{\substack{I,s.t.\\\abs{I} = 3p-3}}\;\sum_{ \substack{Y \subset I,\\\sum_{y\in Y} y= 0}}  1 \\
                 &= \sum_{I} \numSumSubset{p}{I}
         \end{align*}
-        Doing similar calculation. We get
-        \[\binom{4p-3}{3p-3} - \binom{3p-2}{2p-2}\numSumSubset{p-1}{X} \\ 
-        + \binom{2p-2}{p-2}\numSumSubset{2p-1}{X} + \binom{2p-3}{p-3}\numSumSubset{2p}{X} \equiv 0\]
+        Performing similar calculation, we get
+        \begin{align}
+            \binom{4p-3}{3p-3} &- \binom{3p-2}{2p-2}\numSumSubset{p-1}{X} - \binom{3p-3}{2p-3}\numSumSubset{p}{X}\nonumber\\ 
+            &+ \binom{2p-2}{p-2}\numSumSubset{2p-1}{X} + \binom{2p-3}{p-3}\numSumSubset{2p}{X} \equiv 0 \label{eqn:4p_3BinomModulo}               
+        \end{align}
         We finally prove that 
-        \[\binom{3p-3}{2p-3}\equiv 2\],
+        \begin{equation}\label{eqn:binomModulo1}
+            \binom{4p-3}{3p-3} \equiv 3, \binom{3p-2}{2p-2}\equiv 2,            
+        \end{equation}
         because:
         \begin{align*}
-            \binom{3p-3}{2p-3} &\equiv \frac{(3p-3) \cdots (3p-(p-1)) \cdot 2p \cdot (2p-1) \cdot (2p-2)}{p!}\\
-            &\equiv \frac{(3p-3) \cdots (3p-(p-1)) \cdot 2 \cdot (2p-1) \cdot (2p-2)}{(p-1)!} \\
-            &\equiv 2 \cdot(-1) \cdot (-3) (-4) \cdots (-(p-1)) \cdot(-1)\cdot(-2)\\
-            &\equiv 2 \cdot(-1) \cdot(p-1)!\\
+            \binom{4p-3}{3p-3} &\equiv \frac{(4p-3) \cdots (4p-(p-1)) \cdot 3p \cdot (3p-1) \cdot (3p-2)}{p!}\\
+            &\equiv \frac{(4p-3) \cdots (4p-(p-1)) \cdot 3 \cdot (3p-1) \cdot (3p-2)}{(p-1)!} \\
+            &\equiv 3 \cdot \frac{(-3) \cdot (-4) \cdots (-(p-1)) \cdot(-1)\cdot(-2)}{(p-1)!}\\
+            &\equiv 3 \cdot \frac{(p-1)!}{(p-1)!}\\
+            &\equiv 3
+        \end{align*}        
+        and
+        \begin{align*}
+            \binom{3p-2}{2p-2} &\equiv \frac{(3p-2) \cdots (3p-(p-1)) \cdot 2p \cdot (2p-1)}{p!}\\
+            &\equiv \frac{(3p-2) \cdots (3p-(p-1)) \cdot 2 \cdot (2p-1) \cdot (2p-2)}{(p-1)!} \\
+            &\equiv 2 \cdot \frac{(-2) \cdot (-4) \cdots (-(p-1)) \cdot(-1)}{(p-1)!}\\
+            &\equiv 2 \cdot \frac{(p-1)!}{(p-1)!}\\
             &\equiv 2
         \end{align*}
-        Similarly, 
-    \end{proof}
+        Note that we have used the fact that $p$ is an odd prime, so that $(-1)^{p-1} \equiv 1$.
+        Similarly, one can prove that
+        \begin{equation}\label{eqn:binomModulo2}
+            \binom{3p-3}{2p-3}\equiv 2, \binom{2p-2}{p-2} \equiv 1, \binom{2p-3}{p-3}\equiv 1.
+        \end{equation}
+        Combining the modulo equivalence in~\eqref{eqn:binomModulo1} and~\eqref{eqn:binomModulo2}, \eqref{eqn:4p_3BinomModulo} can be simplified to
+        \begin{equation}
+            3 - 2\numSumSubset{p-1}{X} - 2\numSumSubset{p}{X} + \numSumSubset{2p-1}{X} + \numSumSubset{2p}{X} \equiv 0, 
+        \end{equation}
+        which is what we want to prove.
+        \end{proof}
 
     \begin{corollary}
         If $\abs{X} = 4p- 3$  and $\numSumSubset{p}{X} = 0$, then $\numSumSubset{p-1}{X} \equiv \numSumSubset{3p-1}{X}$.
