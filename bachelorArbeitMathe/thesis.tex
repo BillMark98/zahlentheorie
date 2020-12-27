@@ -48,6 +48,7 @@
 
 \newcommand{\Field}[1]{\ensuremath{\mathbb{F}_{#1}}}
 \newcommand{\IntegerP}[1]{\ensuremath{\mathbb{Z}_{#1}}}
+\newcommand{\Integer}{\ensuremath{\mathbb{Z}}}
 \newcommand{\PolynomialRing}[2]{\ensuremath{#1[x_1,x_2,\ldots,x_{#2}]}}
 \newcommand{\WLOG}{w.l.o.g}
 % \newcommand{\abs}[1]{\ensuremath{|#1|}}
@@ -55,6 +56,8 @@
 \newcommand{\warningTheorem}{\emph{Warning Theorem}}
 \newcommand{\polyDeg}[1]{deg(\ensuremath{#1})}
 \newcommand{\numSumSubset}[2]{\ensuremath{(#1|#2)}}
+\newcommand{\circled}[1]{\ensuremath{#1}}
+
 
 \begin{document}
     \section{Proof of Kemnitz Conjecture}
@@ -92,7 +95,7 @@
     \begin{proof}
         This follows directly from Corollary~\ref{cor:corCountingJ3p} by setting $\numSumSubset{p}{J} = 0$.
     \end{proof}
-    \begin{corollary}\label{cor:Exact3pZeroSum}
+    \begin{corollary}\label{cor:Exact3pZeroSumHasPzeroSeq}
         If $J$ contains exactly $3p$ elements, and $\sum_{x \in J} x \equiv 0$, then $\numSumSubset{p}{J} > 0$.
     \end{corollary}
     \begin{proof}
@@ -117,7 +120,7 @@
         \end{equation*}
         which is a contradiction to the assumption $\numSumSubset{p}{J} = 0$
     \end{proof}
-    \begin{corollary}
+    \begin{corollary}\label{cor:4pM3_twoEquations}
         If $\abs{X} = 4p-3$, then
         \begin{enumerate}
             \item $-1 + (p|X) - (2p|X) + (3p|X) \equiv 0$
@@ -188,10 +191,65 @@
         which is what we want to prove.
         \end{proof}
 
-    \begin{corollary}
+    \begin{lemma}\label{lem:4pM3_pX0_impliesPM1_3PM1}
         If $\abs{X} = 4p- 3$  and $\numSumSubset{p}{X} = 0$, then $\numSumSubset{p-1}{X} \equiv \numSumSubset{3p-1}{X}$.
-    \end{corollary}
+    \end{lemma}
     \begin{proof}
-        Let $\chi$ denote the number 
+        We consider the partition of $X = A \bigcup B \bigcup C$, where 
+        \[\abs{A} = p-1, \quad \abs{B} = p-2, \quad \abs{C} = 2p.\] and 
+        \[\sum_{a \in A} a \equiv 0, \quad \sum_{b \in B} b \equiv \sum_{x \in X} x, \quad \sum_{c \in C} c \equiv 0\]
+        Let $\chi$ denote the number of such partition. We use two ways to compute the number $\chi$, the first one fixes $A$ and 
+        find out the possible set $C$:
+        \[\chi \equiv \sum_{A} \numSumSubset{2p}{X-A} \equiv \sum_{A} -1 \equiv -\numSumSubset{p-1}{X},\]
+        where we have used Corollary~\ref{cor:3pM13pM2_pJE0Imply2P}, for $J = X-A$, with $\abs{J} = 3p-2$ and the fact that 
+        \[0 \leq \numSumSubset{p}{J} \leq \numSumSubset{p}{X} = 0,\]
+        which leads to $\numSumSubset{p}{J} = 0$.
+        Now by fixing $B$ and count the possible set $C$, we get:
+        \[\chi \equiv \sum_{B} \numSumSubset{2p}{X-B} \stackrel{\circled{1}}{\equiv} \sum_{B} -1 
+        \stackrel{\circled{2}}{\equiv} \sum_{X-B}-1 \stackrel{\circled{3}}{\equiv} -\numSumSubset{3p-1}{X}\]
+        \begin{enumerate}
+            \item  We use the similar argumentation as before, since $\abs{X-B} = 3p-1$ and apply Corollary~\ref{cor:3pM13pM2_pJE0Imply2P}
+            leads to $\numSumSubset{2p}{X-B} \equiv -1$.    
+            \item The map T defined by:
+            \begin{align*}
+                T: \set{B\subset X; \abs[]{B} = p - 1, \sum_{b \in B} a \equiv \sum_{x \in X} x}
+                &\rightarrow \set{ J \subset X; \abs[]{J} = 3p-1, \sum_{j\in J}j \equiv 0}\\
+                    X &\mapsto X - B
+            \end{align*}
+            is a bijection, so that 
+            \[\sum_{B} 1 \equiv \sum_{X -B} 1\]
+            \item Since $\sum_{b\in B} b \equiv \sum_{x \in X} x$, it follows that 
+            \[\sum_{x \in X - B} x \equiv 0,\]
+            in particular 
+            \[\sum_{X-B} -1 \equiv -1 \cdot \numSumSubset{3p-1}{X}\]
+        \end{enumerate}
+        Now we are able to prove the \emph{Kemnitz conjecture}:        
+    \end{proof}
+    \begin{theorem}
+        Any choice of $4p-3$ lattice points in the plane $\Integer \times \Integer$ contains
+        a subset of cardinality $p$ whose centroid is a lattice point.
+    \end{theorem}
+    \begin{proof}
+        For the proof of the theorem, we recall the equations we obatined from Corollary~\ref{cor:4pM3_twoEquations} and Corollary~\ref{cor:4pM3_multiSum}:
+        \begin{align}
+            -1 + (p|X) - (2p|X) + (3p|X) &\equiv 0\\
+            (p-1|X) - (2p-1|X) + (3p-1|X) &\equiv 0\\
+            3 - 2\numSumSubset{p-1}{X} - 2\numSumSubset{p}{X} + \numSumSubset{2p-1}{X} + \numSumSubset{2p}{X} &\equiv 0.
+        \end{align}
+        Adding the three above equations, we obtain:
+        \begin{equation}\label{eqn:kemnitzSum3Eqn}
+            2 - \numSumSubset{p-1}{X} - \numSumSubset{p}{X} + \numSumSubset{3p-1}{X} + \numSumSubset{3p}{X} \equiv 0            
+        \end{equation}
+        Assume there is a set $X$, with $\abs{X} = 4p-3$ which contradicts the theorem, that is $\numSumSubset{p}{X} = 0$.
+        Using the previous Lemma~\ref{lem:4pM3_pX0_impliesPM1_3PM1}, we obtain $\numSumSubset{p-1}{X} \equiv \numSumSubset{3p-1}{X}$
+        Then \eqref{eqn:kemnitzSum3Eqn} simplifies to
+        \begin{equation}
+            2 - \numSumSubset{p}{X} + \numSumSubset{3p}{X} \equiv 0
+        \end{equation}
+        Since $p$ is odd, we see that $\numSumSubset{p}{X}$ and $\numSumSubset{3p}{X}$ could not both be $0$.
+        Since we assume that $\numSumSubset{p}{X} = 0$, it follows that $\numSumSubset{3p}{X} > 0$, i.e., there is a subset $J \subset X$,
+        $\abs{J} = 3p$ and $\sum_{j \in J} j \equiv 0$. 
+        But from Corollary~\ref{cor:Exact3pZeroSumHasPzeroSeq}, we see that $\numSumSubset{p}{J} > 0$, in particular $\numSumSubset{p}{X} > 0$,
+        which is a contradiction.
     \end{proof}
 \end{document}
