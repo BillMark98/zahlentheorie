@@ -3,6 +3,8 @@
 \theoremstyle{definition}
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{property}[theorem]{Property}
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{Algorithmus}{Algorithmus}
 \newtheorem{example}[theorem]{Example}
@@ -45,21 +47,47 @@
 \def\Set{\oldset*}
 % ==============================
 
+% =========
+% theroem
+\newcommand{\warningTheorem}{\emph{Warning Theorem}}
+\newcommand{\alonDubinerTheorem}{\emph{Alon-Dubiner Theorem}}
 
+% ========
+% number ring, fields
 \newcommand{\Field}[1]{\ensuremath{\mathbb{F}_{#1}}}
 \newcommand{\IntegerP}[1]{\ensuremath{\mathbb{Z}_{#1}}}
 \newcommand{\Integer}{\ensuremath{\mathbb{Z}}}
 \newcommand{\PolynomialRing}[2]{\ensuremath{#1[x_1,x_2,\ldots,x_{#2}]}}
+
+% ======
+% notations
+\newcommand{\zeroSumSeq}[1]{$0$-sum $#1$-subsequence}
+
+% =======
+% some functions
+\newcommand{\fnd}[2]{\ensuremath{f(#1,#2)}}
+\newcommand{\bigO}[1]{\ensuremath{\mathcal{O}(#1)}}
+\newcommand{\myAlphabetSubSupscript}[3]{\ensuremath{#1_{#2}^{#3}}}
+\newcommand{\TODO}{\textbf{!!!!!!! To Do !!!!!!!!!}}
+
 \newcommand{\WLOG}{w.l.o.g}
 % \newcommand{\abs}[1]{\ensuremath{|#1|}}
+
+% ======
+% math symbol
 \newcommand{\setCondition}{\mid}
-\newcommand{\warningTheorem}{\emph{Warning Theorem}}
+\newcommand{\mySetMinus}{\setminus}
+
 \newcommand{\polyDeg}[1]{deg(\ensuremath{#1})}
 \newcommand{\numSumSubset}[2]{\ensuremath{(#1|#2)}}
 \newcommand{\circled}[1]{\ensuremath{#1}}
 
 
 \begin{document}
+    \section{Introduction}
+    \begin{lemma}\label{lem:Erdos2NM1}
+        \fnd{n}{1} = 2n - 1
+    \end{lemma}
     \section{Proof of Kemnitz Conjecture}
     For the following section, I use the notation $\equiv$ to denote the modulo in $\IntegerP{p}$.\\
     The $0$ denotes the usual neutral element of addition in the corresponding abelian group. In particular,
@@ -195,7 +223,7 @@
         If $\abs{X} = 4p- 3$  and $\numSumSubset{p}{X} = 0$, then $\numSumSubset{p-1}{X} \equiv \numSumSubset{3p-1}{X}$.
     \end{lemma}
     \begin{proof}
-        We consider the partition of $X = A \bigcup B \bigcup C$, where 
+        We consider the partition of $X = A \cup B \cup C$, where 
         \[\abs{A} = p-1, \quad \abs{B} = p-2, \quad \abs{C} = 2p.\] and 
         \[\sum_{a \in A} a \equiv 0, \quad \sum_{b \in B} b \equiv \sum_{x \in X} x, \quad \sum_{c \in C} c \equiv 0\]
         Let $\chi$ denote the number of such partition. We use two ways to compute the number $\chi$, the first one fixes $A$ and 
@@ -252,4 +280,124 @@
         But from Corollary~\ref{cor:Exact3pZeroSumHasPzeroSeq}, we see that $\numSumSubset{p}{J} > 0$, in particular $\numSumSubset{p}{X} > 0$,
         which is a contradiction.
     \end{proof}
+
+    \section{Alon-Dubiner Theorem}
+    \begin{lemma}
+        \begin{alignat}{2}
+            (n-1) 2^d + 1 &\leq &\fnd{n}{d} &\leq (n-1)n^d + 1 \label{eqn:fndProp1}\\
+            \fnd{pq}{d} &\leq &\fnd{p}{d} &+ p(\fnd{q}{d} - 1) \label{eqn:fndProp2}
+        \end{alignat}
+    \end{lemma}
+    \begin{proposition}\label{prop:A_sets_sum_Cardinality_lowerBound}
+        \[\abs{A_1 + \ldots + A_s} \geq x^d.\]
+    \end{proposition}
+    \begin{proposition}\label{prop:a_plus_Y_M_Y_cardinality}
+        Suppose $W \geq 1$
+    \end{proposition}
+    
+    We can now prove the \alonDubinerTheorem{}. We first note that it suffices to prove the theorem
+    for the prime number. Because if $\fnd{p}{d} \leq cp \leq 2cp - (2c - 1)$, then it follows from 
+    \eqref{eqn:fndProp2} that for $n = pq$:
+    \begin{align*}
+        \fnd{pq}{d} \leq \fnd{p}{d} + p(\fnd{q}{d} - 1) &\leq 2cp - 2c + 1 + p (2cq - 2cp) \\
+        &= 2cn - (2c - 1) \leq 2cn
+    \end{align*}
+    As a consequence, we only prove the case when $n = p$ for $p$ a prime number.
+    It is worth noting that the constant $c$ is fixed given a dimension $d$, but may vary once the dimesion $d$ changes.\\
+    That is :
+    \begin{equation}\label{eqn:alonFndpBound}
+        \fnd{p}{d}\leq c(d) p
+    \end{equation}
+    We prove \eqref{eqn:alonFndpBound} by induction on $d$, with the constant $c(d)$ are defined by the following scheme:
+    \begin{equation}\label{eqn:alonCd_RecursiveForm}
+        c(1) = 2, \; c(d) = 256(d\log_2 d + 5) c(d-1) + (d+1),\hfill \hbox{for } d\geq 2
+    \end{equation}
+    We first check that the $c(d)$ satisfy the condition that $c(d) \leq (cd\log_2 d)^d$ for some absolute constant c.
+    Since by induction:
+    \begin{align*}
+        c(d) &= 256(d\log_2 d + 5) c(d-1) + (d+1) \\
+            &\leq 256(d\log_2 d + 5) (c(d-1) \log_2 (d-1))^{d-1} + (d + 1)\\
+            &\leq 256(d\log_2 d + 5) (cd \log_2 d)^{d-1} + (d + 1)\\
+            & \leq (256^{1/d}c^{\frac{d-1}{d}} d \log_2 d)^{d} + \bigO{(d\log_2 d)^d}\\
+            &\leq (\tilde{c}d\log_2 d)^d
+    \end{align*}
+    Besides, we could see that for the case $p \leq 32d$, \eqref{eqn:alonFndpBound} is already true, because:
+    \begin{align*}
+        \fnd{p}{d}\stackrel{(*)}{\leq} (p-1)\cdot p^d + 1 &= p^d \cdot p - p^d + 1\\
+        &\leq (32d)^d \cdot p \\
+        & \leq (32 d \log_2 d)^d p,
+    \end{align*}
+    where we have used \eqref{eqn:fndProp1} at (*).
+    We have already seen from Lemma~\ref{lem:Erdos2NM1} that $\fnd{p}{1} = 2p-1$, so \eqref{eqn:alonFndpBound} holds for $d = 1, c(1) = 2$.
+    Assuming the correctedness for $d-1$, we now prove the case $d$. We denote $S$ be a sequence of $c(d)p$ elements from $\IntegerP{p}^d$.
+    We consider two cases:
+    \begin{enumerate}
+        \item $\exists V \subset S$, with $\abs{V} \leq c(d-1) p$, s.t all the elements of $V$ lies on a hyperplane of $\IntegerP{p}^d$.
+        \item There are no such $V$s.
+    \end{enumerate}
+    For the first case, we can use the induction hypothesis to find a \zeroSumSeq{p} in $V$, thus also in $S$. \\
+    For the second case, we want to show that there exists pairwise disjoint subsets $A_1,\ldots,A_s, B_1,\ldots,B_t, \myAlphabetSubSupscript{A}{1}{'},\ldots,\myAlphabetSubSupscript{A}{s'}{'},B_1^{'},\ldots,B_{t'}^{'}$ of $S$,
+    with the following properties:
+    \begin{enumerate}
+        \item $\abs{A_i} = \abs{A_j^{'}} = s+1, \quad \forall i = 1,\ldots,s, j = 1,\ldots, s'$
+        \item $\abs{B_i} = \abs{B_j^{'}} = 2, \quad \forall i = 1, \ldots,t, j = 1,\ldots,t'$
+        \item $ s + t + s' + t' \leq p$
+        \item $\abs{A_1 + \ldots + A_s + B_1 + \ldots + B_t} > \frac{p^d}{2}$
+        \item $\abs{A_1^{'} + \ldots + A_{s'}^{'} + B_1^{'} + \ldots + B_{t'}^{'}} > \frac{p^d}{2}$
+    \end{enumerate}
+    From property 5 and 6, we could see from lemma\TODO{} that 
+    \begin{equation}\label{eqn:A_B_setSum_WholeSet}
+        A_1 + \ldots + A_s + B_1 + \ldots + B_t + A_1^{'} + \ldots + A_{s'}^{'} + B_1^{'} + \ldots + B_{t'}^{'} = \IntegerP{p}^d.
+    \end{equation}
+    which means, every element from $\IntegerP{p}^d$ can be written as a sum of $s + t + s' + t'$ elements in $S$. By choosing arbitrarily $m := p - s + t + s' + t'$ elements in
+    $S$ $s_1, \ldots, s_m$, that do not lie in $A_i, \myAlphabetSubSupscript{A}{i'}{}, B_j, \myAlphabetSubSupscript{B}{j'}{}$, we can see that from \eqref{eqn:A_B_setSum_WholeSet} that $\exists a_i \ in A_i, a_{i'}^{'} \in A_{i'}, b_j \in B_j, b_{j'}^{'} \in B_{j'}$, s.t
+    \begin{align*}
+        -(s_1 + \ldots + s_m) &= a_1 + \ldots + a_s + b_1 + \ldots + b_t + a_1^{'} + \ldots + \myAlphabetSubSupscript{a}{s'}{'} + \myAlphabetSubSupscript{b}{1}{'} + \ldots + \myAlphabetSubSupscript{b}{t'}{'}\\
+        0 &= a_1 + \ldots + a_s + b_1 + \ldots + b_t + a_1^{'} + \ldots + \myAlphabetSubSupscript{a}{s'}{'} + \myAlphabetSubSupscript{b}{1}{'} + \ldots + \myAlphabetSubSupscript{b}{t'}{'} + s_1 + \ldots + s_m 
+    \end{align*}
+    which means, we have found a \zeroSumSeq{p} in $S$.
+    It remains to prove the existence of the sets $A_i, \myAlphabetSubSupscript{A}{i'}{}, B_j, \myAlphabetSubSupscript{B}{j'}{}$. We will construct them one by one.
+    We first define $W = 64(d\log_2 d + 5 d)$ and we see from~\eqref{eqn:alonCd_RecursiveForm}:
+    \begin{equation}\label{eqn:cd_cdM1_W_prop}
+        \frac{c(d) p - p (d + 1)}{4W} = c(d - 1) p > \abs{V \bigcap S} \forall V \hbox{hyperplane in } \IntegerP{p}^d.
+    \end{equation}
+    This equation implies that even after we have deleted at most $p(d+1)$ elements from the set $S$, we can still make sure that no hyperplanes in $\IntegerP{p}^d$ contains
+    $\frac{1}{4W}$ of the elements of the remaining sets. By property 1, 2, 3, we see that
+    \[\abs{A_1 \cup \ldots \cup A_s \cup B_1 \cup \ldots \cup B_t \cup A_1^{'} \cup \ldots \cup A_{s'}^{'} \cup B_1^{'} \cup \ldots \cup B_{t'}^{'}} \leq p(d+1)\]
+    which means that the condition for the Proposition~\ref{prop:a_plus_Y_M_Y_cardinality} will hold throughout the selection of the subsets $A_i, \myAlphabetSubSupscript{A}{i'}{}, B_j, \myAlphabetSubSupscript{B}{j'}{}$.
+
+    We now begin to construct $A_i$. First, we find $x$ be a power of $2$ which satisfies:
+    \[\frac{p}{32d} \leq x \leq \frac{p}{16d}.\]
+    Put $s = s' = 4xd$, which leads to $s \leq \frac{p}{4}$. Let $A_1,\ldots,A_s$ and $\myAlphabetSubSupscript{A}{1}{'},\ldots,\myAlphabetSubSupscript{A}{s'}{'}$ be pairwise disjoint affine basis of $\IntegerP{p}^d$, each be a subset of $S$.
+    The existence of those sets is justifed by ~\eqref{eqn:cd_cdM1_W_prop}, because it means that the remaing set of $S$ does not lie on a hyperplane.(since each hyperplane contains less than $\frac{1}{4W}$ elements of the remaing set).
+    By Proposition~\ref{prop:A_sets_sum_Cardinality_lowerBound}
+    \begin{equation}
+        \abs{A_1 + \ldots + A_s} \geq x^d \geq (\frac{p}{32})^d.
+    \end{equation}
+    and similar inequality holds for $\myAlphabetSubSupscript{A}{1}{'},\ldots,\myAlphabetSubSupscript{A}{s'}{'}$.
+    We next want to find the subset $B_1,\ldots,B_t$. We put $Y = A_1 + \ldots + A_s$. If $\abs{Y} \geq \frac{p^d}{2}$ we are already done,
+    since we could just set $t = 0$ to satisfy property 4. 
+
+    \begin{equation*}
+        \abs{(a + Y)\cup Y} \geq (1 + \frac{W}{16p}) \abs{Y}.
+    \end{equation*}
+    Define $B_1 = {a + s', s'} \subset S'$, and observe that
+    \begin{equation*}
+        \abs{Y + B_1} = \abs{(a + Y)\cup Y} = \abs{(a+Y)\mySetMinus Y} + \abs{Y} \geq (1 + \frac{W}{16p}) \abs{Y}.
+    \end{equation*}
+    Next, we update $Y = A_1 + \ldots + A_s + B_1$ and update $S'$ to be $S' \mySetMinus B_1$. We stop this iterative process until
+    the set $Y$ has cardinality $\abs{Y} > \frac{p^d}{2}$. We could check that the total step $t$ will be bounded by $\frac{p}{4}$.
+    \begin{equation*}
+        \frac{W}{16p}^k \cdot (\frac{p}{32d})^d \leq (1 + \frac{W}{16p})^k \abs{ A_1 + \ldots + A_s} \leq \frac{p^d}{2}\\
+    \end{equation*}
+    We deduce that
+    \begin{align*}
+        \frac{W}{16p}^k \cdot (\frac{p}{32d})^d &\leq  \frac{p^d}{2}\\
+        k &\leq \frac{16p}{W}\log_2 (\frac{(32d)^d}{2})\\
+          &\leq \frac{16p}{W}\log_2 (32d)^d\\
+          &= \frac{16p}{64(d\log_2 d + 5 d)} \cdot (d\log_2 d + 5d) \\
+          &= \frac{p}{4}
+    \end{align*}
+    The set $\myAlphabetSubSupscript{B}{j}{'}$ can be found similarly. We see that all the four variables $s,t,s',t'$ are bounded by $\frac{p}{4}$,
+    which means that $ s + t + s' + t' \leq p$.
 \end{document}
