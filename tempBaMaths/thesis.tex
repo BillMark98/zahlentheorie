@@ -57,14 +57,21 @@
 % number ring, fields
 \newcommand{\Field}[1]{\ensuremath{\mathbb{F}_{#1}}}
 \newcommand{\IntegerP}[1]{\ensuremath{\mathbb{Z}_{#1}}}
+\newcommand{\modularInteger}[1]{\ensuremath{\mathbb{Z}/#1\mathbb{Z}}}
 \newcommand{\NaturalNumber}{\ensuremath{\mathbb{N}}}
 \newcommand{\Real}{\ensuremath{\mathbb{R}}}
+\newcommand{\Complex}{\ensuremath{\mathbb{C}}}
+\newcommand{\ComplexUnit}{\ensuremath{\mathbb{C}^{*}}}
+
 \newcommand{\Integer}{\ensuremath{\mathbb{Z}}}
 \newcommand{\PolynomialRing}[2]{\ensuremath{#1[x_1,x_2,\ldots,x_{#2}]}}
 
 % ======
 % notations
 \newcommand{\zeroSumSeq}[1]{$0$-sum $#1$-subsequence}
+\newcommand{\cayleyGraph}[2]{\ensuremath{\Gamma_{#1,#2}}}
+\newcommand{\adjacencyMatrixCayley}[2]{\ensuremath{A_{(#1,#2)}}}
+\newcommand{\characterGroup}[1][G]{\ensuremath{\hat{#1}}}
 
 % =======
 % some functions
@@ -73,6 +80,8 @@
 \newcommand{\myAlphabetSubSupscript}[3]{\ensuremath{#1_{#2}^{#3}}}
 \newcommand{\mySup}[1]{\sup{#1}}
 \newcommand{\myInf}[1]{\inf{#1}}
+\newcommand{\bilinearForm}[2]{\ensuremath{\langle#1,#2\rangle}}
+\newcommand{\composition}[2]{\ensuremath{#1\circ#2}}
 \newcommand{\TODO}{\textbf{!!!!!!! To Do !!!!!!!!!}}
 
 
@@ -304,6 +313,24 @@
         $\exists u \in \IntegerP{p}^d$, s.t. $ u\cdot v = c$ for a constant $c \in \IntegerP{p}$. where $\cdot$ denotes the standard
         scalar product. An \emph{affine basis} is a set $V \subset \IntegerP{p}^d$ with $\abs{V} = d+1$, s.t. $V$ is not contained in a hyperplane.
     \end{definition}
+        
+    \begin{definition}
+        Let $A$ and $B$ two subsets of a finite abelian group $G$, define
+        the addition and subtraction of the two sets as following:
+        \begin{align*}
+            A + B &:= \set{ a + b ; a \in A, b \in B }\\
+            A \minus B &:= \set{ a \minus b ; a \in A, b \in B }        
+        \end{align*}
+        \end{definition}
+    \begin{definition}
+        Let A be a subset of a finite abelian group $G$, $g \in G$, the
+        addition and subtraction of the element $g$ and subset $A$ is defined as following:
+        \begin{align*}
+            g + A &:= \set{ g + a ; a \in A }\\
+            g \minus A &:= \set{ g \minus a ; a \in A }
+        \end{align*}
+
+    \end{definition}
 
     \begin{lemma}\label{lem:plunneckeRuska_set_LowerBound}
         If $Y$ and $B$ are finite subsets of an abelian group and $h \in \NaturalNumber$, then
@@ -360,30 +387,125 @@
         In particular we see that $\abs{A_1 + \ldots + A_s} \geq x^d.$
     \end{proof}
 
+    \subsubsection{characters}
+    throughout this section, we assume $G$ is a finite abelian group, using additive notation. Let $S$ a multiset of $G$, with 
+    $S$ being symmetric, which means:
+    \[\forall x \in S \Rightarrow \minus x \in S\]
+    \begin{definition}
+        Let $G$ be an abelian group and $S$ a multiset of $G$, $S$ symmetric. The \emph{Cayley graph} 
+        $\cayleyGraph{G}{S}$ is defined as the graph $(G,E)$, with 
+        vertices be the group element of $G$ and the edge $E$ defined as:
+        \[E := \set{(g,s); g \in G, s \in S}.\] We denote the adjacency matrix of the graph \cayleyGraph{G}{S} as \adjacencyMatrixCayley{G}{S}.
+    \end{definition}
+    From the property of $S$, we could see that the adjacency matrix $\adjacencyMatrixCayley{G}{S}$ has the following property.
+    \begin{proposition}
+        $\adjacencyMatrixCayley{G}{S}$ is symmetric.
+    \end{proposition}
+    We know that since $\adjacencyMatrixCayley{G}{S}$ is symmetric, all its eigenvalues are real. Moreover, it turns out that we can precisely find out each 
+    eigenvalue of $\adjacencyMatrixCayley{G}{S}$. For that purpose, I would like to introduce the concept of characters.
+    I first introduce the general concept of a character to a general group, then confine to the case of finite abelian group.
+    \begin{definition}\label{def:characters}
+        Let $\Gamma$ be a group, a function $f : \Gamma \rightarrow \ComplexUnit$ is a \emph{character} of $\Gamma$ if 
+        $f$ is a group homomorphism, where $\ComplexUnit$ denotes the multiplicative group of the units of $\Complex$.
+        We denote $\characterGroup[\Gamma]$ to be the set of all possible characters of $\Gamma$.
+    \end{definition}
+    We now turn to the case of finite abelian group $G$. Using the notation from Definition~\ref{def:characters}, we denote the set of all characters of $G$ 
+    as $\characterGroup$.
+    We could easily see that all $\forall \chi \in \characterGroup$:
+    \[\chi (g)^{\abs[]{G}} = \chi(g^{\abs[]{G}}) = \chi (1) = 1,\]
+    that is the range of each character must be the $\abs{G}$-th root of unit in $\ComplexUnit$.
+    It is helpful to study the property of $\characterGroup$, which we state in the following lemma.
+    \begin{lemma}\label{lem:characterGroupIsAGroup}
+        $\characterGroup$ is a group with multiplication defined as the composition of characters, the neutral element
+        be the characters which maps all elements to $1$, (we denote it as $1$) and the inverse as the conjugation
+    \end{lemma}
+    \begin{proof}
+        We first prove that $\characterGroup$ is closed under multiplication. Because it is easily seen that 
+        given $\chi_1, \chi_2$, $\chi := \composition{\chi_1}{\chi_2}$ satisfies the definition of a character.
+        Let $\chi \in \characterGroup$, we could also easily see that $\chi^{*}$ is also a character.
+        Furthermore, we have 
+        \[\chi(g) \cdot \chi^{*}(g) = 1, \quad \forall g \in G\]
+        clearly $\chi^{*} = \chi^{-1}$.
+    \end{proof}
+    An interesting property of the character is given in the following lemma.
+    \begin{lemma}\label{lem:character_1st_Property}
+        Let $\chi \in \characterGroup$ which is not identitcal to $1$-mapping, i.e., maps every element to $1$.
+        Then
+        \[\sum_{g \in G} \chi(g) = 0\]
+    \end{lemma}
+    \begin{proof}
+        Since $\chi$ is not identical to $1$, $\exists h \in G$, with $\chi(h) \neq 1$. We obtain
+        \[\chi(h) \cdot \sum_{g\in G}\chi(g) = \sum_{g \in G} \chi(g + h) = \sum_{g \in G} \chi (g)\]
+        Reforming the equation we obtain:
+        \[(\chi(h) - 1) \cdot \sum_{g \in G} \chi(g).\]
+        Since $\chi(h) \neq 1$, it follows that $\sum_{g \in G} \chi(g) = 0$.
+    \end{proof}
+    We define an operator 
+    \begin{align*}
+    \bilinearForm{\cdot}{\cdot}: \characterGroup \times \characterGroup &\rightarrow \ComplexUnit\\
+    \bilinearForm{f}{h} &\mapsto \sum_{g\in G} f(g) h^{*}(g),
+    \end{align*}
+    where $*$ denotes the conjugation.
+    The characters have the following property:
+    \begin{lemma}\label{lem:character_2nd_Sum_Property}
+        Let $\chi_1,\chi_2$ be two characters of $G$, which are not equal. Then
+        \[\bilinearForm{\chi_1}{\chi_2} = 0\]
+    \end{lemma}
+    \begin{proof}
+        We know from Lemma~\ref{lem:characterGroupIsAGroup} that $\composition{\chi_1}{\chi_2^{*}}$ is also a character.
+        Since $\chi_1 \neq \chi_2$, it follows that $\exists g \in G$, s.t. $\chi_1(g) \neq \chi_2(g)$
+        \[\composition{\chi_1}{\chi_2^{*}}(g) \neq 1,\]
+        which means that $\composition{\chi_1}{\chi_2^{*}} $ is not $1$-mapping.
+        Using Lemma~\ref{lem:character_1st_Property}, we obtain
+        \begin{align*}
+            \bilinearForm{\chi_1}{\chi_2} &= \sum_{g \in G} \chi_1(g) \cdot \chi_2^{*}(g)\\
+            &= \sum_{g \in G} \composition{\chi_1}{\chi_2^{*}(g)} \\
+            &= 0.
+        \end{align*}
+    \end{proof}
+
+    Since all the functions of $\Complex^{G}$ can be treated as a \Complex-vector space, and the characters 
+    can be seen as a special case of $\Complex^{G}$ by extending the range to $\Complex$, we could find a natural bound of the cardinality of $\characterGroup$.
+    \begin{proposition}\label{prop:characterGroupNaturalBound}
+        $\abs{\characterGroup} \leq \abs{G}$
+    \end{proposition}
+    \begin{proof}
+        From the above discussion, we see that $\Complex^{G}$ has dimension $\abs{G}$.
+        We extend the bilinear form $\bilinearForm{\cdot}{\cdot}$ to $\Complex^{G} \times \Complex^{G}$, 
+        we see that this is a scalar product for the vector space.
+        From Lemma~\ref{lem:character_2nd_Sum_Property}, we see that different characters are orthogonal to each other.
+        In particular linear independent, the bound follows from the fact that the number of linear independent vectors is bounded by the dimension of the vector space.
+    \end{proof}
+    Next we would like to prove that $\abs{\characterGroup} = \abs{G}$.
+    We recall the structure theorem of finite abelian group that 
+    \begin{equation*}
+        G \cong \modularInteger{n_1} \bigoplus \cdots \bigoplus \modularInteger{n_s} ,\quad\hfill \hbox{for some }n_1, \ldots, n_s \in \NaturalNumber
+    \end{equation*}
+    It can be easily seen that if $\chi_1 \in \characterGroup{G_1}$ and $\chi_2 \in \characterGroup{G_2}$,
+    then  is a character on $G_1 \times G_2$. 
+    The injectiveness of the map
+    \begin{align*}
+        \characterGroup[G_1] \times \characterGroup[G_2] &\rightarrow \characterGroup[G_1 \times G_2]\\
+        \chi  \chi(g_1,g_2) &:= \chi_1(g_1)\cdot \chi(g_2)
+    \end{align*} 
+    is clear.
+    So we only need to focus on a single decomposition.
+    \begin{lemma}\label{lem:ZnModulo_character}
+        The character group of \modularInteger{n} has cardinality $n$.
+    \end{lemma}
+    \begin{proof}
+        Each character $\chi$ can be uniquely defined by $\chi(1)$ since $\modularInteger{n}$ is cycle.
+        The map
+        \[\chi(1) \mapsto \exp ^{\frac{2\pi k}{n}}, \quad k = 0,\ldots, n\minus 1 \]
+        uniquely determines $n$ characters.
+    \end{proof}
     \begin{proposition}\label{prop:a_plus_Y_M_Y_cardinality}
         Suppose $W \geq 1$, let $A$ be a sequence of elements in $\IntegerP{p}^d$ (possible to have equal elements) and 
         suppose no hyperplanes in $\IntegerP{p}^d$ contains more than $\frac{\abs[]{A}}{4W}$ members of $A$. Then $\forall Y \subset \IntegerP{p}^d$,
         with $\abs{Y} \leq \frac{p^d}{2}$, $\exists a \in A$, s.t.
         \[\abs{(a + Y)\mySetMinus Y} \geq \frac{W}{16p}\abs{Y}\]
     \end{proposition}
-    
-    \begin{definition}
-        Let $A$ and $B$ two subsets of a finite abelian group $G$, define
-        the addition and subtraction of the two sets as following:
-        \begin{align*}
-            A + B &:= \set{ a + b ; a \in A, b \in B }\\
-            A \minus B &:= \set{ a \minus b ; a \in A, b \in B }        
-        \end{align*}
-        \end{definition}
-    \begin{definition}
-        Let A be a subset of a finite abelian group $G$, $g \in G$, the
-        addition and subtraction of the element $g$ and subset $A$ is defined as following:
-        \begin{align*}
-            g + A &:= \set{ g + a ; a \in A }\\
-            g \minus A &:= \set{ g \minus a ; a \in A }
-        \end{align*}
 
-    \end{definition}
 
     \begin{lemma}\label{lem:A_B_SumToG}
         Let G be a finite abelian group, A, B are two subsets of G,
