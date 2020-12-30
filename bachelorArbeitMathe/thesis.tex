@@ -1,403 +1,409 @@
-\documentclass{article}
-\usepackage{amssymb,latexsym,amsmath,amsthm,mathtools}
-\theoremstyle{definition}
-\newtheorem{theorem}{Theorem}[section]
-\newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{proposition}[theorem]{Proposition}
-\newtheorem{property}[theorem]{Property}
-\newtheorem{definition}[theorem]{Definition}
-\newtheorem{Algorithmus}{Algorithmus}
-\newtheorem{example}[theorem]{Example}
-\newtheorem{corollary}[theorem]{Corollary}
-\newtheorem{prop}[theorem]{Proposition}
-\newtheorem{remark}[theorem]{Remark}
-\numberwithin{equation}{theorem}
-\numberwithin{figure}{theorem}
+\documentclass{bachelorThesis}
+% \usepackage{amssymb,latexsym,amsmath,amsthm,mathtools}
+% \theoremstyle{definition}
+% \newtheorem{theorem}{Theorem}[section]
+% \newtheorem{lemma}[theorem]{Lemma}
+% \newtheorem{proposition}[theorem]{Proposition}
+% \newtheorem{property}[theorem]{Property}
+% \newtheorem{definition}[theorem]{Definition}
+% \newtheorem{Algorithmus}{Algorithmus}
+% \newtheorem{example}[theorem]{Example}
+% \newtheorem{corollary}[theorem]{Corollary}
+% \newtheorem{prop}[theorem]{Proposition}
+% \newtheorem{remark}[theorem]{Remark}
+% \numberwithin{equation}{theorem}
+% \numberwithin{figure}{theorem}
 
 
-% ===============================
-% For abs and set
-\usepackage{mathtools,nccmath}%
-\usepackage{ etoolbox, xparse} 
+% % ===============================
+% % For abs and set
+% \usepackage{mathtools,nccmath}%
+% \usepackage{ etoolbox, xparse} 
 
-\DeclarePairedDelimiterX{\abs}[1]\lvert\rvert{\ifblank{#1}{\,\cdot\,}{#1}}
+% \DeclarePairedDelimiterX{\abs}[1]\lvert\rvert{\ifblank{#1}{\,\cdot\,}{#1}}
 
-\let\oldabs\abs
-\def\abs{\futurelet\testchar\MaybeOptArgAbs}
-\def\MaybeOptArgAbs{\ifx[\testchar\let\next\OptArgAbs
-\else \let\next\NoOptArgAbs\fi \next}
-\def\OptArgAbs[#1]#2{\oldabs[#1]{#2}}
-\def\NoOptArgAbs#1{\ifblank{#1}{\oldabs{}}{\oldabs[\big]{#1}}}
+% \let\oldabs\abs
+% \def\abs{\futurelet\testchar\MaybeOptArgAbs}
+% \def\MaybeOptArgAbs{\ifx[\testchar\let\next\OptArgAbs
+% \else \let\next\NoOptArgAbs\fi \next}
+% \def\OptArgAbs[#1]#2{\oldabs[#1]{#2}}
+% \def\NoOptArgAbs#1{\ifblank{#1}{\oldabs{}}{\oldabs[\big]{#1}}}
 
-\def\Abs{\oldabs*}
+% \def\Abs{\oldabs*}
 
-\DeclarePairedDelimiterX{\set}[1]\{\}{\setargs{#1}}
-\NewDocumentCommand{\setargs}{>{\SplitArgument{1}{;}}m}
-{\setargsaux#1}
-\NewDocumentCommand{\setargsaux}{mm}
-{\IfNoValueTF{#2}{#1}{\nonscript\,#1\nonscript\;\delimsize\vert\nonscript\:\allowbreak #2\nonscript\,}}
-%%% Syntaxe : \set{x ; P(x)})
-\let\oldset\set
-\def\set{\futurelet\testchar\MaybeOptArgSet}
-\def\MaybeOptArgSet{\ifx[\testchar \let\next\OptArgSet
-\else \let\next\NoOptArgSet \fi \next}
-\def\OptArgSet[#1]#2{\oldset[#1]{#2}}
-\def\NoOptArgSet#1{\OptArgSet[\big]{#1}}
+% \DeclarePairedDelimiterX{\set}[1]\{\}{\setargs{#1}}
+% \NewDocumentCommand{\setargs}{>{\SplitArgument{1}{;}}m}
+% {\setargsaux#1}
+% \NewDocumentCommand{\setargsaux}{mm}
+% {\IfNoValueTF{#2}{#1}{\nonscript\,#1\nonscript\;\delimsize\vert\nonscript\:\allowbreak #2\nonscript\,}}
+% %%% Syntaxe : \set{x ; P(x)})
+% \let\oldset\set
+% \def\set{\futurelet\testchar\MaybeOptArgSet}
+% \def\MaybeOptArgSet{\ifx[\testchar \let\next\OptArgSet
+% \else \let\next\NoOptArgSet \fi \next}
+% \def\OptArgSet[#1]#2{\oldset[#1]{#2}}
+% \def\NoOptArgSet#1{\OptArgSet[\big]{#1}}
 
-\def\Set{\oldset*}
-% ==============================
+% \def\Set{\oldset*}
+% % ==============================
 
-% =========
-% theroem
-\newcommand{\warningTheorem}{\emph{Warning Theorem}}
-\newcommand{\alonDubinerTheorem}{\emph{Alon-Dubiner Theorem}}
+% % =========
+% % theroem
+% \newcommand{\warningTheorem}{\emph{Warning Theorem}}
+% \newcommand{\alonDubinerTheorem}{\emph{Alon-Dubiner Theorem}}
 
-% ========
-% number ring, fields
-\newcommand{\Field}[1]{\ensuremath{\mathbb{F}_{#1}}}
-\newcommand{\IntegerP}[1]{\ensuremath{\mathbb{Z}_{#1}}}
-\newcommand{\Integer}{\ensuremath{\mathbb{Z}}}
-\newcommand{\PolynomialRing}[2]{\ensuremath{#1[x_1,x_2,\ldots,x_{#2}]}}
+% % ========
+% % number ring, fields
+% \newcommand{\Field}[1]{\ensuremath{\mathbb{F}_{#1}}}
+% \newcommand{\IntegerP}[1]{\ensuremath{\mathbb{Z}_{#1}}}
+% \newcommand{\Integer}{\ensuremath{\mathbb{Z}}}
+% \newcommand{\PolynomialRing}[2]{\ensuremath{#1[x_1,x_2,\ldots,x_{#2}]}}
 
-% ======
-% notations
-\newcommand{\zeroSumSeq}[1]{$0$-sum $#1$-subsequence}
+% % ======
+% % notations
+% \newcommand{\zeroSumSeq}[1]{$0$-sum $#1$-subsequence}
 
-% =======
-% some functions
-\newcommand{\fnd}[2]{\ensuremath{f(#1,#2)}}
-\newcommand{\bigO}[1]{\ensuremath{\mathcal{O}(#1)}}
-\newcommand{\myAlphabetSubSupscript}[3]{\ensuremath{#1_{#2}^{#3}}}
-\newcommand{\TODO}{\textbf{!!!!!!! To Do !!!!!!!!!}}
+% % =======
+% % some functions
+% \newcommand{\fnd}[2]{\ensuremath{f(#1,#2)}}
+% \newcommand{\bigO}[1]{\ensuremath{\mathcal{O}(#1)}}
+% \newcommand{\myAlphabetSubSupscript}[3]{\ensuremath{#1_{#2}^{#3}}}
+% \newcommand{\TODO}{\textbf{!!!!!!! To Do !!!!!!!!!}}
 
-\newcommand{\WLOG}{w.l.o.g}
-% \newcommand{\abs}[1]{\ensuremath{|#1|}}
+% \newcommand{\WLOG}{w.l.o.g}
+% % \newcommand{\abs}[1]{\ensuremath{|#1|}}
 
-% ======
-% math symbol
-\newcommand{\setCondition}{\mid}
-\newcommand{\mySetMinus}{\setminus}
+% % ======
+% % math symbol
+% \newcommand{\setCondition}{\mid}
+% \newcommand{\mySetMinus}{\setminus}
 
-\newcommand{\polyDeg}[1]{deg(\ensuremath{#1})}
-\newcommand{\numSumSubset}[2]{\ensuremath{(#1|#2)}}
-\newcommand{\circled}[1]{\ensuremath{#1}}
+% \newcommand{\polyDeg}[1]{deg(\ensuremath{#1})}
+% \newcommand{\numSumSubset}[2]{\ensuremath{(#1|#2)}}
+% \newcommand{\circled}[1]{\ensuremath{#1}}
 
 
 \begin{document}
-    \section{Introduction}
-    \begin{lemma}\label{lem:Erdos2NM1}
-        \fnd{n}{1} = 2n - 1
-    \end{lemma}
-    \section{Proof of Kemnitz Conjecture}
-    For the following section, I use the notation $\equiv$ to denote the modulo in $\IntegerP{p}$.\\
-    The $0$ denotes the usual neutral element of addition in the corresponding abelian group. In particular,
-    $0$ denotes the standard $0$ in the abelian group $\IntegerP{p}$ and $(0,0)$ in the case of $\IntegerP{p}\times \IntegerP{p}$.
-    \begin{corollary}\label{cor:origCountingJ3p}
-        If $\abs{J} = 3p-3$, then $1 - \numSumSubset{p - 1}{J} - \numSumSubset{p}{J} + \numSumSubset{2p-1}{J} + \numSumSubset{2p}{J}\equiv 0$
-    \end{corollary}
-    \begin{corollary}\label{cor:corCountingJ3p}
-        If $|J| = 3p-2$, or $|J| = 3p-1$, then $1 - (p|J) + (2p|J)\equiv 0$ 
-    \end{corollary}
-    \begin{proof}
-        Consider the polynomials in $\PolynomialRing{\Field{p}}{|J|}$,
-        \WLOG, $|J| = 3p-2$, the case for $\abs{J} = 3p-1$ is analogous.
+    % \section{Introduction}
+    % \begin{lemma}\label{lem:Erdos2NM1}
+    %     \fnd{n}{1} = 2n - 1
+    % \end{lemma}
+    % \section{Proof of Kemnitz Conjecture}
+    % For the following section, I use the notation $\equiv$ to denote the modulo in $\IntegerP{p}$.\\
+    % The $0$ denotes the usual neutral element of addition in the corresponding abelian group. In particular,
+    % $0$ denotes the standard $0$ in the abelian group $\IntegerP{p}$ and $(0,0)$ in the case of $\IntegerP{p}\times \IntegerP{p}$.
+    % \begin{corollary}\label{cor:origCountingJ3p}
+    %     If $\abs{J} = 3p-3$, then $1 - \numSumSubset{p - 1}{J} - \numSumSubset{p}{J} + \numSumSubset{2p-1}{J} + \numSumSubset{2p}{J}\equiv 0$
+    % \end{corollary}
+    % \begin{corollary}\label{cor:corCountingJ3p}
+    %     If $|J| = 3p-2$, or $|J| = 3p-1$, then $1 - (p|J) + (2p|J)\equiv 0$ 
+    % \end{corollary}
+    % \begin{proof}
+    %     Consider the polynomials in $\PolynomialRing{\Field{p}}{|J|}$,
+    %     \WLOG, $|J| = 3p-2$, the case for $\abs{J} = 3p-1$ is analogous.
 
-        \[\sum_{n=1}^{3p-3} x_n^{p-1}, \quad\sum_{n=1}^{3p-3}a_n x_n^{p-1} \hbox{and} \sum_{n = 1}^{3p-3}b_n x_n^{p-1}\]
-        since the total degrees are $3p-3 < 3p-2$, the \warningTheorem{} is applicable.
-        Their common zeros are counted as in Corollary~\ref{cor:origCountingJ3p},
-        we obtain:
-        \begin{alignat}{2}
-            &\phantom{\Rightarrow}\quad\quad\quad&1 + (p-1)^p (p|J) + (p-1)^{2p}(2p-1|J) &\equiv 0 \\
-            &\Rightarrow &1 - (p|J) + (2p|J) &\equiv 0
-        \end{alignat}
-    \end{proof}
-    \begin{remark}
-        Note that in the case where $\abs{J} = 3p-1$ or $3p-2$, the three polynomials we examined
-        all have the same number of monomials, i.e. $\abs{J}$, diffrent from in the case in $\abs{J} = 3p-3$. This
-        is due to the fact the total degrees of the three polynomials (denoted as $f_i, i \in \{1,2,3\}$) natuarlly satisfy $\sum_{i} \polyDeg{f_i} < \abs{J}$
-    \end{remark}
+    %     \[\sum_{n=1}^{3p-3} x_n^{p-1}, \quad\sum_{n=1}^{3p-3}a_n x_n^{p-1} \hbox{and} \sum_{n = 1}^{3p-3}b_n x_n^{p-1}\]
+    %     since the total degrees are $3p-3 < 3p-2$, the \warningTheorem{} is applicable.
+    %     Their common zeros are counted as in Corollary~\ref{cor:origCountingJ3p},
+    %     we obtain:
+    %     \begin{alignat}{2}
+    %         &\phantom{\Rightarrow}\quad\quad\quad&1 + (p-1)^p (p|J) + (p-1)^{2p}(2p-1|J) &\equiv 0 \\
+    %         &\Rightarrow &1 - (p|J) + (2p|J) &\equiv 0
+    %     \end{alignat}
+    % \end{proof}
+    % \begin{remark}
+    %     Note that in the case where $\abs{J} = 3p-1$ or $3p-2$, the three polynomials we examined
+    %     all have the same number of monomials, i.e. $\abs{J}$, diffrent from in the case in $\abs{J} = 3p-3$. This
+    %     is due to the fact the total degrees of the three polynomials (denoted as $f_i, i \in \{1,2,3\}$) natuarlly satisfy $\sum_{i} \polyDeg{f_i} < \abs{J}$
+    % \end{remark}
 
-    \begin{corollary}\label{cor:3pM13pM2_pJE0Imply2P}
-        If $\abs{J} = 3p-2$ or $\abs{J} = 3p-1$, then $\numSumSubset{p}{J} = 0$ implies $\numSumSubset{2p}{J}\equiv -1$.
-    \end{corollary}
-    \begin{proof}
-        This follows directly from Corollary~\ref{cor:corCountingJ3p} by setting $\numSumSubset{p}{J} = 0$.
-    \end{proof}
-    \begin{corollary}\label{cor:Exact3pZeroSumHasPzeroSeq}
-        If $J$ contains exactly $3p$ elements, and $\sum_{x \in J} x \equiv 0$, then $\numSumSubset{p}{J} > 0$.
-    \end{corollary}
-    \begin{proof}
-        Assume that $\numSumSubset{p}{J} = 0$, this means that there are no subsets in $J$, of cardinality $p$ which 
-        builds a zero-sum sequence. In particular, if we randomly pick an $x \in J$ and consider the set $J-x$, it follows that
-        $\numSumSubset{p}{J-x} = 0$. Now, since $\abs{J-x} = 3p-1$, we can apply Corollary~\ref{cor:3pM13pM2_pJE0Imply2P} to obtain that 
-        $\numSumSubset{2p}{J-x} \equiv -1$, in particular, this implies that $\numSumSubset{2p}{J-x} > 0$. \\
-        We observe that $\forall A \subset J$, s.t. $\sum_{a \in A} a \equiv 0$,
-        \begin{align*}
-            \sum_{a\in A} a + \sum_{b\in J-A} b = \sum_{j \in J} j &\equiv 0\\
-            \Rightarrow \sum_{b \in J-A} b &\equiv 0
-        \end{align*}
-        We could see that the map $T$
-        \begin{align*}
-        T: \set{A\subset J; \abs[]{A} = p, \sum_{a \in A} a \equiv 0}
-        &\rightarrow \set{A\subset J; \abs[]{A} = 2p, \sum_{a\in A}a \equiv 0}\\
-            A &\mapsto J - A
-        \end{align*}
-        is a bijection. It follows that:
-        \begin{equation*}
-            \numSumSubset{p}{J} = \numSumSubset{2p}{J} \geq \numSumSubset{2p}{J - x} > 0,
-        \end{equation*}
-        which is a contradiction to the assumption $\numSumSubset{p}{J} = 0$
-    \end{proof}
-    \begin{corollary}\label{cor:4pM3_twoEquations}
-        If $\abs{X} = 4p-3$, then
-        \begin{enumerate}
-            \item $-1 + (p|X) - (2p|X) + (3p|X) \equiv 0$
-            \item $(p-1|X) - (2p-1|X) + (3p-1|X) \equiv 0$
-        \end{enumerate}
-    \end{corollary}
-    \begin{proof}
-        Consider the polynomials $f_1,f_2,f_3$
-        \[\sum_{n = 1}^{4p-3}x_n^{p-1}, \quad \sum_{n=1}^{4p-3}a_nx_n^{p-1} \hbox{and}\sum_{n=1}^{4p-3}b_n x_n^{p-1}\]
-        The polynomials satisfy $\deg_i \polyDeg{f_i} < 4p-3$, so the \warningTheorem{} is applicable.
-        By doing the analogous as in Corollary~\ref{cor:origCountingJ3p}, we obtain the first equation.
+    % \begin{corollary}\label{cor:3pM13pM2_pJE0Imply2P}
+    %     If $\abs{J} = 3p-2$ or $\abs{J} = 3p-1$, then $\numSumSubset{p}{J} = 0$ implies $\numSumSubset{2p}{J}\equiv -1$.
+    % \end{corollary}
+    % \begin{proof}
+    %     This follows directly from Corollary~\ref{cor:corCountingJ3p} by setting $\numSumSubset{p}{J} = 0$.
+    % \end{proof}
+    % \begin{corollary}\label{cor:Exact3pZeroSumHasPzeroSeq}
+    %     If $J$ contains exactly $3p$ elements, and $\sum_{x \in J} x \equiv 0$, then $\numSumSubset{p}{J} > 0$.
+    % \end{corollary}
+    % \begin{proof}
+    %     Assume that $\numSumSubset{p}{J} = 0$, this means that there are no subsets in $J$, of cardinality $p$ which 
+    %     builds a zero-sum sequence. In particular, if we randomly pick an $x \in J$ and consider the set $J-x$, it follows that
+    %     $\numSumSubset{p}{J-x} = 0$. Now, since $\abs{J-x} = 3p-1$, we can apply Corollary~\ref{cor:3pM13pM2_pJE0Imply2P} to obtain that 
+    %     $\numSumSubset{2p}{J-x} \equiv -1$, in particular, this implies that $\numSumSubset{2p}{J-x} > 0$. \\
+    %     We observe that $\forall A \subset J$, s.t. $\sum_{a \in A} a \equiv 0$,
+    %     \begin{align*}
+    %         \sum_{a\in A} a + \sum_{b\in J-A} b = \sum_{j \in J} j &\equiv 0\\
+    %         \Rightarrow \sum_{b \in J-A} b &\equiv 0
+    %     \end{align*}
+    %     We could see that the map $T$
+    %     \begin{align*}
+    %     T: \set{A\subset J; \abs[]{A} = p, \sum_{a \in A} a \equiv 0}
+    %     &\rightarrow \set{A\subset J; \abs[]{A} = 2p, \sum_{a\in A}a \equiv 0}\\
+    %         A &\mapsto J - A
+    %     \end{align*}
+    %     is a bijection. It follows that:
+    %     \begin{equation*}
+    %         \numSumSubset{p}{J} = \numSumSubset{2p}{J} \geq \numSumSubset{2p}{J - x} > 0,
+    %     \end{equation*}
+    %     which is a contradiction to the assumption $\numSumSubset{p}{J} = 0$
+    % \end{proof}
+    % \begin{corollary}\label{cor:4pM3_twoEquations}
+    %     If $\abs{X} = 4p-3$, then
+    %     \begin{enumerate}
+    %         \item $-1 + (p|X) - (2p|X) + (3p|X) \equiv 0$
+    %         \item $(p-1|X) - (2p-1|X) + (3p-1|X) \equiv 0$
+    %     \end{enumerate}
+    % \end{corollary}
+    % \begin{proof}
+    %     Consider the polynomials $f_1,f_2,f_3$
+    %     \[\sum_{n = 1}^{4p-3}x_n^{p-1}, \quad \sum_{n=1}^{4p-3}a_nx_n^{p-1} \hbox{and}\sum_{n=1}^{4p-3}b_n x_n^{p-1}\]
+    %     The polynomials satisfy $\deg_i \polyDeg{f_i} < 4p-3$, so the \warningTheorem{} is applicable.
+    %     By doing the analogous as in Corollary~\ref{cor:origCountingJ3p}, we obtain the first equation.
         
-    \end{proof}
-    \begin{corollary}\label{cor:4pM3_multiSum}
-        If $\abs{X} = 4p-3$, then $3 - 2\numSumSubset{p-1}{X} - 2\numSumSubset{p}{X} + \numSumSubset{2p-1}{X} + \numSumSubset{2p}{X} \equiv 0$.
-    \end{corollary}
+    % \end{proof}
+    % \begin{corollary}\label{cor:4pM3_multiSum}
+    %     If $\abs{X} = 4p-3$, then $3 - 2\numSumSubset{p-1}{X} - 2\numSumSubset{p}{X} + \numSumSubset{2p-1}{X} + \numSumSubset{2p}{X} \equiv 0$.
+    % \end{corollary}
 
-    \begin{proof}
-        We deduce from Corollary~\ref{cor:origCountingJ3p} that:
-        \[\sum_I 1 - \numSumSubset{p-1}{I} - \numSumSubset{p}{I} + \numSumSubset{2p-1}{I} + \numSumSubset{2p}{I} \equiv 0,\]
-        where the sum is over $I\subset X$, s.t, $\abs{I} = 3p-3$. 
-        For a given subset $Y \subset X$,s.t $\abs{Y} = p$ and $\sum_{y\in Y} y \equiv 0$, we want to find out the number of pairs
-        $(Y,I)$, s.t $Y\subset I, \abs{I} = 3p-3$. \\We could see that 
-        \[\abs{\{(Y,I)| Y\subset I, \abs{I} = 3p-3}\} = \binom{3p-3}{2p-3},\]
-        since once we have chosen $p$ elements $Y$, we need to further choose $\abs{I} - p = 3p-3 - p = 2p-3$ elements from
-        total $\abs{X} - p = 4p-3 -p = 3p-3$ elements.
-        Note that
-        \[ \sum_{ \substack{Y \subset X,\\\sum_{y\in Y} y= 0}} \sum_{\substack{I,s.t. \\Y\subset I,\\\abs{I} = 3p-3}} 1\]
-        \begin{align*}
-            \binom{3p-3}{2p-3} \numSumSubset{p}{X} = \sum_{ \substack{Y\subset X\\ \sum_{y\in Y} y = 0}} \binom{3p-3}{2p-3} &= \sum_{ \substack{Y \subset X,\\\sum_{y\in Y} y= 0}} \sum_{\substack{I,s.t. \\Y\subset I,\\\abs{I} = 3p-3}} 1\\
-                &=\sum_{\substack{I,s.t.\\\abs{I} = 3p-3}}\;\sum_{ \substack{Y \subset I,\\\sum_{y\in Y} y= 0}}  1 \\
-                &= \sum_{I} \numSumSubset{p}{I}
-        \end{align*}
-        Performing similar calculation, we get
-        \begin{align}
-            \binom{4p-3}{3p-3} &- \binom{3p-2}{2p-2}\numSumSubset{p-1}{X} - \binom{3p-3}{2p-3}\numSumSubset{p}{X}\nonumber\\ 
-            &+ \binom{2p-2}{p-2}\numSumSubset{2p-1}{X} + \binom{2p-3}{p-3}\numSumSubset{2p}{X} \equiv 0 \label{eqn:4p_3BinomModulo}               
-        \end{align}
-        We finally prove that 
-        \begin{equation}\label{eqn:binomModulo1}
-            \binom{4p-3}{3p-3} \equiv 3, \binom{3p-2}{2p-2}\equiv 2,            
-        \end{equation}
-        because:
-        \begin{align*}
-            \binom{4p-3}{3p-3} &\equiv \frac{(4p-3) \cdots (4p-(p-1)) \cdot 3p \cdot (3p-1) \cdot (3p-2)}{p!}\\
-            &\equiv \frac{(4p-3) \cdots (4p-(p-1)) \cdot 3 \cdot (3p-1) \cdot (3p-2)}{(p-1)!} \\
-            &\equiv 3 \cdot \frac{(-3) \cdot (-4) \cdots (-(p-1)) \cdot(-1)\cdot(-2)}{(p-1)!}\\
-            &\equiv 3 \cdot \frac{(p-1)!}{(p-1)!}\\
-            &\equiv 3
-        \end{align*}        
-        and
-        \begin{align*}
-            \binom{3p-2}{2p-2} &\equiv \frac{(3p-2) \cdots (3p-(p-1)) \cdot 2p \cdot (2p-1)}{p!}\\
-            &\equiv \frac{(3p-2) \cdots (3p-(p-1)) \cdot 2 \cdot (2p-1) \cdot (2p-2)}{(p-1)!} \\
-            &\equiv 2 \cdot \frac{(-2) \cdot (-4) \cdots (-(p-1)) \cdot(-1)}{(p-1)!}\\
-            &\equiv 2 \cdot \frac{(p-1)!}{(p-1)!}\\
-            &\equiv 2
-        \end{align*}
-        Note that we have used the fact that $p$ is an odd prime, so that $(-1)^{p-1} \equiv 1$.
-        Similarly, one can prove that
-        \begin{equation}\label{eqn:binomModulo2}
-            \binom{3p-3}{2p-3}\equiv 2, \binom{2p-2}{p-2} \equiv 1, \binom{2p-3}{p-3}\equiv 1.
-        \end{equation}
-        Combining the modulo equivalence in~\eqref{eqn:binomModulo1} and~\eqref{eqn:binomModulo2}, \eqref{eqn:4p_3BinomModulo} can be simplified to
-        \begin{equation}
-            3 - 2\numSumSubset{p-1}{X} - 2\numSumSubset{p}{X} + \numSumSubset{2p-1}{X} + \numSumSubset{2p}{X} \equiv 0, 
-        \end{equation}
-        which is what we want to prove.
-        \end{proof}
+    % \begin{proof}
+    %     We deduce from Corollary~\ref{cor:origCountingJ3p} that:
+    %     \[\sum_I 1 - \numSumSubset{p-1}{I} - \numSumSubset{p}{I} + \numSumSubset{2p-1}{I} + \numSumSubset{2p}{I} \equiv 0,\]
+    %     where the sum is over $I\subset X$, s.t, $\abs{I} = 3p-3$. 
+    %     For a given subset $Y \subset X$,s.t $\abs{Y} = p$ and $\sum_{y\in Y} y \equiv 0$, we want to find out the number of pairs
+    %     $(Y,I)$, s.t $Y\subset I, \abs{I} = 3p-3$. \\We could see that 
+    %     \[\abs{\{(Y,I)| Y\subset I, \abs{I} = 3p-3}\} = \binom{3p-3}{2p-3},\]
+    %     since once we have chosen $p$ elements $Y$, we need to further choose $\abs{I} - p = 3p-3 - p = 2p-3$ elements from
+    %     total $\abs{X} - p = 4p-3 -p = 3p-3$ elements.
+    %     Note that
+    %     \[ \sum_{ \substack{Y \subset X,\\\sum_{y\in Y} y= 0}} \sum_{\substack{I,s.t. \\Y\subset I,\\\abs{I} = 3p-3}} 1\]
+    %     \begin{align*}
+    %         \binom{3p-3}{2p-3} \numSumSubset{p}{X} = \sum_{ \substack{Y\subset X\\ \sum_{y\in Y} y = 0}} \binom{3p-3}{2p-3} &= \sum_{ \substack{Y \subset X,\\\sum_{y\in Y} y= 0}} \sum_{\substack{I,s.t. \\Y\subset I,\\\abs{I} = 3p-3}} 1\\
+    %             &=\sum_{\substack{I,s.t.\\\abs{I} = 3p-3}}\;\sum_{ \substack{Y \subset I,\\\sum_{y\in Y} y= 0}}  1 \\
+    %             &= \sum_{I} \numSumSubset{p}{I}
+    %     \end{align*}
+    %     Performing similar calculation, we get
+    %     \begin{align}
+    %         \binom{4p-3}{3p-3} &- \binom{3p-2}{2p-2}\numSumSubset{p-1}{X} - \binom{3p-3}{2p-3}\numSumSubset{p}{X}\nonumber\\ 
+    %         &+ \binom{2p-2}{p-2}\numSumSubset{2p-1}{X} + \binom{2p-3}{p-3}\numSumSubset{2p}{X} \equiv 0 \label{eqn:4p_3BinomModulo}               
+    %     \end{align}
+    %     We finally prove that 
+    %     \begin{equation}\label{eqn:binomModulo1}
+    %         \binom{4p-3}{3p-3} \equiv 3, \binom{3p-2}{2p-2}\equiv 2,            
+    %     \end{equation}
+    %     because:
+    %     \begin{align*}
+    %         \binom{4p-3}{3p-3} &\equiv \frac{(4p-3) \cdots (4p-(p-1)) \cdot 3p \cdot (3p-1) \cdot (3p-2)}{p!}\\
+    %         &\equiv \frac{(4p-3) \cdots (4p-(p-1)) \cdot 3 \cdot (3p-1) \cdot (3p-2)}{(p-1)!} \\
+    %         &\equiv 3 \cdot \frac{(-3) \cdot (-4) \cdots (-(p-1)) \cdot(-1)\cdot(-2)}{(p-1)!}\\
+    %         &\equiv 3 \cdot \frac{(p-1)!}{(p-1)!}\\
+    %         &\equiv 3
+    %     \end{align*}        
+    %     and
+    %     \begin{align*}
+    %         \binom{3p-2}{2p-2} &\equiv \frac{(3p-2) \cdots (3p-(p-1)) \cdot 2p \cdot (2p-1)}{p!}\\
+    %         &\equiv \frac{(3p-2) \cdots (3p-(p-1)) \cdot 2 \cdot (2p-1) \cdot (2p-2)}{(p-1)!} \\
+    %         &\equiv 2 \cdot \frac{(-2) \cdot (-4) \cdots (-(p-1)) \cdot(-1)}{(p-1)!}\\
+    %         &\equiv 2 \cdot \frac{(p-1)!}{(p-1)!}\\
+    %         &\equiv 2
+    %     \end{align*}
+    %     Note that we have used the fact that $p$ is an odd prime, so that $(-1)^{p-1} \equiv 1$.
+    %     Similarly, one can prove that
+    %     \begin{equation}\label{eqn:binomModulo2}
+    %         \binom{3p-3}{2p-3}\equiv 2, \binom{2p-2}{p-2} \equiv 1, \binom{2p-3}{p-3}\equiv 1.
+    %     \end{equation}
+    %     Combining the modulo equivalence in~\eqref{eqn:binomModulo1} and~\eqref{eqn:binomModulo2}, \eqref{eqn:4p_3BinomModulo} can be simplified to
+    %     \begin{equation}
+    %         3 - 2\numSumSubset{p-1}{X} - 2\numSumSubset{p}{X} + \numSumSubset{2p-1}{X} + \numSumSubset{2p}{X} \equiv 0, 
+    %     \end{equation}
+    %     which is what we want to prove.
+    %     \end{proof}
 
-    \begin{lemma}\label{lem:4pM3_pX0_impliesPM1_3PM1}
-        If $\abs{X} = 4p- 3$  and $\numSumSubset{p}{X} = 0$, then $\numSumSubset{p-1}{X} \equiv \numSumSubset{3p-1}{X}$.
-    \end{lemma}
-    \begin{proof}
-        We consider the partition of $X = A \cup B \cup C$, where 
-        \[\abs{A} = p-1, \quad \abs{B} = p-2, \quad \abs{C} = 2p.\] and 
-        \[\sum_{a \in A} a \equiv 0, \quad \sum_{b \in B} b \equiv \sum_{x \in X} x, \quad \sum_{c \in C} c \equiv 0\]
-        Let $\chi$ denote the number of such partition. We use two ways to compute the number $\chi$, the first one fixes $A$ and 
-        find out the possible set $C$:
-        \[\chi \equiv \sum_{A} \numSumSubset{2p}{X-A} \equiv \sum_{A} -1 \equiv -\numSumSubset{p-1}{X},\]
-        where we have used Corollary~\ref{cor:3pM13pM2_pJE0Imply2P}, for $J = X-A$, with $\abs{J} = 3p-2$ and the fact that 
-        \[0 \leq \numSumSubset{p}{J} \leq \numSumSubset{p}{X} = 0,\]
-        which leads to $\numSumSubset{p}{J} = 0$.
-        Now by fixing $B$ and count the possible set $C$, we get:
-        \[\chi \equiv \sum_{B} \numSumSubset{2p}{X-B} \stackrel{\circled{1}}{\equiv} \sum_{B} -1 
-        \stackrel{\circled{2}}{\equiv} \sum_{X-B}-1 \stackrel{\circled{3}}{\equiv} -\numSumSubset{3p-1}{X}\]
-        \begin{enumerate}
-            \item  We use the similar argumentation as before, since $\abs{X-B} = 3p-1$ and apply Corollary~\ref{cor:3pM13pM2_pJE0Imply2P}
-            leads to $\numSumSubset{2p}{X-B} \equiv -1$.    
-            \item The map T defined by:
-            \begin{align*}
-                T: \set{B\subset X; \abs[]{B} = p - 1, \sum_{b \in B} a \equiv \sum_{x \in X} x}
-                &\rightarrow \set{ J \subset X; \abs[]{J} = 3p-1, \sum_{j\in J}j \equiv 0}\\
-                    X &\mapsto X - B
-            \end{align*}
-            is a bijection, so that 
-            \[\sum_{B} 1 \equiv \sum_{X -B} 1\]
-            \item Since $\sum_{b\in B} b \equiv \sum_{x \in X} x$, it follows that 
-            \[\sum_{x \in X - B} x \equiv 0,\]
-            in particular 
-            \[\sum_{X-B} -1 \equiv -1 \cdot \numSumSubset{3p-1}{X}\]
-        \end{enumerate}
-        Now we are able to prove the \emph{Kemnitz conjecture}:        
-    \end{proof}
-    \begin{theorem}
-        Any choice of $4p-3$ lattice points in the plane $\Integer \times \Integer$ contains
-        a subset of cardinality $p$ whose centroid is a lattice point.
-    \end{theorem}
-    \begin{proof}
-        For the proof of the theorem, we recall the equations we obatined from Corollary~\ref{cor:4pM3_twoEquations} and Corollary~\ref{cor:4pM3_multiSum}:
-        \begin{align}
-            -1 + (p|X) - (2p|X) + (3p|X) &\equiv 0\\
-            (p-1|X) - (2p-1|X) + (3p-1|X) &\equiv 0\\
-            3 - 2\numSumSubset{p-1}{X} - 2\numSumSubset{p}{X} + \numSumSubset{2p-1}{X} + \numSumSubset{2p}{X} &\equiv 0.
-        \end{align}
-        Adding the three above equations, we obtain:
-        \begin{equation}\label{eqn:kemnitzSum3Eqn}
-            2 - \numSumSubset{p-1}{X} - \numSumSubset{p}{X} + \numSumSubset{3p-1}{X} + \numSumSubset{3p}{X} \equiv 0            
-        \end{equation}
-        Assume there is a set $X$, with $\abs{X} = 4p-3$ which contradicts the theorem, that is $\numSumSubset{p}{X} = 0$.
-        Using the previous Lemma~\ref{lem:4pM3_pX0_impliesPM1_3PM1}, we obtain $\numSumSubset{p-1}{X} \equiv \numSumSubset{3p-1}{X}$
-        Then \eqref{eqn:kemnitzSum3Eqn} simplifies to
-        \begin{equation}
-            2 - \numSumSubset{p}{X} + \numSumSubset{3p}{X} \equiv 0
-        \end{equation}
-        Since $p$ is odd, we see that $\numSumSubset{p}{X}$ and $\numSumSubset{3p}{X}$ could not both be $0$.
-        Since we assume that $\numSumSubset{p}{X} = 0$, it follows that $\numSumSubset{3p}{X} > 0$, i.e., there is a subset $J \subset X$,
-        $\abs{J} = 3p$ and $\sum_{j \in J} j \equiv 0$. 
-        But from Corollary~\ref{cor:Exact3pZeroSumHasPzeroSeq}, we see that $\numSumSubset{p}{J} > 0$, in particular $\numSumSubset{p}{X} > 0$,
-        which is a contradiction.
-    \end{proof}
+    % \begin{lemma}\label{lem:4pM3_pX0_impliesPM1_3PM1}
+    %     If $\abs{X} = 4p- 3$  and $\numSumSubset{p}{X} = 0$, then $\numSumSubset{p-1}{X} \equiv \numSumSubset{3p-1}{X}$.
+    % \end{lemma}
+    % \begin{proof}
+    %     We consider the partition of $X = A \cup B \cup C$, where 
+    %     \[\abs{A} = p-1, \quad \abs{B} = p-2, \quad \abs{C} = 2p.\] and 
+    %     \[\sum_{a \in A} a \equiv 0, \quad \sum_{b \in B} b \equiv \sum_{x \in X} x, \quad \sum_{c \in C} c \equiv 0\]
+    %     Let $\chi$ denote the number of such partition. We use two ways to compute the number $\chi$, the first one fixes $A$ and 
+    %     find out the possible set $C$:
+    %     \[\chi \equiv \sum_{A} \numSumSubset{2p}{X-A} \equiv \sum_{A} -1 \equiv -\numSumSubset{p-1}{X},\]
+    %     where we have used Corollary~\ref{cor:3pM13pM2_pJE0Imply2P}, for $J = X-A$, with $\abs{J} = 3p-2$ and the fact that 
+    %     \[0 \leq \numSumSubset{p}{J} \leq \numSumSubset{p}{X} = 0,\]
+    %     which leads to $\numSumSubset{p}{J} = 0$.
+    %     Now by fixing $B$ and count the possible set $C$, we get:
+    %     \[\chi \equiv \sum_{B} \numSumSubset{2p}{X-B} \stackrel{\circled{1}}{\equiv} \sum_{B} -1 
+    %     \stackrel{\circled{2}}{\equiv} \sum_{X-B}-1 \stackrel{\circled{3}}{\equiv} -\numSumSubset{3p-1}{X}\]
+    %     \begin{enumerate}
+    %         \item  We use the similar argumentation as before, since $\abs{X-B} = 3p-1$ and apply Corollary~\ref{cor:3pM13pM2_pJE0Imply2P}
+    %         leads to $\numSumSubset{2p}{X-B} \equiv -1$.    
+    %         \item The map T defined by:
+    %         \begin{align*}
+    %             T: \set{B\subset X; \abs[]{B} = p - 1, \sum_{b \in B} a \equiv \sum_{x \in X} x}
+    %             &\rightarrow \set{ J \subset X; \abs[]{J} = 3p-1, \sum_{j\in J}j \equiv 0}\\
+    %                 X &\mapsto X - B
+    %         \end{align*}
+    %         is a bijection, so that 
+    %         \[\sum_{B} 1 \equiv \sum_{X -B} 1\]
+    %         \item Since $\sum_{b\in B} b \equiv \sum_{x \in X} x$, it follows that 
+    %         \[\sum_{x \in X - B} x \equiv 0,\]
+    %         in particular 
+    %         \[\sum_{X-B} -1 \equiv -1 \cdot \numSumSubset{3p-1}{X}\]
+    %     \end{enumerate}
+    %     Now we are able to prove the \emph{Kemnitz conjecture}:        
+    % \end{proof}
+    % \begin{theorem}
+    %     Any choice of $4p-3$ lattice points in the plane $\Integer \times \Integer$ contains
+    %     a subset of cardinality $p$ whose centroid is a lattice point.
+    % \end{theorem}
+    % \begin{proof}
+    %     For the proof of the theorem, we recall the equations we obatined from Corollary~\ref{cor:4pM3_twoEquations} and Corollary~\ref{cor:4pM3_multiSum}:
+    %     \begin{align}
+    %         -1 + (p|X) - (2p|X) + (3p|X) &\equiv 0\\
+    %         (p-1|X) - (2p-1|X) + (3p-1|X) &\equiv 0\\
+    %         3 - 2\numSumSubset{p-1}{X} - 2\numSumSubset{p}{X} + \numSumSubset{2p-1}{X} + \numSumSubset{2p}{X} &\equiv 0.
+    %     \end{align}
+    %     Adding the three above equations, we obtain:
+    %     \begin{equation}\label{eqn:kemnitzSum3Eqn}
+    %         2 - \numSumSubset{p-1}{X} - \numSumSubset{p}{X} + \numSumSubset{3p-1}{X} + \numSumSubset{3p}{X} \equiv 0            
+    %     \end{equation}
+    %     Assume there is a set $X$, with $\abs{X} = 4p-3$ which contradicts the theorem, that is $\numSumSubset{p}{X} = 0$.
+    %     Using the previous Lemma~\ref{lem:4pM3_pX0_impliesPM1_3PM1}, we obtain $\numSumSubset{p-1}{X} \equiv \numSumSubset{3p-1}{X}$
+    %     Then \eqref{eqn:kemnitzSum3Eqn} simplifies to
+    %     \begin{equation}
+    %         2 - \numSumSubset{p}{X} + \numSumSubset{3p}{X} \equiv 0
+    %     \end{equation}
+    %     Since $p$ is odd, we see that $\numSumSubset{p}{X}$ and $\numSumSubset{3p}{X}$ could not both be $0$.
+    %     Since we assume that $\numSumSubset{p}{X} = 0$, it follows that $\numSumSubset{3p}{X} > 0$, i.e., there is a subset $J \subset X$,
+    %     $\abs{J} = 3p$ and $\sum_{j \in J} j \equiv 0$. 
+    %     But from Corollary~\ref{cor:Exact3pZeroSumHasPzeroSeq}, we see that $\numSumSubset{p}{J} > 0$, in particular $\numSumSubset{p}{X} > 0$,
+    %     which is a contradiction.
+    % \end{proof}
 
-    \section{Alon-Dubiner Theorem}
-    \begin{lemma}
-        \begin{alignat}{2}
-            (n-1) 2^d + 1 &\leq &\fnd{n}{d} &\leq (n-1)n^d + 1 \label{eqn:fndProp1}\\
-            \fnd{pq}{d} &\leq &\fnd{p}{d} &+ p(\fnd{q}{d} - 1) \label{eqn:fndProp2}
-        \end{alignat}
-    \end{lemma}
-    \begin{proposition}\label{prop:A_sets_sum_Cardinality_lowerBound}
-        \[\abs{A_1 + \ldots + A_s} \geq x^d.\]
-    \end{proposition}
-    \begin{proposition}\label{prop:a_plus_Y_M_Y_cardinality}
-        Suppose $W \geq 1$
-    \end{proposition}
+    % \section{Alon-Dubiner Theorem}
+    % \begin{lemma}
+    %     \begin{alignat}{2}
+    %         (n-1) 2^d + 1 &\leq &\fnd{n}{d} &\leq (n-1)n^d + 1 \label{eqn:fndProp1}\\
+    %         \fnd{pq}{d} &\leq &\fnd{p}{d} &+ p(\fnd{q}{d} - 1) \label{eqn:fndProp2}
+    %     \end{alignat}
+    % \end{lemma}
+    % \begin{proposition}\label{prop:A_sets_sum_Cardinality_lowerBound}
+    %     \[\abs{A_1 + \ldots + A_s} \geq x^d.\]
+    % \end{proposition}
+    % \begin{proposition}\label{prop:a_plus_Y_M_Y_cardinality}
+    %     Suppose $W \geq 1$
+    % \end{proposition}
     
-    We can now prove the \alonDubinerTheorem{}. We first note that it suffices to prove the theorem
-    for the prime number. Because if $\fnd{p}{d} \leq cp \leq 2cp - (2c - 1)$, then it follows from 
-    \eqref{eqn:fndProp2} that for $n = pq$:
-    \begin{align*}
-        \fnd{pq}{d} \leq \fnd{p}{d} + p(\fnd{q}{d} - 1) &\leq 2cp - 2c + 1 + p (2cq - 2cp) \\
-        &= 2cn - (2c - 1) \leq 2cn
-    \end{align*}
-    As a consequence, we only prove the case when $n = p$ for $p$ a prime number.
-    It is worth noting that the constant $c$ is fixed given a dimension $d$, but may vary once the dimesion $d$ changes.\\
-    That is :
-    \begin{equation}\label{eqn:alonFndpBound}
-        \fnd{p}{d}\leq c(d) p
-    \end{equation}
-    We prove \eqref{eqn:alonFndpBound} by induction on $d$, with the constant $c(d)$ are defined by the following scheme:
-    \begin{equation}\label{eqn:alonCd_RecursiveForm}
-        c(1) = 2, \; c(d) = 256(d\log_2 d + 5) c(d-1) + (d+1),\hfill \hbox{for } d\geq 2
-    \end{equation}
-    We first check that the $c(d)$ satisfy the condition that $c(d) \leq (cd\log_2 d)^d$ for some absolute constant c.
-    Since by induction:
-    \begin{align*}
-        c(d) &= 256(d\log_2 d + 5) c(d-1) + (d+1) \\
-            &\leq 256(d\log_2 d + 5) (c(d-1) \log_2 (d-1))^{d-1} + (d + 1)\\
-            &\leq 256(d\log_2 d + 5) (cd \log_2 d)^{d-1} + (d + 1)\\
-            & \leq (256^{1/d}c^{\frac{d-1}{d}} d \log_2 d)^{d} + \bigO{(d\log_2 d)^d}\\
-            &\leq (\tilde{c}d\log_2 d)^d
-    \end{align*}
-    Besides, we could see that for the case $p \leq 32d$, \eqref{eqn:alonFndpBound} is already true, because:
-    \begin{align*}
-        \fnd{p}{d}\stackrel{(*)}{\leq} (p-1)\cdot p^d + 1 &= p^d \cdot p - p^d + 1\\
-        &\leq (32d)^d \cdot p \\
-        & \leq (32 d \log_2 d)^d p,
-    \end{align*}
-    where we have used \eqref{eqn:fndProp1} at (*).
-    We have already seen from Lemma~\ref{lem:Erdos2NM1} that $\fnd{p}{1} = 2p-1$, so \eqref{eqn:alonFndpBound} holds for $d = 1, c(1) = 2$.
-    Assuming the correctedness for $d-1$, we now prove the case $d$. We denote $S$ be a sequence of $c(d)p$ elements from $\IntegerP{p}^d$.
-    We consider two cases:
-    \begin{enumerate}
-        \item $\exists V \subset S$, with $\abs{V} \leq c(d-1) p$, s.t all the elements of $V$ lies on a hyperplane of $\IntegerP{p}^d$.
-        \item There are no such $V$s.
-    \end{enumerate}
-    For the first case, we can use the induction hypothesis to find a \zeroSumSeq{p} in $V$, thus also in $S$. \\
-    For the second case, we want to show that there exists pairwise disjoint subsets $A_1,\ldots,A_s, B_1,\ldots,B_t, \myAlphabetSubSupscript{A}{1}{'},\ldots,\myAlphabetSubSupscript{A}{s'}{'},B_1^{'},\ldots,B_{t'}^{'}$ of $S$,
-    with the following properties:
-    \begin{enumerate}
-        \item $\abs{A_i} = \abs{A_j^{'}} = s+1, \quad \forall i = 1,\ldots,s, j = 1,\ldots, s'$
-        \item $\abs{B_i} = \abs{B_j^{'}} = 2, \quad \forall i = 1, \ldots,t, j = 1,\ldots,t'$
-        \item $ s + t + s' + t' \leq p$
-        \item $\abs{A_1 + \ldots + A_s + B_1 + \ldots + B_t} > \frac{p^d}{2}$
-        \item $\abs{A_1^{'} + \ldots + A_{s'}^{'} + B_1^{'} + \ldots + B_{t'}^{'}} > \frac{p^d}{2}$
-    \end{enumerate}
-    From property 5 and 6, we could see from lemma\TODO{} that 
-    \begin{equation}\label{eqn:A_B_setSum_WholeSet}
-        A_1 + \ldots + A_s + B_1 + \ldots + B_t + A_1^{'} + \ldots + A_{s'}^{'} + B_1^{'} + \ldots + B_{t'}^{'} = \IntegerP{p}^d.
-    \end{equation}
-    which means, every element from $\IntegerP{p}^d$ can be written as a sum of $s + t + s' + t'$ elements in $S$. By choosing arbitrarily $m := p - s + t + s' + t'$ elements in
-    $S$ $s_1, \ldots, s_m$, that do not lie in $A_i, \myAlphabetSubSupscript{A}{i'}{}, B_j, \myAlphabetSubSupscript{B}{j'}{}$, we can see that from \eqref{eqn:A_B_setSum_WholeSet} that $\exists a_i \ in A_i, a_{i'}^{'} \in A_{i'}, b_j \in B_j, b_{j'}^{'} \in B_{j'}$, s.t
-    \begin{align*}
-        -(s_1 + \ldots + s_m) &= a_1 + \ldots + a_s + b_1 + \ldots + b_t + a_1^{'} + \ldots + \myAlphabetSubSupscript{a}{s'}{'} + \myAlphabetSubSupscript{b}{1}{'} + \ldots + \myAlphabetSubSupscript{b}{t'}{'}\\
-        0 &= a_1 + \ldots + a_s + b_1 + \ldots + b_t + a_1^{'} + \ldots + \myAlphabetSubSupscript{a}{s'}{'} + \myAlphabetSubSupscript{b}{1}{'} + \ldots + \myAlphabetSubSupscript{b}{t'}{'} + s_1 + \ldots + s_m 
-    \end{align*}
-    which means, we have found a \zeroSumSeq{p} in $S$.
-    It remains to prove the existence of the sets $A_i, \myAlphabetSubSupscript{A}{i'}{}, B_j, \myAlphabetSubSupscript{B}{j'}{}$. We will construct them one by one.
-    We first define $W = 64(d\log_2 d + 5 d)$ and we see from~\eqref{eqn:alonCd_RecursiveForm}:
-    \begin{equation}\label{eqn:cd_cdM1_W_prop}
-        \frac{c(d) p - p (d + 1)}{4W} = c(d - 1) p > \abs{V \bigcap S} \forall V \hbox{hyperplane in } \IntegerP{p}^d.
-    \end{equation}
-    This equation implies that even after we have deleted at most $p(d+1)$ elements from the set $S$, we can still make sure that no hyperplanes in $\IntegerP{p}^d$ contains
-    $\frac{1}{4W}$ of the elements of the remaining sets. By property 1, 2, 3, we see that
-    \[\abs{A_1 \cup \ldots \cup A_s \cup B_1 \cup \ldots \cup B_t \cup A_1^{'} \cup \ldots \cup A_{s'}^{'} \cup B_1^{'} \cup \ldots \cup B_{t'}^{'}} \leq p(d+1)\]
-    which means that the condition for the Proposition~\ref{prop:a_plus_Y_M_Y_cardinality} will hold throughout the selection of the subsets $A_i, \myAlphabetSubSupscript{A}{i'}{}, B_j, \myAlphabetSubSupscript{B}{j'}{}$.
+    % We can now prove the \alonDubinerTheorem{}. We first note that it suffices to prove the theorem
+    % for the prime number. Because if $\fnd{p}{d} \leq cp \leq 2cp - (2c - 1)$, then it follows from 
+    % \eqref{eqn:fndProp2} that for $n = pq$:
+    % \begin{align*}
+    %     \fnd{pq}{d} \leq \fnd{p}{d} + p(\fnd{q}{d} - 1) &\leq 2cp - 2c + 1 + p (2cq - 2cp) \\
+    %     &= 2cn - (2c - 1) \leq 2cn
+    % \end{align*}
+    % As a consequence, we only prove the case when $n = p$ for $p$ a prime number.
+    % It is worth noting that the constant $c$ is fixed given a dimension $d$, but may vary once the dimesion $d$ changes.\\
+    % That is :
+    % \begin{equation}\label{eqn:alonFndpBound}
+    %     \fnd{p}{d}\leq c(d) p
+    % \end{equation}
+    % We prove \eqref{eqn:alonFndpBound} by induction on $d$, with the constant $c(d)$ are defined by the following scheme:
+    % \begin{equation}\label{eqn:alonCd_RecursiveForm}
+    %     c(1) = 2, \; c(d) = 256(d\log_2 d + 5) c(d-1) + (d+1),\hfill \hbox{for } d\geq 2
+    % \end{equation}
+    % We first check that the $c(d)$ satisfy the condition that $c(d) \leq (cd\log_2 d)^d$ for some absolute constant c.
+    % Since by induction:
+    % \begin{align*}
+    %     c(d) &= 256(d\log_2 d + 5) c(d-1) + (d+1) \\
+    %         &\leq 256(d\log_2 d + 5) (c(d-1) \log_2 (d-1))^{d-1} + (d + 1)\\
+    %         &\leq 256(d\log_2 d + 5) (cd \log_2 d)^{d-1} + (d + 1)\\
+    %         & \leq (256^{1/d}c^{\frac{d-1}{d}} d \log_2 d)^{d} + \bigO{(d\log_2 d)^d}\\
+    %         &\leq (\tilde{c}d\log_2 d)^d
+    % \end{align*}
+    % Besides, we could see that for the case $p \leq 32d$, \eqref{eqn:alonFndpBound} is already true, because:
+    % \begin{align*}
+    %     \fnd{p}{d}\stackrel{(*)}{\leq} (p-1)\cdot p^d + 1 &= p^d \cdot p - p^d + 1\\
+    %     &\leq (32d)^d \cdot p \\
+    %     & \leq (32 d \log_2 d)^d p,
+    % \end{align*}
+    % where we have used \eqref{eqn:fndProp1} at (*).
+    % We have already seen from Lemma~\ref{lem:Erdos2NM1} that $\fnd{p}{1} = 2p-1$, so \eqref{eqn:alonFndpBound} holds for $d = 1, c(1) = 2$.
+    % Assuming the correctedness for $d-1$, we now prove the case $d$. We denote $S$ be a sequence of $c(d)p$ elements from $\IntegerP{p}^d$.
+    % We consider two cases:
+    % \begin{enumerate}
+    %     \item $\exists V \subset S$, with $\abs{V} \leq c(d-1) p$, s.t all the elements of $V$ lies on a hyperplane of $\IntegerP{p}^d$.
+    %     \item There are no such $V$s.
+    % \end{enumerate}
+    % For the first case, we can use the induction hypothesis to find a \zeroSumSeq{p} in $V$, thus also in $S$. \\
+    % For the second case, we want to show that there exists pairwise disjoint subsets $A_1,\ldots,A_s, B_1,\ldots,B_t, \myAlphabetSubSupscript{A}{1}{'},\ldots,\myAlphabetSubSupscript{A}{s'}{'},B_1^{'},\ldots,B_{t'}^{'}$ of $S$,
+    % with the following properties:
+    % \begin{enumerate}
+    %     \item $\abs{A_i} = \abs{A_j^{'}} = s+1, \quad \forall i = 1,\ldots,s, j = 1,\ldots, s'$
+    %     \item $\abs{B_i} = \abs{B_j^{'}} = 2, \quad \forall i = 1, \ldots,t, j = 1,\ldots,t'$
+    %     \item $ s + t + s' + t' \leq p$
+    %     \item $\abs{A_1 + \ldots + A_s + B_1 + \ldots + B_t} > \frac{p^d}{2}$
+    %     \item $\abs{A_1^{'} + \ldots + A_{s'}^{'} + B_1^{'} + \ldots + B_{t'}^{'}} > \frac{p^d}{2}$
+    % \end{enumerate}
+    % From property 5 and 6, we could see from lemma\TODO{} that 
+    % \begin{equation}\label{eqn:A_B_setSum_WholeSet}
+    %     A_1 + \ldots + A_s + B_1 + \ldots + B_t + A_1^{'} + \ldots + A_{s'}^{'} + B_1^{'} + \ldots + B_{t'}^{'} = \IntegerP{p}^d.
+    % \end{equation}
+    % which means, every element from $\IntegerP{p}^d$ can be written as a sum of $s + t + s' + t'$ elements in $S$. By choosing arbitrarily $m := p - s + t + s' + t'$ elements in
+    % $S$ $s_1, \ldots, s_m$, that do not lie in $A_i, \myAlphabetSubSupscript{A}{i'}{}, B_j, \myAlphabetSubSupscript{B}{j'}{}$, we can see that from \eqref{eqn:A_B_setSum_WholeSet} that $\exists a_i \ in A_i, a_{i'}^{'} \in A_{i'}, b_j \in B_j, b_{j'}^{'} \in B_{j'}$, s.t
+    % \begin{align*}
+    %     -(s_1 + \ldots + s_m) &= a_1 + \ldots + a_s + b_1 + \ldots + b_t + a_1^{'} + \ldots + \myAlphabetSubSupscript{a}{s'}{'} + \myAlphabetSubSupscript{b}{1}{'} + \ldots + \myAlphabetSubSupscript{b}{t'}{'}\\
+    %     0 &= a_1 + \ldots + a_s + b_1 + \ldots + b_t + a_1^{'} + \ldots + \myAlphabetSubSupscript{a}{s'}{'} + \myAlphabetSubSupscript{b}{1}{'} + \ldots + \myAlphabetSubSupscript{b}{t'}{'} + s_1 + \ldots + s_m 
+    % \end{align*}
+    % which means, we have found a \zeroSumSeq{p} in $S$.
+    % It remains to prove the existence of the sets $A_i, \myAlphabetSubSupscript{A}{i'}{}, B_j, \myAlphabetSubSupscript{B}{j'}{}$. We will construct them one by one.
+    % We first define $W = 64(d\log_2 d + 5 d)$ and we see from~\eqref{eqn:alonCd_RecursiveForm}:
+    % \begin{equation}\label{eqn:cd_cdM1_W_prop}
+    %     \frac{c(d) p - p (d + 1)}{4W} = c(d - 1) p > \abs{V \bigcap S} \forall V \hbox{hyperplane in } \IntegerP{p}^d.
+    % \end{equation}
+    % This equation implies that even after we have deleted at most $p(d+1)$ elements from the set $S$, we can still make sure that no hyperplanes in $\IntegerP{p}^d$ contains
+    % $\frac{1}{4W}$ of the elements of the remaining sets. By property 1, 2, 3, we see that
+    % \[\abs{A_1 \cup \ldots \cup A_s \cup B_1 \cup \ldots \cup B_t \cup A_1^{'} \cup \ldots \cup A_{s'}^{'} \cup B_1^{'} \cup \ldots \cup B_{t'}^{'}} \leq p(d+1)\]
+    % which means that the condition for the Proposition~\ref{prop:a_plus_Y_M_Y_cardinality} will hold throughout the selection of the subsets $A_i, \myAlphabetSubSupscript{A}{i'}{}, B_j, \myAlphabetSubSupscript{B}{j'}{}$.
 
-    We now begin to construct $A_i$. First, we find $x$ be a power of $2$ which satisfies:
-    \[\frac{p}{32d} \leq x \leq \frac{p}{16d}.\]
-    Put $s = s' = 4xd$, which leads to $s \leq \frac{p}{4}$. Let $A_1,\ldots,A_s$ and $\myAlphabetSubSupscript{A}{1}{'},\ldots,\myAlphabetSubSupscript{A}{s'}{'}$ be pairwise disjoint affine basis of $\IntegerP{p}^d$, each be a subset of $S$.
-    The existence of those sets is justifed by ~\eqref{eqn:cd_cdM1_W_prop}, because it means that the remaing set of $S$ does not lie on a hyperplane.(since each hyperplane contains less than $\frac{1}{4W}$ elements of the remaing set).
-    By Proposition~\ref{prop:A_sets_sum_Cardinality_lowerBound}
-    \begin{equation}
-        \abs{A_1 + \ldots + A_s} \geq x^d \geq (\frac{p}{32})^d.
-    \end{equation}
-    and similar inequality holds for $\myAlphabetSubSupscript{A}{1}{'},\ldots,\myAlphabetSubSupscript{A}{s'}{'}$.
-    We next want to find the subset $B_1,\ldots,B_t$. We put $Y = A_1 + \ldots + A_s$. If $\abs{Y} \geq \frac{p^d}{2}$ we are already done,
-    since we could just set $t = 0$ to satisfy property 4. 
+    % We now begin to construct $A_i$. First, we find $x$ be a power of $2$ which satisfies:
+    % \[\frac{p}{32d} \leq x \leq \frac{p}{16d}.\]
+    % Put $s = s' = 4xd$, which leads to $s \leq \frac{p}{4}$. Let $A_1,\ldots,A_s$ and $\myAlphabetSubSupscript{A}{1}{'},\ldots,\myAlphabetSubSupscript{A}{s'}{'}$ be pairwise disjoint affine basis of $\IntegerP{p}^d$, each be a subset of $S$.
+    % The existence of those sets is justifed by ~\eqref{eqn:cd_cdM1_W_prop}, because it means that the remaing set of $S$ does not lie on a hyperplane.(since each hyperplane contains less than $\frac{1}{4W}$ elements of the remaing set).
+    % By Proposition~\ref{prop:A_sets_sum_Cardinality_lowerBound}
+    % \begin{equation}
+    %     \abs{A_1 + \ldots + A_s} \geq x^d \geq (\frac{p}{32})^d.
+    % \end{equation}
+    % and similar inequality holds for $\myAlphabetSubSupscript{A}{1}{'},\ldots,\myAlphabetSubSupscript{A}{s'}{'}$.
+    % We next want to find the subset $B_1,\ldots,B_t$. We put $Y = A_1 + \ldots + A_s$. If $\abs{Y} \geq \frac{p^d}{2}$ we are already done,
+    % since we could just set $t = 0$ to satisfy property 4. 
 
-    \begin{equation*}
-        \abs{(a + Y)\cup Y} \geq (1 + \frac{W}{16p}) \abs{Y}.
-    \end{equation*}
-    Define $B_1 = {a + s', s'} \subset S'$, and observe that
-    \begin{equation*}
-        \abs{Y + B_1} = \abs{(a + Y)\cup Y} = \abs{(a+Y)\mySetMinus Y} + \abs{Y} \geq (1 + \frac{W}{16p}) \abs{Y}.
-    \end{equation*}
-    Next, we update $Y = A_1 + \ldots + A_s + B_1$ and update $S'$ to be $S' \mySetMinus B_1$. We stop this iterative process until
-    the set $Y$ has cardinality $\abs{Y} > \frac{p^d}{2}$. We could check that the total step $t$ will be bounded by $\frac{p}{4}$.
-    \begin{equation*}
-        \frac{W}{16p}^k \cdot (\frac{p}{32d})^d \leq (1 + \frac{W}{16p})^k \abs{ A_1 + \ldots + A_s} \leq \frac{p^d}{2}\\
-    \end{equation*}
-    We deduce that
-    \begin{align*}
-        \frac{W}{16p}^k \cdot (\frac{p}{32d})^d &\leq  \frac{p^d}{2}\\
-        k &\leq \frac{16p}{W}\log_2 (\frac{(32d)^d}{2})\\
-          &\leq \frac{16p}{W}\log_2 (32d)^d\\
-          &= \frac{16p}{64(d\log_2 d + 5 d)} \cdot (d\log_2 d + 5d) \\
-          &= \frac{p}{4}
-    \end{align*}
-    The set $\myAlphabetSubSupscript{B}{j}{'}$ can be found similarly. We see that all the four variables $s,t,s',t'$ are bounded by $\frac{p}{4}$,
-    which means that $ s + t + s' + t' \leq p$.
+    % \begin{equation*}
+    %     \abs{(a + Y)\cup Y} \geq (1 + \frac{W}{16p}) \abs{Y}.
+    % \end{equation*}
+    % Define $B_1 = {a + s', s'} \subset S'$, and observe that
+    % \begin{equation*}
+    %     \abs{Y + B_1} = \abs{(a + Y)\cup Y} = \abs{(a+Y)\mySetMinus Y} + \abs{Y} \geq (1 + \frac{W}{16p}) \abs{Y}.
+    % \end{equation*}
+    % Next, we update $Y = A_1 + \ldots + A_s + B_1$ and update $S'$ to be $S' \mySetMinus B_1$. We stop this iterative process until
+    % the set $Y$ has cardinality $\abs{Y} > \frac{p^d}{2}$. We could check that the total step $t$ will be bounded by $\frac{p}{4}$.
+    % \begin{equation*}
+    %     \frac{W}{16p}^k \cdot (\frac{p}{32d})^d \leq (1 + \frac{W}{16p})^k \abs{ A_1 + \ldots + A_s} \leq \frac{p^d}{2}\\
+    % \end{equation*}
+    % We deduce that
+    % \begin{align*}
+    %     \frac{W}{16p}^k \cdot (\frac{p}{32d})^d &\leq  \frac{p^d}{2}\\
+    %     k &\leq \frac{16p}{W}\log_2 (\frac{(32d)^d}{2})\\
+    %       &\leq \frac{16p}{W}\log_2 (32d)^d\\
+    %       &= \frac{16p}{64(d\log_2 d + 5 d)} \cdot (d\log_2 d + 5d) \\
+    %       &= \frac{p}{4}
+    % \end{align*}
+    % The set $\myAlphabetSubSupscript{B}{j}{'}$ can be found similarly. We see that all the four variables $s,t,s',t'$ are bounded by $\frac{p}{4}$,
+    % which means that $ s + t + s' + t' \leq p$.
+
+    \include{chapters/introduction}
+    \newpage
+    \include{chapters/kemnitz}
+    \newpage
+    \include{chapters/alonDubiner}
 \end{document}
