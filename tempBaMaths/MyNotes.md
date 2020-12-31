@@ -56,3 +56,14 @@ see also [here](https://tex.stackexchange.com/questions/43008/absolute-value-sym
 
 3. [fancy chapter](https://texblog.org/2012/07/03/fancy-latex-chapter-styles/) also [here](https://tex.stackexchange.com/questions/408382/memoir-how-to-make-makechapterstyle-aware-if-chapter-title-is-in-frontmatter)
 4. [multiple default parameters](http://www.texfaq.org/FAQ-twooptarg#:~:text=LaTeX%20allows%20commands%20with%20a,have%20an%20argument%20of%20Default%20.)
+5. [enumerate label](https://tex.stackexchange.com/questions/2291/how-do-i-change-the-enumerate-list-format-to-use-letters-instead-of-the-defaul)
+
+**Need to use `\usepackage{enumitem}`**
+
+```tex
+\newenvironment{case}
+    {\begin{enumerate}[label = \textbf{Case }{\arabic* }:]}
+        {\end{enumerate}}
+``` 
+
+Note that from the book `\begin{enumerate}[\upshape (i)]` is useless.  

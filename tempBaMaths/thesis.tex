@@ -1,5 +1,7 @@
 \documentclass{article}
 \usepackage{amssymb,latexsym,amsmath,amsthm,mathtools}
+% for enumerate item
+\usepackage{enumitem}
 \theoremstyle{definition}
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
@@ -84,6 +86,13 @@
 \newcommand{\composition}[2]{\ensuremath{#1\circ#2}}
 \newcommand{\TODO}{\textbf{!!!!!!! To Do !!!!!!!!!}}
 
+% ===========
+% environment
+\newenvironment{case}
+    {\begin{enumerate}[label = \textbf{Case }{\arabic* }:]}
+        {\end{enumerate}}
+\newenvironment{enumeratei}{\begin{enumerate}[label = (i)]}%
+    {\end{enumerate}}
 
 \newcommand{\WLOG}{w.l.o.g}
 % \newcommand{\abs}[1]{\ensuremath{|#1|}}
@@ -108,9 +117,69 @@
     For the following section, I use the notation $\equiv$ to denote the modulo in $\IntegerP{p}$.\\
     The $0$ denotes the usual neutral element of addition in the corresponding abelian group. In particular,
     $0$ denotes the standard $0$ in the abelian group $\IntegerP{p}$ and $(0,0)$ in the case of $\IntegerP{p}\times \IntegerP{p}$.
+    \begin{theorem}[\warningTheorem]\label{theorem:warning}
+        
+    \end{theorem}
     \begin{corollary}\label{cor:origCountingJ3p}
         If $\abs{J} = 3p-3$, then $1 - \numSumSubset{p - 1}{J} - \numSumSubset{p}{J} + \numSumSubset{2p-1}{J} + \numSumSubset{2p}{J}\equiv 0$
     \end{corollary}
+    \begin{proof}
+        We specify $J$ as the set $\set{(a_n,b_n); 1 \leq n \leq 3p-3}$.\\
+        We consider three polynomials
+        \[p_1 := \sum_{n=1}^{3p-3} x_n^{p-1} + x_{3p-2}^{p-1}, \quad p_2 := \sum_{n=1}^{3p-3}a_n x_n^{p-1} \quad \hbox{and }  p_3:= \sum_{n = 1}^{3p-3}b_n x_n^{p-1}\]
+        Since the total sum of degress are $3(p-1) = 3p-3 < 3p-2$, we can apply the \warningTheorem{}.
+        Since three polynomials has $0$ as a common zero. The \warningTheorem{} states that there are non-trivial common zeros.
+        We consider the common zeros depending on the term $x_{3p-2}$ in $p_1$.
+        \begin{case}
+            \item $x_{3n-2} = 0$\\
+            In this case for the zero of $p_1$, it needs to satisfy
+            \[\sum_{n = 1}^{3p-3} x_{n}^{p-1} \equiv 0\]
+            We know that 
+            \begin{equation*}
+                x^{p-1} \equiv 
+                \begin{cases}
+                    1, &\text{if $x \not\equiv 0$;}\\
+                    0, &\text{if $x \equiv 0$.}
+                \end{cases}
+            \end{equation*}
+            Since there are in all $3p-3$ entries, there could only be three cases:
+            \begin{enumeratei}
+                \item $0$ of them are $1$
+                This corresponds to the $0$, since all $x_i$ has to be $0$.
+                \item $p$ of them are $1$
+                This corresponds to $p$ $x_i$ which is non-zero. We enumerate them as $x_{i_1},\ldots,x_{i_p}$.
+                To be the common zero, then this assignment nees to satisfy
+                \[\sum_{j = 1}^{j = p} a_{i_j} \equiv 0, \quad \sum_{j = 1}^{j = p} b_{i_j} \equiv 0.\]
+                The total number the set $\{i_1,\ldots, i_p \}$ is exactly $\numSumSubset{p}{J}$.
+                Combining the fact that there are $p-1$ possible value for each $x_i$ s.t $x_i^{p-1} \equiv 1$,
+                the total number of common zeros with $p$ non-zero entries is $(p-1)^p \numSumSubset{p}{J}$.
+                \item $2p$ of them are $1$
+                Arguing similarly as in the second case, we obtain the total number of common zeros with $2p$ non-zero entries 
+                is given by $(p-1)^{2p}\numSumSubset{2p}{J}$.
+            \end{enumeratei}
+            \item $x_{3n-2} \neq 0$\\
+            Since $x_{3n-2} \neq 0$, then $x_{3n-2}^{p-1} \equiv 1$. The other terms of $p_1$ must thus satisfy
+            \[\sum_{n = 1}^{3p-3} x_{n}^{p-1} \equiv p-1.\]
+            There are two possible cases for the other entries of $x$.
+            \begin{enumeratei}
+                \item $p-1$ of them are $1$.
+                This corresponds to the case where there needs to be a $p-1$ elements in $J$ which form a zero-sum.
+                There are in all 
+                \[(p-1) \cdot (p-1)^{p-1} \cdot \numSumSubset{p-1}{J} = (p-1)^p \numSumSubset{p-1}{J},\]
+                possible choices for $x$, where the first term corresponds to the choice of $x_{3n-2}$, the second to the rest of $x_i$.
+                \item $2p-1$ of them are $1$.
+                Similarly, the number of possible common zeros in this case is given by
+                \[(p-1)^{2p} \numSumSubset{2p-1}{J}\]
+            \end{enumeratei}
+        \end{case}
+            Collecting all the number of common zeros considered in different cases, we obtain, under the usage of \warningTheorem{}
+            \begin{equation*}
+                1 + (p-1)^p\numSumSubset{p}{J} + (p-1)^{2p} \numSumSubset{2p}{J} + (p-1)^p\numSumSubset{p-1}{J}
+                + (p-1)^{2p}\numSumSubset{2p-1}{J}\equiv 0
+            \end{equation*}
+            Simplifying the equation above we obtain
+            \[1 - \numSumSubset{p - 1}{J} - \numSumSubset{p}{J} + \numSumSubset{2p-1}{J} + \numSumSubset{2p}{J}\equiv 0\]
+    \end{proof}
     \begin{corollary}\label{cor:corCountingJ3p}
         If $|J| = 3p-2$, or $|J| = 3p-1$, then $1 - (p|J) + (2p|J)\equiv 0$ 
     \end{corollary}
