@@ -383,6 +383,7 @@
         scalar product. An \emph{affine basis} is a set $V \subset \IntegerP{p}^d$ with $\abs{V} = d+1$, s.t. $V$ is not contained in a hyperplane.
     \end{definition}
         
+    \subsection{Some inequalities from additive combinatorics}
     \begin{definition}
         Let $A$ and $B$ two subsets of a finite abelian group $G$, define
         the addition and subtraction of the two sets as following:
@@ -400,6 +401,21 @@
         \end{align*}
 
     \end{definition}
+
+    \begin{lemma}\label{lem:A_B_SumToG}
+        Let G be a finite abelian group, A, B are two subsets of G,
+        satisfying
+        \[\abs{A} > \frac{\abs{G}}{2}, \abs{B} > \frac{\abs{G}}{2}\]
+        Then $A + B = G$
+    \end{lemma}
+    \begin{proof}
+        We randomly pick an element $g \in G$. Since $\abs{g-A} = \abs{A} > \frac{\abs{G}}{2}$
+        , and $\abs{B} > \frac{\abs{G}}{2}$
+        . We must have
+        \[B \cap g \minus A \neq \emptyset\]
+        in particular, $\exists a \in A, b \in B$, s.t. $g = a + b$, since $g$ is randomly picked, we
+        obtain $A + B = G$        
+    \end{proof}    
 
     \begin{lemma}\label{lem:plunneckeRuska_set_LowerBound}
         If $Y$ and $B$ are finite subsets of an abelian group and $h \in \NaturalNumber$, then
@@ -455,9 +471,12 @@
         \end{align*}
         In particular we see that $\abs{A_1 + \ldots + A_s} \geq x^d.$
     \end{proof}
+    \begin{lemma}\label{lem:minusA_minusY_and_IA_pYMinusY}
+        Let \TODO
+    \end{lemma}
 
     \subsubsection{characters}
-    throughout this section, we assume $G$ is a finite abelian group, using additive notation. Let $S$ a multiset of $G$, with 
+    Throughout this section, we assume $G$ is a finite abelian group, using additive notation. Let $S$ a multiset of $G$, with 
     $S$ being symmetric, which means:
     \[\forall x \in S \Rightarrow \minus x \in S\]
     \begin{definition}
@@ -576,11 +595,11 @@
     \end{lemma}
     Now we can examine the eigenvalues of the adjacency matrix of the cayley graph.
     With the help of characters, the eigenvalues can be easily computed:
-    \begin{proposition}
+    \begin{proposition}\label{prop:adjacency_eigenvalue_character}
         Let $\adjacencyMatrixCayley{G}{S}$ be the adjacency matrix of a cayley graph \cayleyGraph{G}{S}.
         Then all the eigenvalues of $\adjacencyMatrixCayley{G}{S}$ is given by
         \begin{equation}\label{eqn:cayleygraph_Eigenvalue}
-            \sum_{g\in G} \chi(g)
+            \sum_{s\in S} \chi(s)
         \end{equation}
         where $\chi \in \characterGroup$.
         The corresponding eigenvector is given as
@@ -589,7 +608,7 @@
             \vdots\\
             \chi(g_n)
         \end{pmatrix},\]
-        where we numerate the element $G$ as $g_1, \ldots, g_n$.
+        where we have enumerated the elements of $G$ as $g_1, \ldots, g_n$.
     \end{proposition}
     \begin{proof}
         Since $G$ is an finite abelian group. From Lemma~\ref{lem:characterGroup_Finite_AbelianGroup_Cardinality},
@@ -610,30 +629,57 @@
             &= \chi_g \cdot \sum_{s \in S} \chi(s)
         \end{align*}
     \end{proof}
+    Since $\cayleyGraph{G}{S}$ is $\abs{S}$-regular. It has an eigenvalue of $\abs{S}$.
+    Moreover, based on Proposition~\ref{prop:adjacency_eigenvalue_character}, we deduce the following proposition.
+    \begin{proposition}\label{prop:cayleyGraph_LargestEigenvalue}
+        The largest eigenvalue of $\adjacencyMatrixCayley{G}{S}$ is $\abs{S}$.
+    \end{proposition}
+    \begin{proof}
+        From Proposition~\ref{prop:adjacency_eigenvalue_character}, all the eigenvalue is given by
+        \[\sum_{s\in S} \chi(s)\]
+        Since the range of the character is constrained in the unit circle in the complex plane.
+        It follows that for an arbitrary eigenvalue $\alpha$ of $\adjacencyMatrixCayley{G}{S}$
+        \begin{align*}
+            \abs{\alpha} &= \abs{\sum_{s\in S} \chi(s)} \\
+            &\leq             \sum_{s\in S} \abs{\chi(s)}\\
+            &\leq             \sum_{s\in S} 1\\
+            &= \abs{S}
+        \end{align*}
+    \end{proof}
+    % \begin{remark}
+    %     From the proof we could also see that the subspace spanned by the eigenvectors corresponding to $\abs{S}$ 
+    %     is one-dimensional. 
+    % \end{remark}
+    \begin{lemma}\label{lem:largest_second_Eigenvalue_expander}
+        Let $\lambda$ be the largest eigenvalue of $\adjacencyMatrixCayley{G}{S}$, and $\mu$ the second largest eigenvalue.
+        Let $A \subset G$ and $B = G \setminus A$. We define
+        \[e(A,B) = \abs{\set{(u,v); u \in A, v \in B}},\]
+        i.e., the number of edges that have one end in $A$ and another end in $B$.
+        It holds that $e(A,B)$ has a lower bound given by the following equaiton
+        \begin{equation*}
+            e(A,B) \geq (\lambda - \mu) \cdot \frac{\abs{A} \abs{B}}{\abs{G}}
+        \end{equation*}
+    \end{lemma}
+    We now state a lemma which is useful for the proof of the \alonDubinerTheorem.
     \begin{proposition}\label{prop:a_plus_Y_M_Y_cardinality}
         Suppose $W \geq 1$, let $A$ be a sequence of elements in $\IntegerP{p}^d$ (possible to have equal elements) and 
         suppose no hyperplanes in $\IntegerP{p}^d$ contains more than $\frac{\abs[]{A}}{4W}$ members of $A$. Then $\forall Y \subset \IntegerP{p}^d$,
         with $\abs{Y} \leq \frac{p^d}{2}$, $\exists a \in A$, s.t.
         \[\abs{(a + Y)\mySetMinus Y} \geq \frac{W}{16p}\abs{Y}\]
     \end{proposition}
-
-
-    \begin{lemma}\label{lem:A_B_SumToG}
-        Let G be a finite abelian group, A, B are two subsets of G,
-        satisfying
-        \[\abs{A} > \frac{\abs{G}}{2}, \abs{B} > \frac{\abs{G}}{2}\]
-        Then $A + B = G$
-    \end{lemma}
+    \begin{remark}
+        It follows from the condition that 
+        \begin{align*}
+            p \cdot \frac{\abs{A}}{4W} &\geq \abs{A}\\
+            \frac{p}{4} &\geq W.
+        \end{align*}
+    \end{remark}
     \begin{proof}
-        We randomly pick an element $g \in G$. Since $\abs{g-A} = \abs{A} > \frac{\abs{G}}{2}$
-        , and $\abs{B} > \frac{\abs{G}}{2}$
-        . We must have
-        \[B \cap g \minus A \neq \emptyset\]
-        in particular, $\exists a \in A, b \in B$, s.t. $g = a + b$, since $g$ is randomly picked, we
-        obtain $A + B = G$        
-    \end{proof}    
+
+    \end{proof}
 
 
+    \subsection{Proof of \alonDubinerTheorem}
     We can now prove the \alonDubinerTheorem{}. We first note that it suffices to prove the theorem
     for the prime number. Because if $\fnd{p}{d} \leq cp \leq 2cp - (2c - 1)$, then it follows from 
     \eqref{eqn:fndProp2} that for $n = pq$:
@@ -703,7 +749,7 @@
     It remains to prove the existence of the sets $A_i, \myAlphabetSubSupscript{A}{i'}{}, B_j, \myAlphabetSubSupscript{B}{j'}{}$. We will construct them one by one.
     We first define $W = 64(d\log_2 d + 5 d)$ and we see from~\eqref{eqn:alonCd_RecursiveForm}:
     \begin{equation}\label{eqn:cd_cdM1_W_prop}
-        \frac{c(d) p - p (d + 1)}{4W} = c(d - 1) p > \abs{V \cap S} \forall V \hbox{hyperplane in } \IntegerP{p}^d.
+        \frac{c(d) p - p (d + 1)}{4W} = c(d - 1) p > \abs{V \cap S} \quad \forall V \hbox{ hyperplane in } \IntegerP{p}^d.
     \end{equation}
     This equation implies that even after we have deleted at most $p(d+1)$ elements from the set $S$, we can still make sure that no hyperplanes in $\IntegerP{p}^d$ contains
     $\frac{1}{4W}$ of the elements of the remaining sets. By property 1, 2, 3, we see that
