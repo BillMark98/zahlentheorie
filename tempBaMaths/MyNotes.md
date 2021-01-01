@@ -67,3 +67,13 @@ see also [here](https://tex.stackexchange.com/questions/43008/absolute-value-sym
 ``` 
 
 Note that from the book `\begin{enumerate}[\upshape (i)]` is useless.  
+
+6. If want the subscript directly below the union symbol should use `\bigcup` instead of `\cup`, see [here](https://tex.stackexchange.com/questions/205125/formatting-the-union-of-sets)
+
+7. [round to ceil](https://tex.stackexchange.com/questions/433101/rounding-to-nearest-integer-symbol-in-latex), use 
+
+```latex
+\usepackage{mathtools}
+
+\DeclarePairedDelimiter{\roundCeil}\lceil\rceil
+```

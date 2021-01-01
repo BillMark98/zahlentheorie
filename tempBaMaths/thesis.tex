@@ -74,7 +74,7 @@
 \newcommand{\cayleyGraph}[2]{\ensuremath{\Gamma_{#1,#2}}}
 \newcommand{\adjacencyMatrixCayley}[2]{\ensuremath{A_{(#1,#2)}}}
 \newcommand{\characterGroup}[1][G]{\ensuremath{\hat{#1}}}
-
+\DeclarePairedDelimiter{\roundCeil}\lceil\rceil
 % =======
 % some functions
 \newcommand{\fnd}[2]{\ensuremath{f(#1,#2)}}
@@ -102,6 +102,7 @@
 \newcommand{\setCondition}{\mid}
 \newcommand{\mySetMinus}{\setminus}
 \newcommand{\minus}{-}
+% \newcommand{\negative}{-}
 
 \newcommand{\polyDeg}[1]{deg(\ensuremath{#1})}
 \newcommand{\numSumSubset}[2]{\ensuremath{(#1|#2)}}
@@ -472,7 +473,12 @@
         In particular we see that $\abs{A_1 + \ldots + A_s} \geq x^d.$
     \end{proof}
     \begin{lemma}\label{lem:minusA_minusY_and_IA_pYMinusY}
-        Let \TODO
+        Let $Y$ be a finite subset of an abelian group $G$.
+        Choose an $g \in G$ and $i \in \NaturalNumber$. Then
+        \begin{align}
+            \abs{(\minus g + Y) \setminus Y} &= \abs{(g + Y) \setminus Y}\\
+            \abs{(i g + Y) \setminus Y} &\leq i \cdot \abs{(g + Y)\setminus Y}
+        \end{align}
     \end{lemma}
 
     \subsubsection{characters}
@@ -577,6 +583,19 @@
         \chi  \chi(g_1,g_2) &:= \chi_1(g_1)\cdot \chi(g_2)
     \end{align*} 
     is clear.
+    We state the result in a proposition.
+    \begin{proposition}\label{prop:directSum_characterInjective}
+        Let $G_1,G_2$ be two finite abelian groups and $\characterGroup{G_1},\characterGroup{G_2}$ the corresponding
+        character groups. The map:
+        \begin{align*}
+            \characterGroup[G_1] \times \characterGroup[G_2] &\rightarrow \characterGroup[G_1 \times G_2]\\
+            (\chi_1, \chi_2) &\mapsto  \chi: (g \mapsto \chi_1(g) \cdot \chi_2(g))
+        \end{align*} 
+        is injective.
+    \end{proposition}
+    Once we have proved that $\abs{\characterGroup[G_i]} = \abs{G_i}, i \in \set{1,2}$, we can obtain from Proposition~\ref{prop:directSum_characterInjective}
+    that $\abs{\characterGroup} \geq \abs{G}$, combining the result with Proposition~\ref{prop:characterGroupNaturalBound}, we could obtain that 
+    \[\abs{\characterGroup} = \abs{G}\]
     So we only need to focus on a single decomposition.
     \begin{lemma}\label{lem:ZnModulo_character}
         The character group of \modularInteger{n} has cardinality $n$.
@@ -661,12 +680,14 @@
         \end{equation*}
     \end{lemma}
     We now state a lemma which is useful for the proof of the \alonDubinerTheorem.
-    \begin{proposition}\label{prop:a_plus_Y_M_Y_cardinality}
+    \begin{lemma}\label{lem:a_plus_Y_M_Y_cardinality}
         Suppose $W \geq 1$, let $A$ be a sequence of elements in $\IntegerP{p}^d$ (possible to have equal elements) and 
         suppose no hyperplanes in $\IntegerP{p}^d$ contains more than $\frac{\abs[]{A}}{4W}$ members of $A$. Then $\forall Y \subset \IntegerP{p}^d$,
         with $\abs{Y} \leq \frac{p^d}{2}$, $\exists a \in A$, s.t.
-        \[\abs{(a + Y)\mySetMinus Y} \geq \frac{W}{16p}\abs{Y}\]
-    \end{proposition}
+        \begin{equation}\label{eqn:a_plus_Y_minus_Y_lowerBound}
+            \abs{(a + Y)\mySetMinus Y} \geq \frac{W}{16p}\abs{Y}
+        \end{equation}            
+    \end{lemma}
     \begin{remark}
         It follows from the condition that 
         \begin{align*}
@@ -675,7 +696,100 @@
         \end{align*}
     \end{remark}
     \begin{proof}
-
+        We put $G = \IntegerP{p}^d$. The idea is that we construct $Z := G \setminus Y$ and use 
+        Lemma~\ref{lem:a_plus_Y_M_Y_cardinality} to find an element which satisfies \eqref{eqn:a_plus_Y_minus_Y_lowerBound}
+        We define the multiset $S_a$ for every $a \in A$.
+        \begin{equation*}
+            S_a := \set{a,\ldots, 2\roundCeil{\frac{p}{W}}a} \cup \set{-a,\ldots, -2\roundCeil{\frac{p}{W}}a}.
+        \end{equation*}
+        We define the multiset $S$ as
+        \begin{equation*}
+            S := \bigcup_{a \in A} S_a.
+        \end{equation*}
+        We construct the cayley graph $\cayleyGraph{G}{S}$ and from Proposition~\ref{prop:cayleyGraph_LargestEigenvalue},
+        we see that the largest eigenvalue $\lambda = \abs{S} = 4\roundCeil{\frac{p}{W}} \cdot \abs{A}$.
+        We would like to find out the upper bound of the second largest eigenvalue.
+        Recall from Proposition~\ref{prop:directSum_characterInjective} that 
+        for each character $\chi$, it has a from of:
+        \begin{equation*}
+            \chi((g_1,\ldots,g_d)) = \prod_{l = 1}^{d} \chi_{l}(g_l),
+        \end{equation*}
+        where we have decomposed each element of $g \in G$ in to the component in the direct sum, and 
+        $\chi_l$  is the character of the group $\IntegerP{p}$.
+        From Lemma~\ref{lem:ZnModulo_character}, we see that each $\chi_l$ has the form of 
+        \begin{equation*}
+            \chi_l(g_l) = \exp (\frac{2\pi i \cdot g_l v_l}{p}),
+        \end{equation*}
+        for some $v_l \in \IntegerP{p}$.
+        As a consequence we can write the $\chi$ as the following:
+        \begin{align*}
+            \chi(g) &= \prod_{l = 1}^{d} \exp (\frac{2\pi i \cdot v_l}{p}) \\
+            &= \exp (\frac{2 \pi i \sum_lg_l v_l}{p})
+        \end{align*}
+        For some $v := (v_1,\ldots,v_d)$ in $\IntegerP{p}^d$. From Lemma~\ref{lem:characterGroup_Finite_AbelianGroup_Cardinality}
+        we could see that each such $v$ determines uniquely a character, thus we can specify every character with a vector $v \in \IntegerP{p}^d$. 
+        From Proposition~\ref{prop:adjacency_eigenvalue_character}, the eigenvalue is given by
+        \begin{equation*}
+            \sum_{s\in S} \omega^{v \cdot s} = \sum_{a \in S_a} \sum_{s \in S_a} \omega^{v \cdot s},
+        \end{equation*}
+        where $\omega = \exp (\frac{2\pi i}{p})$, and $\cdot$ denotes the standard scalar product. Since we want to find out the bound of second largest eigenvalue,
+        we set $v \neq 0$.($v = 0$ leads to the largest eigenvalue).
+        We can choose the range of the dot product so that for $a \in A$, 
+        \[\frac{\minus p}{2} < v \cdot a \leq \frac{p}{2}\]
+        By assumption for each $c \in \IntegerP{p}$, there are at most $\frac{\abs{A}}{4W}$ elements $a \in A$ so that
+        $v\cdot a = c$. In particular:
+        \begin{align*}
+            \abs{\set{a \in A; v \cdot < W}} &\leq \frac{\abs{A}}{4W} \cdot (W-1 - (-W + 1) + 1)\\
+            &= \frac{\abs{A}}{4W} \cdot (2W-1) < \frac{\abs{A}}{2},
+        \end{align*}
+        which means that there are at least $\frac{\abs[]{A}}{2}$ elements $a \in A$, such that
+        $v \cdot a \geq \abs[]{W}$. For each such $a$, if $k = \abs[]{v \cdot a}$ and $l = 2 \roundCeil{\frac{p}{W}}$, 
+        then
+        \begin{align*}
+            \sum_{s \in S_a} \omega^{v\cdot s} &= \sum_{j = 1}^{l} \omega^(k \cdot j) + \sum_{j = 1}^{l} \omega^(-k \cdot j) \\
+            &= \frac{\omega^k (1 - \omega^{kl})}{1 - \omega^k} + \frac{\omega^{\minus k} (1 - \omega^{kl})}{1 - \omega^{\minus k}}.
+        \end{align*}
+        The amplitude is thus bounded by
+        \begin{equation}\label{ieqn:character_boundedBy_l}
+            \begin{aligned}[b]
+                \abs{\sum_{s \in S_a} \omega^{v\cdot s}} &\leq \frac{\abs{\omega^k} 2 \cdot \abs{1 - \omega^{kl}}}{\abs{1 - \omega^k}}\\
+                &\leq \frac{4}{\abs{1 - \omega^k}}\\
+                &\stackrel{(*)}{\leq} \frac{4}{\frac{\pi W}{p}} = \frac{4}{\pi} \cdot \frac{p}{W}\\
+                &< \frac{2 p}{W} \leq l.
+            \end{aligned}
+        \end{equation}
+        Where we have used the fact at $(*)$ that 
+        \[\abs{1 - \omega^k}^2 \geq 2 - 2\cos (2\theta), \quad \theta = \frac{\pi W}{p}\]
+        By analysing the difference of the squared amplitude, we could see that see that
+        \[2 - 2\cos (2\theta) -  \theta^2 \geq 0, \quad \theta \in (0, \frac{\pi}{2})\]
+        which means that $\abs{1 - \omega^k} \geq \frac{\pi W}{p}$.\\
+        Now since \eqref{ieqn:character_boundedBy_l} holds for at least $\frac{\abs[]{A}}{2}$ elements, we set
+        the multiset 
+        \[B := \set{a \in A; v \cdot a \geq W},\]
+        and the multiset $C$ which is a submultiset of $B$ which has cardinality $\frac{\abs{A}}{2}$.
+        we obtain that 
+        % \begin{align*}
+        %     \abs{\sum_{a \in S_a} \sum_{s \in S_a} \omega^{v \cdot s}} &\leq 
+        %     \abs{\sum_{\substack{a \in S_a\\\abs[]{v\cdot a < W}}} \sum_{s \in S_a}\omega^{v \cdot s}} + 
+        %     \abs{\sum_{\substack{a \in S_a\\\abs[]{v\cdot a \geq W}}} \sum_{s \in S_a}\omega^{v \cdot s}}\\
+        %     &\leq \abs{\sum_{\substack{a \in S_a\\\abs[]{v\cdot a < W}}} \sum_{s \in S_a}1} + 
+        %     \abs{\sum_{\substack{a \in S_a\\\abs[]{v\cdot a \geq W}}} \sum_{s \in S_a}\omega^{v \cdot s}}\\
+        %     &\leq \abs{\sum_{\substack{a \in S_a\\\abs[]{v\cdot a < W}}} 2l} + 
+        %     \abs{\sum_{\substack{a \in S_a\\\abs[]{v\cdot a \geq W}}} \sum_{s \in S_a}\omega^{v \cdot s}}\\
+        %     &\leq \frac{\abs{A}}{2} \cdot l + \abs{A} \cdot l \\
+        % \end{align*}
+        \begin{align*}
+            \abs{\sum_{a \in S_a} \sum_{s \in S_a} \omega^{v \cdot s}} &\leq 
+            \abs{\sum_{a \in C } \sum_{s \in S_a}\omega^{v \cdot s}} + 
+            \abs{\sum_{a \in A \setminus C} \sum_{s \in S_a}\omega^{v \cdot s}}\\
+            &\leq \sum_{ a \in A \setminus C} \abs{\sum_{s \in S_a}\omega^{v \cdot s}} + 
+            \sum_{a \in A \setminus C} \sum_{s \in S_a}\abs{\omega^{v \cdot s}}\\
+            &\leq \sum_{a \in C} l + 
+            \sum_{a \in A \setminus C} \sum_{s \in S_a}1\\
+            &\leq \frac{\abs{A}}{2} \cdot l + \frac{\abs{A}}{2} \cdot 2l \\
+            &\leq \frac{3\abs{A}}{2}l = \frac{3}{4} \cdot \lambda \\
+        \end{align*}        
+        
     \end{proof}
 
 
