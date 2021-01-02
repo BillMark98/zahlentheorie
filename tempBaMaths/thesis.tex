@@ -23,6 +23,12 @@
 \usepackage{mathtools,nccmath}%
 \usepackage{ etoolbox, xparse} 
 
+% ===============
+% for contradiction symbol
+% \usepackage{wasysym}  % \lightning
+\usepackage{marvosym} %\Lightning
+\usepackage{stmaryrd} % $\lightning
+
 \DeclarePairedDelimiterX{\abs}[1]\lvert\rvert{\ifblank{#1}{\,\cdot\,}{#1}}
 
 \let\oldabs\abs
@@ -102,6 +108,7 @@
 \newcommand{\setCondition}{\mid}
 \newcommand{\mySetMinus}{\setminus}
 \newcommand{\minus}{-}
+\newcommand{\contradiction}{\ensuremath{\lightning}}
 % \newcommand{\negative}{-}
 
 \newcommand{\polyDeg}[1]{deg(\ensuremath{#1})}
@@ -472,6 +479,8 @@
         \end{align*}
         In particular we see that $\abs{A_1 + \ldots + A_s} \geq x^d.$
     \end{proof}
+    We state the following Lemma which gives the estimation of the cardinality of the set $(ia+Y)\setminus Y$.
+    A proof can be found in \cite{DBLP_LatticePoint:journals/combinatorica/AlonD95}.
     \begin{lemma}\label{lem:minusA_minusY_and_IA_pYMinusY}
         Let $Y$ be a finite subset of an abelian group $G$.
         Choose an $g \in G$ and $i \in \NaturalNumber$. Then
@@ -669,6 +678,8 @@
     %     From the proof we could also see that the subspace spanned by the eigenvectors corresponding to $\abs{S}$ 
     %     is one-dimensional. 
     % \end{remark}
+    We state the following important lemma which gives a lowerbound between number of edges that spans two disjoint set of the nodes.
+    A proof of the Lemma can be found in \cite{alonProbMe}.
     \begin{lemma}\label{lem:largest_second_Eigenvalue_expander}
         Let $\lambda$ be the largest eigenvalue of $\adjacencyMatrixCayley{G}{S}$, and $\mu$ the second largest eigenvalue.
         Let $A \subset G$ and $B = G \setminus A$. We define
@@ -789,7 +800,33 @@
             &\leq \frac{\abs{A}}{2} \cdot l + \frac{\abs{A}}{2} \cdot 2l \\
             &\leq \frac{3\abs{A}}{2}l = \frac{3}{4} \cdot \lambda \\
         \end{align*}        
-        
+        Let $Y \subset G$ with $\abs{Y} \leq \frac{\abs[]{G}}{2}$ and define $Z := G \setminus Y$.
+        From Lemma~\ref{lem:largest_second_Eigenvalue_expander}, we know that $e(Y,Z)$, i.e., the number of edges which has one end in $Y$ and the other in $Z$
+        has a lower bound:
+        \begin{align*}
+            e(Y,Z) &\geq (\lambda - \mu) \frac{\abs{Y} \abs{Z}}{\abs{G}}\\
+            &\geq \frac{\lambda}{4}\frac{\abs{Y} \frac{\abs[]{G}}{2}}{\abs{G}}\\
+            &\geq \lambda \cdot \frac{\abs{Y}}{8}.
+        \end{align*}
+        This implies that the set $M:= \set{(y,s); y \in Y, s \in S, y + s \not\in Y}$ has at least $\lambda \cdot \frac{\abs{Y}}{8}$.
+       elements. We could observe that by averaging, there is at least one element $s \in S$, s.t. $M_s := \set{y \in Y; y + s \not\in Y}$
+       has more than $\frac{\abs[]{Y}}{8}$ elements, because otherwise $\forall s \in S, \abs{M_s} < \frac{\abs[]{Y}}{8}$. It follows that
+       \begin{align*}
+           \abs{M} &= \abs{\bigcup_{s \in S} M_s}\\
+           &\leq \sum_{s\in S} \abs{M_s}\\
+           &< \sum_{s \in S} \frac{\abs{Y}}{8}\\
+           &= \lambda \cdot \frac{\abs{Y}}{8} \; \contradiction
+       \end{align*}
+        Choose such $s$, we know from the construction of the set $S$ that $s \in S_a$ for some $a \in A$, that is 
+        $\exists \epsilon, i \in \NaturalNumber, i \leq 2 \roundCeil{\frac{p}{W}}$, s.t. $s = \epsilon i a$. 
+        From Lemma~\ref{lem:minusA_minusY_and_IA_pYMinusY}, we know that 
+        \begin{align*}
+            \abs{(s + Y) \setminus Y} &= \abs{(\epsilon i a + Y)\setminus Y}\\
+                &= \abs{(i a + Y) \setminus Y} \\
+                &\leq i \cdot {(a + Y) \setminus Y},
+        \end{align*}
+        which follows that 
+        \[\abs{(a + Y)\setminus Y} \geq \frac{\abs{Y}}{8 \cdot i} \geq \frac{\abs{Y}}{8 \cdot 2 \roundCeil{\frac{p}{W}}} \geq \frac{W}{16p}\abs{Y} \]
     \end{proof}
 
 
@@ -904,4 +941,8 @@
     \end{align*}
     The set $\myAlphabetSubSupscript{B}{j}{'}$ can be found similarly. We see that all the four variables $s,t,s',t'$ are bounded by $\frac{p}{4}$,
     which means that $ s + t + s' + t' \leq p$.
+
+    \newpage
+    \bibliography{reference}
+    \bibliographystyle{ieeetr}    
 \end{document}

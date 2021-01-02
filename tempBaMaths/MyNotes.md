@@ -77,3 +77,29 @@ Note that from the book `\begin{enumerate}[\upshape (i)]` is useless.
 
 \DeclarePairedDelimiter{\roundCeil}\lceil\rceil
 ```
+
+8. [contradiction symbol](https://tex.stackexchange.com/questions/148757/why-is-blitza-displayed-as-a-psi-in-beamer)
+
+use 
+
+```latex
+\usepackage{wasysym}
+\lightning 
+```
+
+or 
+
+```latex
+\usepackage{stmaryrd}
+$\lightning$ 
+```
+
+9. [align* show one tag at the end](https://tex.stackexchange.com/questions/42726/align-but-show-one-equation-number-at-the-end) and [the correct solution here](https://tex.stackexchange.com/questions/66759/make-align-number-the-last-equation/66766)
+
+```latex
+        \begin{equation}\label{somelabel}
+            \begin{aligned}[b]
+                ... some usual equations here...
+            \end{aligned}
+        \end{equation}
+```
