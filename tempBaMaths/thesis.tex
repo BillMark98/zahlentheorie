@@ -74,6 +74,13 @@
 \newcommand{\Integer}{\ensuremath{\mathbb{Z}}}
 \newcommand{\PolynomialRing}[2]{\ensuremath{#1[x_1,x_2,\ldots,x_{#2}]}}
 
+
+% ================
+% german alphabet
+\newcommand{\oUmlaut}{{\"o}}
+\newcommand{\uUmlaut}{{\"u}}
+\newcommand{\aUmlaut}{{\"a}}
+
 % ======
 % notations
 \newcommand{\zeroSumSeq}[1]{$0$-sum $#1$-subsequence}
@@ -117,10 +124,161 @@
 
 
 \begin{document}
+\section{Abstract}
+In this thesis, I worked with a lattice point problem which deals with the smallest number $f(n,d)$
+of a sequence of lattice point to guarantee the centroid is also a lattice point. The thesis first introduces
+this concept and gives some examples in the low-dimensional case. The next chapter deals with the \emph{Kemnitz} conjecture.
+The thesis will state a detailed proof which is based on \cite{Reiher_2007}. The last chapter deals with the \alonDubinerTheorem{} which
+gives a general upper bound for $f(n,d)$.
+
+\newpage
     \section{Introduction}
-    \begin{lemma}\label{lem:Erdos2NM1}
-        \fnd{n}{1} = 2n - 1
+    We define a $d$-dimensional affine space $V$ and consider the set of points which lie in the set
+    \[V_d := \set{\sum_{i = 1}^d a_i v_i; a_i \in \Integer, \quad 1 \leq i \leq d},\]
+    where $\set{v_i; 1 \leq i \leq d}$ are linear independent vectors in $V$. 
+    We also call the point in $V_d$ as \emph{lattice} points.
+    We now want to find out the minimum of the number $f$ so that given $f$ sequences in $V_d$, we can guarantee to find out a subsequence of length $n$, s.t. the centroid of this 
+    subsequence is also a lattice point. We define such minimum number of $f(n,d)$.
+    % The element of $G$ will be treated as a lattice point. We define the number $f(n,d)$ as the smallest number s.t. for all 
+    % sequence of elements in $G$, with length greater or equal to $f(n,d)$, we can find a 
+
+    
+
+    Consider the additive group $G:= \IntegerP{n}^d$.
+    We call a subsequence of length $n$, which 
+    sums to a $0$ in $\IntegerP{n}^d$ as 
+    \zeroSumSeq{n}, where $0$ denotes the zero vector
+     in $G$.  
+    It is not hard to see that the above problem 
+    can be equivalently formulated as finding the 
+    number $f(n,d)$, so that 
+    given a sequence of elements in $G$, with 
+    length $l \geq f(n,d)$, there exists a \zeroSumSeq{n}.
+
+    A natural bound on the number $f(n,d)$ is given in the following Lemma.
+    % \begin{lemma}
+    %     \begin{alignat}{2}
+    %         (n-1) 2^d + 1 &\leq &\fnd{n}{d} &\leq (n-1)n^d + 1 \label{eqn:fndProp1}\\
+    %         \fnd{pq}{d} &\leq &\fnd{p}{d} &+ p(\fnd{q}{d} - 1) \label{eqn:fndProp2}
+    %     \end{alignat}
+    % \end{lemma}
+    \begin{lemma}\label{lem:f_n_d_naturalBound}
+        \begin{equation}\label{eqn:fndProp1}
+            (n-1) 2^d + 1 \leq \fnd{n}{d} \leq (n-1)n^d + 1
+        \end{equation}
     \end{lemma}
+    \begin{proof}
+        The left inequality can be seen as following:
+
+        We construct $(n-1) 2^d$ vectors, which includes all the vectors in $\IntegerP{n}^d$, which has $0$ or $1$ in their entry, so there are in all $2^d$ different vectors.
+        Each vector appear exactly $n-1$ times.  It is impossible to find a \zeroSumSeq{n} among these vectors. Thus we must have 
+        \[(n-1) 2^d + 1 \leq \fnd{n}{d}.\]
+
+        To prove the right inequality we use the pigeon hole principle. 
+        Since $\abs{G} = n^d$, given $(n-1)n^d + 1$ elements, there are at least one vector $v$ which has 
+        multiplicity
+        \[\roundCeil{\frac{(n-1) n^d + 1}{n^d}} = n.\]
+        Choosing these $n$ vectors $v$, we obtain a \zeroSumSeq{n}.
+        We thus deduce that 
+        \[\fnd{n}{d} \leq (n-1)n^d + 1.\]
+    \end{proof}
+    It is generally very difficult to examine $f(n,d)$ for every possible $n$, thus we would like to restrict $n$ to a smaller set of numbers, for example the prime number. The 
+    following Lemma helps us with such reduction.
+    \begin{lemma}
+        \begin{equation}\label{eqn:fndProp2}
+            \fnd{pq}{d} \leq \fnd{p}{d} + p(\fnd{q}{d} - 1) 
+        \end{equation}
+    \end{lemma}
+    \begin{proof}
+        For convenience of notation, we define 
+        \[f_1 := \fnd{p}{d}, f_2 := \fnd{q}{d}, f := f_1 + p(f_2 - 1).\]
+        Given a sequence $S$ of $f$ elements, 
+        since $f > f_1$, we can find a \zeroSumSeq{p}, 
+        which we denote as $A_1$.
+        We then consider the $S \setminus A_1$, since 
+        the rest is still larger than $f_1$ we can 
+        further find a \zeroSumSeq{p}, which we denote 
+        as $A_2$.
+        We perform this procedure recursively. Finally, 
+        since 
+        \[f = f_1 + p (f_2 - 1),\]
+        we would obtain $f_2$ \zeroSumSeq{p}s. According to the definition, each such subsequence $A_l$ sums to a vector $w_l$ of the form
+        \begin{equation*}\label{eqn:fnd_pq_p_sumVec}
+            w_l = p \cdot \begin{pmatrix}
+            v_1\\
+            \vdots\\
+            v_d
+        \end{pmatrix}, \quad v_i \in \Integer, \; 1 \leq i \leq d
+        \end{equation*}
+        Among all the $f_2$ $w_l$ vectors, there exist a \zeroSumSeq{q}, which means 
+        they sum to a vector $z$, with
+        \[z = q \cdot \begin{pmatrix}
+            v_1\\
+            \vdots\\
+            v_d
+        \end{pmatrix}, \quad v_i \in \Integer, \; 1 \leq i \leq d\]
+        Since $z$ are the sum of vectors of the form $w_l$, we see that $z$ can also be written as
+        \[
+            z = pq \cdot \begin{pmatrix}
+                \tilde{v}_1\\
+                \vdots\\
+                \tilde{v}_d
+            \end{pmatrix}, \quad \tilde{v}_i \in \Integer, \; 1 \leq i \leq d\]
+        Combining the results we obtain $pq = n$ sequences which sums to a vector $z$, whose every 
+        entry is a multiple of $n$, thus we obtain a \zeroSumSeq{n}.
+    \end{proof}
+    \begin{remark}
+        Due to the symmetry we would obtain similarly:
+        \begin{align}\label{eqn:fndProp2_prime}
+            \fnd{pq}{d} \leq \fnd{q}{d} + q(\fnd{p}{d} - 1)\tag{$\ref{eqn:fndProp2}^\prime$}
+        \end{align}
+        Combining \eqref{eqn:fndProp2} and \eqref{eqn:fndProp2_prime}, we obtain the following upper bound.
+    \end{remark}
+    \begin{corollary}\label{cor:fnd_pq_Bound}
+        \begin{equation}\label{eqn:fnd_pq_Bound}
+            \fnd{pq}{d} \leq \min \{\fnd{p}{d} + p(\fnd{q}{d} - 1),  \fnd{q}{d} + q(\fnd{p}{d} - 1)\}
+        \end{equation}
+    \end{corollary}
+    
+    We can use \eqref{eqn:fnd_pq_Bound} to find out some values of $f(n,d)$.
+    \begin{lemma}\label{lem:f_nd_2_potent}
+        \begin{equation*}
+            \fnd{2^n}{d} = (2^n - 1) 2^d + 1
+        \end{equation*}
+    \end{lemma}
+    \begin{proof}
+        We prove the Lemma through induction on $n$.
+        For $n = 1$, we know from \eqref{eqn:fndProp1} that
+        \begin{equation*}
+            (2 - 1)2^d + 1 \leq \fnd{2}{d} \leq (2 - 1)2^d + 1
+        \end{equation*}
+        Thus $\fnd{2}{d} = 2^d + 1$
+
+        For the general case $n$, we have $f(2^{n-1},d) = (2^{n-1} - 1)2^d + 1$ from induction.
+        Using \eqref{eqn:fnd_pq_Bound}, we obtain:
+        \begin{align*}
+            \fnd{2^n}{d} = \fnd{2 \cdot 2^{n-1}}{d} &\leq \fnd{2^{n-1}}{d} + 2^{n-1} \cdot (\fnd{2}{d} - 1)\\
+            &= (2^{n-1} - 1)2^d + 1 + 2^{n-1} \cdot 2^d\\
+            &= (2^n - 1) 2^d + 1
+        \end{align*}
+    \end{proof}
+    It is proved in \cite{Harborth1973} that the following holds
+    \begin{lemma}\label{lem:f_3_2_Value_Harborth}
+        \begin{equation*}
+            \fnd{3}{2} = 9
+        \end{equation*}
+    \end{lemma}
+    \begin{theorem}[Erd\oUmlaut-Ginsburg-Ziv]\label{lem:Erdos2NM1}
+        \begin{equation*}
+            \fnd{n}{1} = 2n - 1  
+        \end{equation*}
+    \end{theorem}  
+    \begin{proof}
+        From \eqref{eqn:fndProp1}, we obtain 
+        \[\fnd{n}{1} \geq 2 n - 1\]
+    \end{proof}
+
+\newpage
     \section{Proof of Kemnitz Conjecture}
     For the following section, I use the notation $\equiv$ to denote the modulo in $\IntegerP{p}$.\\
     The $0$ denotes the usual neutral element of addition in the corresponding abelian group. In particular,
@@ -378,12 +536,7 @@
     In this chapter, I would like to state the proof the \alonDubinerTheorem{} which gives a general upper bound
     of the number $\fnd{n}{d}$.
     \subsection{Preliminaries}
-    \begin{lemma}
-        \begin{alignat}{2}
-            (n-1) 2^d + 1 &\leq &\fnd{n}{d} &\leq (n-1)n^d + 1 \label{eqn:fndProp1}\\
-            \fnd{pq}{d} &\leq &\fnd{p}{d} &+ p(\fnd{q}{d} - 1) \label{eqn:fndProp2}
-        \end{alignat}
-    \end{lemma}
+
 
     \begin{definition}
         We define \emph{hyperplane} of $\IntegerP{p}^d$ to be the set of all vectors $v \in \IntegerP{p}^d$ so that
@@ -723,7 +876,7 @@
         Recall from Proposition~\ref{prop:directSum_characterInjective} that 
         for each character $\chi$, it has a from of:
         \begin{equation*}
-            \chi((g_1,\ldots,g_d)) = \prod_{l = 1}^{d} \chi_{l}(g_l),
+            \chi((g_1,\ldots,V_d)) = \prod_{l = 1}^{d} \chi_{l}(g_l),
         \end{equation*}
         where we have decomposed each element of $g \in G$ in to the component in the direct sum, and 
         $\chi_l$  is the character of the group $\IntegerP{p}$.

@@ -103,3 +103,32 @@ $\lightning$
             \end{aligned}
         \end{equation}
 ```
+
+10. [equation with apostrophe](https://tex.stackexchange.com/questions/132401/equation-number-with-an-apostrophe)
+
+```latex
+        \begin{align}
+            \fnd{pq}{d} \leq \fnd{q}{d} + q(\fnd{p}{d} - 1)\tag{\ref{eqn:fndProp2}'}\label{eqn:fndProp2_prime}
+        \end{align}
+```
+
+It seems that use `\tag{\ref{eqn:fndProp2}\prime}` does not work. 
+Correct version : `\tag{$\ref{eqn:fndProp2}^\prime$`, so need to use the maths mode. 
+We could also move the label to the beginning of the environment, so
+
+Alternative:
+
+```latex
+        \begin{align}\label{eqn:fndProp2_prime}
+            \fnd{pq}{d} \leq \fnd{q}{d} + q(\fnd{p}{d} - 1)\tag{$\ref{eqn:fndProp2}^\prime$}
+        \end{align}
+```
+
+Note that use `equation` would also work:
+
+```latex
+        \begin{equation}\label{eqn:fndProp2_prime}
+            \fnd{pq}{d} \leq \fnd{p}{d} + p(\fnd{q}{d} - 1)\tag{\ref{eqn:fndProp2}'}
+        \end{equation}
+
+```
