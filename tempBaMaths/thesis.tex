@@ -54,11 +54,31 @@
 \def\NoOptArgSet#1{\OptArgSet[\big]{#1}}
 
 \def\Set{\oldset*}
+
+% =====================
+% really wide hat
+\usepackage{scalerel,stackengine}
+\stackMath
+\newcommand\reallywidehat[1]{%
+\savestack{\tmpbox}{\stretchto{%
+  \scaleto{%
+    \scalerel*[\widthof{\ensuremath{#1}}]{\kern-.6pt\bigwedge\kern-.6pt}%
+    {\rule[-\textheight/2]{1ex}{\textheight}}%WIDTH-LIMITED BIG WEDGE
+  }{\textheight}% 
+}{0.5ex}}%
+\stackon[1pt]{#1}{\tmpbox}%
+}
+\parskip 1ex
+
+
 % ==============================
 
 % =========
 % theroem
-\newcommand{\warningTheorem}{\emph{Warning Theorem}}
+% \newcommand{\warningTheorem}{\ensuremath{\operatorname{\hbox{\emph{Chevalley-Warning Theorem}}}}}
+% \newcommand{\warningTheorem}{\ensuremath{\textbf{Chevalley-Warning Theorem}}}
+\newcommand{\warningTheorem}{\emph{Chevalley\,-Warning Theorem}}
+\newcommand{\kemnitzConjecture}{\emph{Kemnitz' Conjecture}}
 \newcommand{\alonDubinerTheorem}{\emph{Alon-Dubiner Theorem}}
 
 % ========
@@ -86,7 +106,7 @@
 \newcommand{\zeroSumSeq}[1]{$0$-sum $#1$-subsequence}
 \newcommand{\cayleyGraph}[2]{\ensuremath{\Gamma_{#1,#2}}}
 \newcommand{\adjacencyMatrixCayley}[2]{\ensuremath{A_{(#1,#2)}}}
-\newcommand{\characterGroup}[1][G]{\ensuremath{\hat{#1}}}
+\newcommand{\characterGroup}[1][G]{\ensuremath{\reallywidehat{#1}}}
 \DeclarePairedDelimiter{\roundCeil}\lceil\rceil
 % =======
 % some functions
@@ -124,11 +144,32 @@
 \newcommand{\circled}[1]{\ensuremath{#1}}
 
 
+\title{Proof of Kemnitz' Conjecture and generalized to higher dimensions}
+\date{\today}
+\author{Panwei Hu}
+
+% set the contents of tables depth 
+% here 2 ----  subsection
+\setcounter{tocdepth}{2}
+
+% \renewcommand{\contentsname}{Inhalte}
+% \renewcommand{\refname}{Literatur}
+
 \begin{document}
+
+\pagenumbering{gobble}
+\maketitle
+\newpage
+\tableofcontents
+  \newpage
+\newpage
+\pagenumbering{arabic}
+\newpage
+
 \section{Abstract}
 In this thesis, I worked with a lattice point problem which deals with the smallest number $f(n,d)$
 of a sequence of lattice point to guarantee the centroid is also a lattice point. The thesis first introduces
-this concept and gives some examples in the low-dimensional case. The next chapter deals with the \emph{Kemnitz} conjecture.
+this concept and gives some examples in the low-dimensional case. The next chapter deals with the \kemnitzConjecture.
 The thesis will state a detailed proof which is based on \cite{Reiher_2007}. The last chapter deals with the \alonDubinerTheorem{} which
 gives a general upper bound for $f(n,d)$.
 
@@ -334,15 +375,49 @@ gives a general upper bound for $f(n,d)$.
             \fnd{3}{2} = 9
         \end{equation*}
     \end{lemma}
-    
+    Applying the trick as in Lemma~\ref{lem:f_nd_2_potent}, using the base case in Lemma~\ref{lem:f_3_2_Value_Harborth}, we obtain 
+    \begin{lemma}\label{lem:f_3Potent_2_value}
+        \begin{equation*}
+            \fnd{3^n}{2} = 4 \cdot 3^n - 2
+        \end{equation*}
+    \end{lemma}
+
+    By setting $d = 2$ in Lemma~\ref{lem:f_nd_2_potent}, we see that
+    \[\fnd{2^n}{2} = 4 \cdot 2^n - 2\]
+    we see that there is a simlar structure as in $\fnd{3^n}{2}$. 
+    A natural question emerges that if this is the case for all $n \in \Integer$, that is
+    \[\fnd{n}{2} = 4n - 3\]
+    This is the well-known \kemnitzConjecture{}, which we will discuss in the next chapter.
 \newpage
     \section{Proof of Kemnitz Conjecture}
     For the following section, I use the notation $\equiv$ to denote the modulo in $\IntegerP{p}$.\\
     The $0$ denotes the usual neutral element of addition in the corresponding abelian group. In particular,
     $0$ denotes the standard $0$ in the abelian group $\IntegerP{p}$ and $(0,0)$ in the case of $\IntegerP{p}\times \IntegerP{p}$.
     \begin{theorem}[\warningTheorem]\label{theorem:warning}
-        
+        Let $p$ be a prime number and $q = p^t$. We use $\Field{q}$ to denote the finite field of $q$ elements.
+        Let $p_1,\ldots,p_m$ be $m$ polynomials in $\PolynomialRing{\Field{q}}{n}$, with degree $d_i$. Denote the number of common
+        zeros of the $m$ polynomials as $N$.
+        If 
+        \[\sum_{i = 1}^{m} d_i < n,\]
+        then 
+        \[N \equiv 0 \pmod{p}\]
     \end{theorem}
+    \begin{proof}
+        See for example \cite{nathanson1996additive}.
+    \end{proof}
+    We would like to give a proof of the \kemnitzConjecture{}. First we note that from if $\fnd{p}{2} = 4p-3$ and $\fnd{q}{2} = 4q-3$,
+    then applying \eqref{eqn:fnd_pq_Bound}
+    \begin{align*}
+        \fnd{pq}{2} &\leq \fnd{p}{2} + p (\fnd{q}{2} - 1)\\
+        &\leq 4p-3 + p (4q - 3 - 1)\\
+        &= 4pq - 3.
+    \end{align*}
+    Thus it suffices to consider the case when $p$ is prime. In addition from Lemma~\ref{lem:f_nd_2_potent}, we already know that
+    \[\fnd{2}{2} = 4 \cdot 2 - 3 = 5,\]
+    it suffices to consider the odd prime number. Thus we assume in the following paragraph that $p$ is an odd prime number. We denote $J,X$ and other capital alphabet
+    as multiset of $\IntegerP{p} \times \IntegerP{p}$.
+    We use the notation $\numSumSubset{p}{J}$ to denote the number of the \zeroSumSeq{p} in $J$.
+    First we obtain the following Corollary from Theorem~\ref{theorem:warning}.
     \begin{corollary}\label{cor:origCountingJ3p}
         If $\abs{J} = 3p-3$, then $1 - \numSumSubset{p - 1}{J} - \numSumSubset{p}{J} + \numSumSubset{2p-1}{J} + \numSumSubset{2p}{J}\equiv 0$
     \end{corollary}
@@ -559,7 +634,7 @@ gives a general upper bound for $f(n,d)$.
             in particular 
             \[\sum_{X-B} -1 \equiv -1 \cdot \numSumSubset{3p-1}{X}\]
         \end{enumerate}
-        Now we are able to prove the \emph{Kemnitz conjecture}:        
+        Now we are able to prove the \kemnitzConjecture:        
     \end{proof}
     \begin{theorem}
         Any choice of $4p-3$ lattice points in the plane $\Integer \times \Integer$ contains
@@ -588,7 +663,7 @@ gives a general upper bound for $f(n,d)$.
         But from Corollary~\ref{cor:Exact3pZeroSumHasPzeroSeq}, we see that $\numSumSubset{p}{J} > 0$, in particular $\numSumSubset{p}{X} > 0$,
         which is a contradiction.
     \end{proof}
-
+\newpage
     \section{Alon-Dubiner Theorem}
     In this chapter, I would like to state the proof the \alonDubinerTheorem{} which gives a general upper bound
     of the number $\fnd{n}{d}$.
@@ -596,7 +671,7 @@ gives a general upper bound for $f(n,d)$.
 
 
     \begin{definition}
-        We define \emph{hyperplane} of $\IntegerP{p}^d$ to be the set of all vectors $v \in \IntegerP{p}^d$ so that
+        We define a \emph{hyperplane} of $\IntegerP{p}^d$ to be the set of all vectors $v \in \IntegerP{p}^d$ so that
         $\exists u \in \IntegerP{p}^d$, s.t. $ u\cdot v = c$ for a constant $c \in \IntegerP{p}$. where $\cdot$ denotes the standard
         scalar product. An \emph{affine basis} is a set $V \subset \IntegerP{p}^d$ with $\abs{V} = d+1$, s.t. $V$ is not contained in a hyperplane.
     \end{definition}
@@ -1074,7 +1149,7 @@ gives a general upper bound for $f(n,d)$.
         & \leq (32 d \log_2 d)^d p,
     \end{align*}
     where we have used \eqref{eqn:fndProp1} at (*).
-    We have already seen from Lemma~\ref{lem:Erdos2NM1} that $\fnd{p}{1} = 2p-1$, so \eqref{eqn:alonFndpBound} holds for $d = 1, c(1) = 2$.
+    We have already seen from Theorem~\ref{theorem:Erdos2NM1} that $\fnd{p}{1} = 2p-1$, so \eqref{eqn:alonFndpBound} holds for $d = 1, c(1) = 2$.
     Assuming the correctedness for $d-1$, we now prove the case $d$. We denote $S$ be a sequence of $c(d)p$ elements from $\IntegerP{p}^d$.
     We consider two cases:
     \begin{enumerate}
@@ -1115,7 +1190,9 @@ gives a general upper bound for $f(n,d)$.
     This equation implies that even after we have deleted at most $p(d+1)$ elements from the set $S$, we can still make sure that no hyperplanes in $\IntegerP{p}^d$ contains
     $\frac{1}{4W}$ of the elements of the remaining sets. By property 1, 2, 3, we see that
     \[\abs{A_1 \cup \ldots \cup A_s \cup B_1 \cup \ldots \cup B_t \cup A_1^{'} \cup \ldots \cup A_{s'}^{'} \cup B_1^{'} \cup \ldots \cup B_{t'}^{'}} \leq p(d+1)\]
-    which means that the condition for the Proposition~\ref{prop:a_plus_Y_M_Y_cardinality} will hold throughout the selection of the subsets $A_i, \myAlphabetSubSupscript{A}{i'}{}, B_j, \myAlphabetSubSupscript{B}{j'}{}$.
+    which means that the condition for the 
+    Lemma~\ref{lem:a_plus_Y_M_Y_cardinality} 
+    will hold throughout the selection of the subsets $A_i, \myAlphabetSubSupscript{A}{i'}{}, B_j, \myAlphabetSubSupscript{B}{j'}{}$.
 
     We now begin to construct $A_i$. First, we find $x$ be a power of $2$ which satisfies:
     \[\frac{p}{32d} \leq x \leq \frac{p}{16d}.\]
@@ -1151,7 +1228,12 @@ gives a general upper bound for $f(n,d)$.
     \end{align*}
     The set $\myAlphabetSubSupscript{B}{j}{'}$ can be found similarly. We see that all the four variables $s,t,s',t'$ are bounded by $\frac{p}{4}$,
     which means that $ s + t + s' + t' \leq p$.
-
+\newpage
+    \section{Conclusion}
+    In this thesis, I have studied the number $\fnd{n}{d}$ and stated the proof of the \kemnitzConjecture{}. 
+    We see the generalization to the higher dimension which states that $\fnd{n}{d}$ is bounded linearly with respect to $n$. 
+    Further problems maybe to determine the subsequence in the $2$-dimensional case which is guaranteed to be $4n-3$. It is also conjectured that
+    $\fnd{n}{d} \leq c^d n$ for all $n$ and $d$. 
     \newpage
     \bibliography{reference}
     \bibliographystyle{ieeetr}    
