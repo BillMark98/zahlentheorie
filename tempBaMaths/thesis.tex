@@ -115,6 +115,7 @@
 \newcommand{\setCondition}{\mid}
 \newcommand{\mySetMinus}{\setminus}
 \newcommand{\minus}{-}
+\newcommand{\myMin}[1]{\ensuremath{\min \{#1\}}}
 \newcommand{\contradiction}{\ensuremath{\lightning}}
 % \newcommand{\negative}{-}
 
@@ -241,6 +242,71 @@ gives a general upper bound for $f(n,d)$.
     \end{corollary}
     
     We can use \eqref{eqn:fnd_pq_Bound} to find out some values of $f(n,d)$.
+    Before we state the famous theorem first discovered by Erd\oUmlaut s ,Ginsburg and Ziv,
+    we state the \emph{Cauchy-Davenport} Theorem which would help the proof.
+    \begin{theorem}[Cauchy-Davenport]\label{theorem:cauchy_davenport}
+        Let $p$ be a prime number. If $A, B \subset \IntegerP{p}$ are nonempty, then 
+        \[\abs{A + B} \geq \myMin{p, \abs{A} + \abs{B} - 1},\]
+        where $A+B$ denotes the set of the addition of elements in $A$ and $B$, see\\ Definition~\ref{def:sum_of_sets}.
+    \end{theorem}
+    \begin{proof}
+        See for example \cite{nathanson1996additive}.
+    \end{proof}
+    \begin{theorem}[Erd\oUmlaut s-Ginsburg-Ziv]\label{theorem:Erdos2NM1}
+        \begin{equation*}
+            \fnd{n}{1} = 2n - 1  
+        \end{equation*}
+    \end{theorem}  
+    \begin{proof}
+        From \eqref{eqn:fndProp1}, we obtain 
+        \begin{equation}\label{ieqn:fnd_n_1_get_2n_1}
+            \fnd{n}{1} \geq 2 n - 1
+        \end{equation}            
+        So we only need to prove that 
+        \begin{equation}\label{ieqn:fnd_n_1_leq_2n_1}
+            \fnd{n}{1} \leq 2n - 1.
+        \end{equation}            
+        From \eqref{eqn:fnd_pq_Bound}, we could restrict to the case when $n$ is prime, 
+        because if we have proved the theorem for all 
+        the prime numbers,
+        then for two given prime numbers $p,q$:
+        \begin{equation}\label{eqn:erdos_fnd_pq_inequality}
+        \begin{aligned}[b]
+            \fnd{pq}{1} &\leq \fnd{p}{1} + p (\fnd{q}{1} - 1) \\
+            &\leq 2 p - 1 + p (2 q - 2) \\
+            &= 2pq - 1         
+        \end{aligned}
+        \end{equation}
+        Applying \eqref{eqn:erdos_fnd_pq_inequality} recursively 
+        to the prime factorization of any integer 
+        $n$ leads to \eqref{ieqn:fnd_n_1_leq_2n_1}.
+    
+        We thus prove \eqref{ieqn:fnd_n_1_leq_2n_1} for the case $p$, $p$ a prime number.
+        Assume there is a sequence with $2p - 1$ elements, if there are already $p$ identical elemnent, we are done.
+        So we could assume that there are no elements which has multiplicity larger than $p-1$.
+        We arrange all the element increasingly (which is possible in the $1$ dimensional case), and enumerate the element so that
+        \[a_1 \leq a_2 \leq \cdots \leq a_{2p-1}.\]
+        We define the set $A_i := \set{a_i, a_{i + p - 1}}, 1 \leq i \leq p-1$. Note that $\abs{A_i} = 2, \forall 1 \leq i \leq p-1$, because 
+        we assume that no elements appear more than $p - 1$  times.
+        Apply Theorem~\ref{theorem:cauchy_davenport} recursively, we obtain
+        \begin{align*}
+            \abs{A_1 + \cdots + A_{p-1}} &\geq \myMin{p, \abs{A_2 + \cdots + A_{p-1}} + \abs{A_1} - 1} \\
+            &\geq \myMin{p, \abs{A_2 + \cdots + A_{p-1}} + 1} \\
+            &\geq \myMin{p, \abs{A_3 + \cdots + A_{p-1}} + 2}\\
+            &\vdots \\
+            &\geq \myMin{p, \abs{A_{p-2}, A_{p-1}} + p - 3}\\
+            &\geq \myMin{p, 2 + 2 - 1 + p - 3}\\
+            &\geq \myMin{p,p} = p.
+        \end{align*}
+        This implies that 
+        \[A_1 + \cdots + A_{p-1} = \IntegerP{p}\]
+        In particular we can pick $p-1$ elements from the first $2p-2$ elements $a_{i_1},\ldots, a_{i_{p-1}}$, with $a_{i_k} \in A_k, 1 \leq k \leq p - 1$.
+        s.t.
+        \[a_{i_1} + \cdots + a_{i_{p-1}} = - a_{2p-1}.\]
+        Moving $a_{2p-1}$ to the left handside of the equation, we thus obtain a \zeroSumSeq{p} $a_{i_1},\ldots, a_{i_{p-1}}, a_{2p-1}$, which means
+        \[\fnd{p}{1} \leq 2p - 1\]
+    \end{proof}
+
     \begin{lemma}\label{lem:f_nd_2_potent}
         \begin{equation*}
             \fnd{2^n}{d} = (2^n - 1) 2^d + 1
@@ -268,16 +334,7 @@ gives a general upper bound for $f(n,d)$.
             \fnd{3}{2} = 9
         \end{equation*}
     \end{lemma}
-    \begin{theorem}[Erd\oUmlaut-Ginsburg-Ziv]\label{lem:Erdos2NM1}
-        \begin{equation*}
-            \fnd{n}{1} = 2n - 1  
-        \end{equation*}
-    \end{theorem}  
-    \begin{proof}
-        From \eqref{eqn:fndProp1}, we obtain 
-        \[\fnd{n}{1} \geq 2 n - 1\]
-    \end{proof}
-
+    
 \newpage
     \section{Proof of Kemnitz Conjecture}
     For the following section, I use the notation $\equiv$ to denote the modulo in $\IntegerP{p}$.\\
@@ -545,7 +602,7 @@ gives a general upper bound for $f(n,d)$.
     \end{definition}
         
     \subsection{Some inequalities from additive combinatorics}
-    \begin{definition}
+    \begin{definition}\label{def:sum_of_sets}
         Let $A$ and $B$ two subsets of a finite abelian group $G$, define
         the addition and subtraction of the two sets as following:
         \begin{align*}
