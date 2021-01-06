@@ -29,6 +29,36 @@
 \usepackage{marvosym} %\Lightning
 \usepackage{stmaryrd} % $\lightning
 
+
+%=================================
+%================================
+% title page
+
+% \newcommand{\ThesisTitle}[1]{\newcommand{\thesistitle}{#1}}
+
+% \newcommand{\ThesisDate}[3]{\newcounter{thesisday}
+
+% \newcommand{\ThesisAuthor}[1]{\newcommand{\thesisauthor}{#1}}
+% \newcommand{\FirstExaminerName}[1]{\newcommand{\firstexaminername}{#1}}
+% \newcommand{\SecondExaminerName}[1]{\newcommand{\secondexaminername}{#1}}
+% \newcommand{\SupervisorNames}[1]{\newcommand{\supervisornames}{#1}}
+
+
+
+% \AtBeginDocument{%
+% \hypersetup{
+% 	pdftitle={\thesistitle},
+% 	pdfauthor={\thesisauthor},
+% 	% pdfsubject={\thesistype, Institute for Networked Systems, RWTH Aachen University},
+% 	bookmarksnumbered=true,
+% 	bookmarksopen=true,
+% 	bookmarksopenlevel=1,
+% 	pdfborder={0 0 0},
+% 	plainpages=false,
+% 	pdfcreator={\thesisauthor},
+% }
+
+%================================
 \DeclarePairedDelimiterX{\abs}[1]\lvert\rvert{\ifblank{#1}{\,\cdot\,}{#1}}
 
 \let\oldabs\abs
@@ -119,7 +149,7 @@
 \newcommand{\composition}[2]{\ensuremath{#1\circ#2}}
 \newcommand{\sothat}{s.t.\ }
 \newcommand{\TODO}{\textbf{!!!!!!! To Do !!!!!!!!!}}
-
+\newcommand{\Dom}[1]{\ensuremath{\hbox{Dom}(#1)}}
 % ===========
 % environment
 \newenvironment{case}
@@ -137,6 +167,8 @@
 \newcommand{\mySetMinus}{\setminus}
 \newcommand{\minus}{-}
 \newcommand{\myMin}[1]{\ensuremath{\min \{#1\}}}
+\newcommand{\myMax}[1]{\ensuremath{\max \{#1\}}}
+
 \newcommand{\contradiction}{\ensuremath{\lightning}}
 % \newcommand{\negative}{-}
 
@@ -181,8 +213,8 @@ gives a general upper bound for $f(n,d)$.
     \[V_d := \set{\sum_{i = 1}^d a_i v_i; a_i \in \Integer, \quad 1 \leq i \leq d},\]
     where $\set{v_i; 1 \leq i \leq d}$ are linear independent vectors in $V$. 
     We also call the point in $V_d$ as \emph{lattice} points.
-    We now want to find out the minimum of the number $f$ given $f$ sequences in $V_d$, we can guarantee to find out a subsequence of length $n$, \sothat the centroid of this 
-    subsequence is also a lattice point. We define such minimum number of $f(n,d)$.
+    We now want to find out the minimum of the number $f$ \sothat given $f$ sequences in $V_d$, we can guarantee to find out a subsequence of length $n$, \sothat the centroid of this 
+    subsequence is also a lattice point. We define such minimum number as $f(n,d)$.
     % The element of $G$ will be treated as a lattice point. We define the number $f(n,d)$ as the smallest number \sothat for all 
     % sequence of elements in $G$, with length greater or equal to $f(n,d)$, we can find a 
 
@@ -196,9 +228,28 @@ gives a general upper bound for $f(n,d)$.
     It is not hard to see that the above problem 
     can be equivalently formulated as finding the 
     number $f(n,d)$, \sothat 
-    given a sequence of elements in $G$, with 
+    for any sequences of elements in $G$, with 
     length $l \geq f(n,d)$, there exists a \zeroSumSeq{n}.
 
+    Since given a sequence of elements in $G$, it is possible that the sequence contains multiple identical elements.
+    We will model a sequence thus as a multiset. From set theory, we know that a multiset whose elements are from the set $A$ can be treated as a function
+    $f : A \rightarrow K$, where $K$ is the cardinal number. We thus extend the operation on sets to the multisets as following:
+    \begin{definition}\label{def:multisetOperation}
+        Let $f: A\rightarrow K, g: B \rightarrow K$ be two multisets. Let the domain of a function $f$ be denoted as $\Dom{f}$.
+        We define the \emph{union},\emph{intersection},\emph{complement} as following, using the same notation in set theory:\\
+        \begin{itemize}
+            \item $f \cup g$:  A multiset whose domain is defined as $\Dom{f \cup g} = \Dom{f} \cup \Dom{g} = A \cup B$ \sothat
+            \[(f \cup g) (x) = \myMax{f(x), g(x)}\]    
+            \item $f \cap g$: A multiset whose domain is defined as $\Dom{f \cap g} = \Dom{f} \cap \Dom{g} = A \cap B$ \sothat
+            \[(f \cap g)(x) = \myMin{f(x), g(x)}\]
+            \item $f \setminus g$: Let $C := \set{ x \in A\cap B; f(x) > g(x)}$ $f \setminus g$ is a multiset whose domain is defined as $\Dom{f \cap g} = (A \setminus B) \cup C$ \sothat
+            \[(f\setminus g)(x) := f(x) - g(x)\]
+        \end{itemize}
+    \end{definition}
+    We see that the usual operation extends naturally to the multiset, thus for 
+    the following discussions I abuse the name `set' to denote
+    both set and multiset, when the context is clear if multiplicity of an element is allowed.
+    We begin further with our discussion on $\fnd{n}{d}$.
     A natural bound on the number $f(n,d)$ is given in the following Lemma.
     % \begin{lemma}
     %     \begin{alignat}{2}
@@ -214,7 +265,7 @@ gives a general upper bound for $f(n,d)$.
     \begin{proof}
         The left inequality can be seen as following:
 
-        We construct $(n-1) 2^d$ vectors, which includes all the vectors in $\IntegerP{n}^d$, which has $0$ or $1$ in their entry, so there are in all $2^d$ different vectors.
+        We construct $(n-1) 2^d$ vectors, which include all the vectors in $\IntegerP{n}^d$, which has $0$ or $1$ in their entry, so there are in all $2^d$ different vectors.
         Each vector appear exactly $n-1$ times.  It is impossible to find a \zeroSumSeq{n} among these vectors. Thus we must have 
         \[(n-1) 2^d + 1 \leq \fnd{n}{d}.\]
 
@@ -226,7 +277,7 @@ gives a general upper bound for $f(n,d)$.
         We thus deduce that 
         \[\fnd{n}{d} \leq (n-1)n^d + 1.\]
     \end{proof}
-    It is generally very difficult to examine $f(n,d)$ for every possible $n$, thus we would like to restrict $n$ to a smaller set of numbers, for example the prime number. The 
+    It is generally very difficult to examine $f(n,d)$ for every possible $n \in \NaturalNumber$, thus we would like to restrict $n$ to a smaller set of numbers, for example the prime numbers. The 
     following Lemma helps us with such reduction.
     \begin{lemma}
         \begin{equation}\label{eqn:fndProp2}
@@ -234,12 +285,12 @@ gives a general upper bound for $f(n,d)$.
         \end{equation}
     \end{lemma}
     \begin{proof}
-        For convenience of notation, we define 
+        For the convenience of notation, we define 
         \[f_1 := \fnd{p}{d}, f_2 := \fnd{q}{d}, f := f_1 + p(f_2 - 1).\]
         Given a sequence $S$ of $f$ elements, 
         since $f > f_1$, we can find a \zeroSumSeq{p}, 
         which we denote as $A_1$.
-        We then consider the $S \setminus A_1$, since 
+        We then consider $S \setminus A_1$, since 
         the rest is still larger than $f_1$ we can 
         further find a \zeroSumSeq{p}, which we denote 
         as $A_2$.
@@ -254,7 +305,7 @@ gives a general upper bound for $f(n,d)$.
             v_d
         \end{pmatrix}, \quad v_i \in \Integer, \; 1 \leq i \leq d
         \end{equation*}
-        Among all the $f_2$ $w_l$ vectors, there exist a \zeroSumSeq{q}, which means 
+        Among all these $f_2$ vectors, there exists a \zeroSumSeq{q}, which means 
         they sum to a vector $z$, with
         \[z = q \cdot \begin{pmatrix}
             v_1\\
@@ -286,7 +337,7 @@ gives a general upper bound for $f(n,d)$.
     
     We can use \eqref{eqn:fnd_pq_Bound} to find out some values of $f(n,d)$.
     Before we state the famous theorem first discovered by Erd\oUmlaut s ,Ginsburg and Ziv,
-    we state the \emph{Cauchy-Davenport} Theorem which would help the proof.
+    we state the \emph{Cauchy-Davenport} Theorem which would help us with the proof.
     \begin{theorem}[Cauchy-Davenport]\label{theorem:cauchy_davenport}
         Let $p$ be a prime number. If $A, B \subset \IntegerP{p}$ are nonempty, then 
         \[\abs{A + B} \geq \myMin{p, \abs{A} + \abs{B} - 1},\]
@@ -309,7 +360,7 @@ gives a general upper bound for $f(n,d)$.
         \begin{equation}\label{ieqn:fnd_n_1_leq_2n_1}
             \fnd{n}{1} \leq 2n - 1.
         \end{equation}            
-        From \eqref{eqn:fnd_pq_Bound}, we could restrict to the case when $n$ is prime, 
+        From \eqref{eqn:fnd_pq_Bound}, we could restrict the problem to the case when $n$ is prime, 
         because if we have proved the theorem for all 
         the prime numbers,
         then for two given prime numbers $p,q$:
@@ -325,11 +376,12 @@ gives a general upper bound for $f(n,d)$.
         $n$ leads to \eqref{ieqn:fnd_n_1_leq_2n_1}.
     
         We thus prove \eqref{ieqn:fnd_n_1_leq_2n_1} for the case $p$, $p$ a prime number.
-        Assume there is a sequence with $2p - 1$ elements, if there are already $p$ identical elemnent, we are done.
-        So we could assume that there are no elements which has multiplicity larger than $p-1$.
+        Assume there is a sequence with $2p - 1$ elements, if there are already $p$ identical elements, we are done.
+        So we could assume that there are no elements which have multiplicity larger than $p-1$.
         We arrange all the element increasingly (which is possible in the $1$ dimensional case), and enumerate the element \sothat
         \[a_1 \leq a_2 \leq \cdots \leq a_{2p-1}.\]
-        We define the set $A_i := \set{a_i, a_{i + p - 1}}, 1 \leq i \leq p-1$. Note that $\abs{A_i} = 2, \forall 1 \leq i \leq p-1$, because 
+        We define the set $A_i := \set{a_i, a_{i + p - 1}}, 1 \leq i \leq p-1$. Note that 
+        \[\abs{A_i} = 2, \quad \forall 1 \leq i \leq p-1,\] because 
         we assume that no elements appear more than $p - 1$  times.
         Apply Theorem~\ref{theorem:cauchy_davenport} recursively, we obtain
         \begin{align*}
@@ -349,7 +401,7 @@ gives a general upper bound for $f(n,d)$.
         Moving $a_{2p-1}$ to the left handside of the equation, we thus obtain a \zeroSumSeq{p} $a_{i_1},\ldots, a_{i_{p-1}}, a_{2p-1}$, which means
         \[\fnd{p}{1} \leq 2p - 1\]
     \end{proof}
-
+    
     \begin{lemma}\label{lem:f_nd_2_potent}
         \begin{equation*}
             \fnd{2^n}{d} = (2^n - 1) 2^d + 1
@@ -380,23 +432,25 @@ gives a general upper bound for $f(n,d)$.
     Applying the trick as in Lemma~\ref{lem:f_nd_2_potent}, using the base case in Lemma~\ref{lem:f_3_2_Value_Harborth}, we obtain 
     \begin{lemma}\label{lem:f_3Potent_2_value}
         \begin{equation*}
-            \fnd{3^n}{2} = 4 \cdot 3^n - 2
+            \fnd{3^n}{2} = 4 \cdot 3^n - 3
         \end{equation*}
     \end{lemma}
 
     By setting $d = 2$ in Lemma~\ref{lem:f_nd_2_potent}, we see that
-    \[\fnd{2^n}{2} = 4 \cdot 2^n - 2\]
+    \[\fnd{2^n}{2} = 4 \cdot 2^n - 3\]
     we see that there is a simlar structure as in $\fnd{3^n}{2}$. 
     A natural question emerges that if this is the case for all $n \in \Integer$, that is
     \[\fnd{n}{2} = 4n - 3\]
     This is the well-known \kemnitzConjecture{}, which we will discuss in the next chapter.
 \newpage
     \section{Proof of Kemnitz Conjecture}
-    For the following section, I use the notation $\equiv$ to denote the modulo in $\IntegerP{p}$.\\
+    For the following chapter, I use the notation $\equiv$ to denote the modulo in $\IntegerP{p}$.\\
     The $0$ denotes the usual neutral element of addition in the corresponding abelian group. In particular,
     $0$ denotes the standard $0$ in the abelian group $\IntegerP{p}$ and $(0,0)$ in the case of $\IntegerP{p}\times \IntegerP{p}$.
+
+    For the proof of the \kemnitzConjecture{}, the following theorem is very helpful, which is also known as \warningTheorem{}.
     \begin{theorem}[\warningTheorem]\label{theorem:warning}
-        Let $p$ be a prime number and $q = p^t$. We use $\Field{q}$ to denote the finite field of $q$ elements.
+        Let $p$ be a prime number and $q = p^t, t \in \NaturalNumber$. We use $\Field{q}$ to denote the finite field of $q$ elements.
         Let $p_1,\ldots,p_m$ be $m$ polynomials in $\PolynomialRing{\Field{q}}{n}$, with degree $d_i$. Denote the number of common
         zeros of the $m$ polynomials as $N$.
         If 
@@ -416,19 +470,19 @@ gives a general upper bound for $f(n,d)$.
     \end{align*}
     Thus it suffices to consider the case when $p$ is prime. In addition from Lemma~\ref{lem:f_nd_2_potent}, we already know that
     \[\fnd{2}{2} = 4 \cdot 2 - 3 = 5,\]
-    it suffices to consider the odd prime number. Thus we assume in the following paragraph that $p$ is an odd prime number. We denote $J,X$ and other capital alphabet
-    as multiset of $\IntegerP{p} \times \IntegerP{p}$.
+    it suffices to consider the odd prime number. Thus we assume in the following paragraph that $p$ is an odd prime number. We denote $J,X$ and other capital alphabets
+    as a multiset of $\IntegerP{p} \times \IntegerP{p}$.
     We use the notation $\numSumSubset{p}{J}$ to denote the number of the \zeroSumSeq{p} in $J$.
     First we obtain the following Corollary from Theorem~\ref{theorem:warning}.
     \begin{corollary}\label{cor:origCountingJ3p}
         If $\abs{J} = 3p-3$, then $1 - \numSumSubset{p - 1}{J} - \numSumSubset{p}{J} + \numSumSubset{2p-1}{J} + \numSumSubset{2p}{J}\equiv 0$
     \end{corollary}
     \begin{proof}
-        We specify $J$ as the set $\set{(a_n,b_n); 1 \leq n \leq 3p-3}$.\\
+        We specify $J$ as the multiset $\set{(a_n,b_n); 1 \leq n \leq 3p-3}$.\\
         We consider three polynomials
-        \[p_1 := \sum_{n=1}^{3p-3} x_n^{p-1} + x_{3p-2}^{p-1}, \quad p_2 := \sum_{n=1}^{3p-3}a_n x_n^{p-1} \quad \hbox{and }  p_3:= \sum_{n = 1}^{3p-3}b_n x_n^{p-1}\]
+        \[p_1 := \sum_{n=1}^{3p-3} x_n^{p-1} + x_{3p-2}^{p-1}, \quad p_2 := \sum_{n=1}^{3p-3}a_n x_n^{p-1}, \quad p_3:= \sum_{n = 1}^{3p-3}b_n x_n^{p-1}\]
         Since the total sum of degress are $3(p-1) = 3p-3 < 3p-2$, we can apply the \warningTheorem{}.
-        Since three polynomials has $0$ as a common zero. The \warningTheorem{} states that there are non-trivial common zeros.
+        Since three polynomials have $0$ as a common zero, the \warningTheorem{} states that there are non-trivial common zeros.
         We consider the common zeros depending on the term $x_{3p-2}$ in $p_1$.
         \begin{case}
             \item $x_{3n-2} = 0$\\
@@ -442,18 +496,18 @@ gives a general upper bound for $f(n,d)$.
                     0, &\text{if $x \equiv 0$.}
                 \end{cases}
             \end{equation*}
-            Since there are in all $3p-3$ entries, there could only be three cases:
+            Since there are in all $3p-3$ variables left, there could only be three cases:
             \begin{enumeratei}
-                \item $0$ of them are $1$
-                This corresponds to the $0$, since all $x_i$ has to be $0$.
-                \item $p$ of them are $1$
-                This corresponds to $p$ $x_i$ which is non-zero. We enumerate them as $x_{i_1},\ldots,x_{i_p}$.
-                To be the common zero, then this assignment nees to satisfy
-                \[\sum_{j = 1}^{j = p} a_{i_j} \equiv 0, \quad \sum_{j = 1}^{j = p} b_{i_j} \equiv 0.\]
+                \item $0$ of them are $1$:\\
+                This corresponds to the case when all $x_i$ are $0$.
+                \item $p$ of them are $1$:\\
+                This corresponds to $p$ of the $x_i$ are non-zero. We enumerate them as $x_{i_1},\ldots,x_{i_p}$.
+                In order for this particular assignment to be the common zero, it needs to satisfy
+                \[\sum_{j = 1}^{p} a_{i_j} \equiv 0, \quad \sum_{j = 1}^{p} b_{i_j} \equiv 0.\]
                 The total number the set $\{i_1,\ldots, i_p \}$ is exactly $\numSumSubset{p}{J}$.
                 Combining the fact that there are $p-1$ possible value for each $x_i$ s.t $x_i^{p-1} \equiv 1$,
                 the total number of common zeros with $p$ non-zero entries is $(p-1)^p \numSumSubset{p}{J}$.
-                \item $2p$ of them are $1$
+                \item $2p$ of them are $1$:\\
                 Arguing similarly as in the second case, we obtain the total number of common zeros with $2p$ non-zero entries 
                 is given by $(p-1)^{2p}\numSumSubset{2p}{J}$.
             \end{enumeratei}
@@ -472,7 +526,7 @@ gives a general upper bound for $f(n,d)$.
                 \[(p-1)^{2p} \numSumSubset{2p-1}{J}\]
             \end{enumeratei}
         \end{case}
-            Collecting all the number of common zeros considered in different cases, we obtain, under the usage of \warningTheorem{}
+            Collecting all the number of common zeros considered in different cases, we obtain, with the usage of \warningTheorem{}
             \begin{equation*}
                 1 + (p-1)^p\numSumSubset{p}{J} + (p-1)^{2p} \numSumSubset{2p}{J} + (p-1)^p\numSumSubset{p-1}{J}
                 + (p-1)^{2p}\numSumSubset{2p-1}{J}\equiv 0
@@ -484,12 +538,11 @@ gives a general upper bound for $f(n,d)$.
         If $|J| = 3p-2$, or $|J| = 3p-1$, then $1 - (p|J) + (2p|J)\equiv 0$ 
     \end{corollary}
     \begin{proof}
-        Consider the polynomials in $\PolynomialRing{\Field{p}}{|J|}$,
-        \WLOG, $|J| = 3p-2$, the case for $\abs{J} = 3p-1$ is analogous.
+        \WLOG, $|J| = 3p-2$, the case for $\abs{J} = 3p-1$ is analogous. Consider the polynomials in $\PolynomialRing{\Field{p}}{|J|}$,
 
-        \[\sum_{n=1}^{3p-3} x_n^{p-1}, \quad\sum_{n=1}^{3p-3}a_n x_n^{p-1} \hbox{and} \sum_{n = 1}^{3p-3}b_n x_n^{p-1}\]
+        \[\sum_{n=1}^{3p-3} x_n^{p-1}, \quad\sum_{n=1}^{3p-3}a_n x_n^{p-1}, \quad \sum_{n = 1}^{3p-3}b_n x_n^{p-1}\]
         since the total degrees are $3p-3 < 3p-2$, the \warningTheorem{} is applicable.
-        Their common zeros are counted as in Corollary~\ref{cor:origCountingJ3p},
+        Counting common zeros as in Corollary~\ref{cor:origCountingJ3p},
         we obtain:
         \begin{alignat}{2}
             &\phantom{\Rightarrow}\quad\quad\quad&1 + (p-1)^p (p|J) + (p-1)^{2p}(2p-1|J) &\equiv 0 \\
@@ -513,7 +566,7 @@ gives a general upper bound for $f(n,d)$.
     \end{corollary}
     \begin{proof}
         Assume that $\numSumSubset{p}{J} = 0$, this means that there are no subsets in $J$, of cardinality $p$ which 
-        builds a zero-sum sequence. In particular, if we randomly pick an $x \in J$ and consider the set $J-x$, it follows that
+        builds a zero-sum sequence. In particular, if we randomly pick an $x \in J$ and consider the multiset $J-x$, it follows that
         $\numSumSubset{p}{J-x} = 0$. Now, since $\abs{J-x} = 3p-1$, we can apply Corollary~\ref{cor:3pM13pM2_pJE0Imply2P} to obtain that 
         $\numSumSubset{2p}{J-x} \equiv -1$, in particular, this implies that $\numSumSubset{2p}{J-x} > 0$. \\
         We observe that $\forall A \subset J$, \sothat $\sum_{a \in A} a \equiv 0$,
@@ -542,9 +595,9 @@ gives a general upper bound for $f(n,d)$.
     \end{corollary}
     \begin{proof}
         Consider the polynomials $f_1,f_2,f_3$
-        \[\sum_{n = 1}^{4p-3}x_n^{p-1}, \quad \sum_{n=1}^{4p-3}a_nx_n^{p-1} \hbox{and}\sum_{n=1}^{4p-3}b_n x_n^{p-1}\]
-        The polynomials satisfy $\deg_i \polyDeg{f_i} < 4p-3$, so the \warningTheorem{} is applicable.
-        By doing the analogous as in Corollary~\ref{cor:origCountingJ3p}, we obtain the first equation.
+        \[\sum_{n = 1}^{4p-3}x_n^{p-1}, \quad \sum_{n=1}^{4p-3}a_nx_n^{p-1} , \quad \sum_{n=1}^{4p-3}b_n x_n^{p-1}\]
+        The polynomials satisfy $\polyDeg{f_i} < 4p-3$, so the \warningTheorem{} is applicable.
+        Performing the similar procedure as in Corollary~\ref{cor:origCountingJ3p}, we obtain the first equation.
         
     \end{proof}
     \begin{corollary}\label{cor:4pM3_multiSum}
@@ -620,6 +673,7 @@ gives a general upper bound for $f(n,d)$.
         Now by fixing $B$ and count the possible set $C$, we get:
         \[\chi \equiv \sum_{B} \numSumSubset{2p}{X-B} \stackrel{\circled{1}}{\equiv} \sum_{B} -1 
         \stackrel{\circled{2}}{\equiv} \sum_{X-B}-1 \stackrel{\circled{3}}{\equiv} -\numSumSubset{3p-1}{X}\]
+        For the three equivalences, we have used the following facts:
         \begin{enumerate}
             \item  We use the similar argumentation as before, since $\abs{X-B} = 3p-1$ and apply Corollary~\ref{cor:3pM13pM2_pJE0Imply2P}
             leads to $\numSumSubset{2p}{X-B} \equiv -1$.    
@@ -777,7 +831,7 @@ gives a general upper bound for $f(n,d)$.
         \end{align}
     \end{lemma}
 
-    \subsubsection{characters}
+    \subsection{characters}
     Throughout this section, we assume $G$ is a finite abelian group, using additive notation. Let $S$ a multiset of $G$, with 
     $S$ being symmetric, which means:
     \[\forall x \in S \Rightarrow \minus x \in S\]
@@ -793,7 +847,7 @@ gives a general upper bound for $f(n,d)$.
     \end{proposition}
     We know that since $\adjacencyMatrixCayley{G}{S}$ is symmetric, all its eigenvalues are real. Moreover, it turns out that we can precisely find out each 
     eigenvalue of $\adjacencyMatrixCayley{G}{S}$. For that purpose, I would like to introduce the concept of characters.
-    I first introduce the general concept of a character to a general group, then confine to the case of finite abelian group.
+    I first introduce the general concept of a character of a general group, then confine to the case of finite abelian groups.
     \begin{definition}\label{def:characters}
         Let $\Gamma$ be a group, a function $f : \Gamma \rightarrow \ComplexUnit$ is a \emph{character} of $\Gamma$ if 
         $f$ is a group homomorphism, where $\ComplexUnit$ denotes the multiplicative group of the units of $\Complex$.
@@ -867,11 +921,12 @@ gives a general upper bound for $f(n,d)$.
         In particular linear independent, the bound follows from the fact that the number of linear independent vectors is bounded by the dimension of the vector space.
     \end{proof}
     Next we would like to prove that $\abs{\characterGroup} = \abs{G}$.
-    We recall the structure theorem of finite abelian group that 
+    We recall the structure theorem of finite abelian groups that 
     \begin{equation*}
         G \cong \modularInteger{n_1} \bigoplus \cdots \bigoplus \modularInteger{n_s} ,\quad\hfill \hbox{for some }n_1, \ldots, n_s \in \NaturalNumber
     \end{equation*}
-    It can be easily seen that if $\chi_1 \in \characterGroup{G_1}$ and $\chi_2 \in \characterGroup{G_2}$,
+    It can be easily seen that if $\chi_1 \in \characterGroup[G_1]$ and $\chi_2 \in \characterGroup
+    [G_2]$,
     then  is a character on $G_1 \times G_2$. 
     The injectiveness of the map
     \begin{align*}
