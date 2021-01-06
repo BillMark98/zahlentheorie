@@ -117,6 +117,7 @@
 \newcommand{\myInf}[1]{\inf{#1}}
 \newcommand{\bilinearForm}[2]{\ensuremath{\langle#1,#2\rangle}}
 \newcommand{\composition}[2]{\ensuremath{#1\circ#2}}
+\newcommand{\sothat}{s.t.\ }
 \newcommand{\TODO}{\textbf{!!!!!!! To Do !!!!!!!!!}}
 
 % ===========
@@ -168,9 +169,10 @@
 
 \section{Abstract}
 In this thesis, I worked with a lattice point problem which deals with the smallest number $f(n,d)$
-of a sequence of lattice point to guarantee the centroid is also a lattice point. The thesis first introduces
+of a sequence of lattice points to guarantee that the centroid of $n$ lattice points is also a lattice point in a $d$-dimensional vector space. 
+The thesis first introduces
 this concept and gives some examples in the low-dimensional case. The next chapter deals with the \kemnitzConjecture.
-The thesis will state a detailed proof which is based on \cite{Reiher_2007}. The last chapter deals with the \alonDubinerTheorem{} which
+The thesis will illustrate a detailed proof which is based on \cite{Reiher_2007}. The last chapter deals with the \alonDubinerTheorem{} which
 gives a general upper bound for $f(n,d)$.
 
 \newpage
@@ -179,9 +181,9 @@ gives a general upper bound for $f(n,d)$.
     \[V_d := \set{\sum_{i = 1}^d a_i v_i; a_i \in \Integer, \quad 1 \leq i \leq d},\]
     where $\set{v_i; 1 \leq i \leq d}$ are linear independent vectors in $V$. 
     We also call the point in $V_d$ as \emph{lattice} points.
-    We now want to find out the minimum of the number $f$ so that given $f$ sequences in $V_d$, we can guarantee to find out a subsequence of length $n$, s.t. the centroid of this 
+    We now want to find out the minimum of the number $f$ given $f$ sequences in $V_d$, we can guarantee to find out a subsequence of length $n$, \sothat the centroid of this 
     subsequence is also a lattice point. We define such minimum number of $f(n,d)$.
-    % The element of $G$ will be treated as a lattice point. We define the number $f(n,d)$ as the smallest number s.t. for all 
+    % The element of $G$ will be treated as a lattice point. We define the number $f(n,d)$ as the smallest number \sothat for all 
     % sequence of elements in $G$, with length greater or equal to $f(n,d)$, we can find a 
 
     
@@ -193,7 +195,7 @@ gives a general upper bound for $f(n,d)$.
      in $G$.  
     It is not hard to see that the above problem 
     can be equivalently formulated as finding the 
-    number $f(n,d)$, so that 
+    number $f(n,d)$, \sothat 
     given a sequence of elements in $G$, with 
     length $l \geq f(n,d)$, there exists a \zeroSumSeq{n}.
 
@@ -325,7 +327,7 @@ gives a general upper bound for $f(n,d)$.
         We thus prove \eqref{ieqn:fnd_n_1_leq_2n_1} for the case $p$, $p$ a prime number.
         Assume there is a sequence with $2p - 1$ elements, if there are already $p$ identical elemnent, we are done.
         So we could assume that there are no elements which has multiplicity larger than $p-1$.
-        We arrange all the element increasingly (which is possible in the $1$ dimensional case), and enumerate the element so that
+        We arrange all the element increasingly (which is possible in the $1$ dimensional case), and enumerate the element \sothat
         \[a_1 \leq a_2 \leq \cdots \leq a_{2p-1}.\]
         We define the set $A_i := \set{a_i, a_{i + p - 1}}, 1 \leq i \leq p-1$. Note that $\abs{A_i} = 2, \forall 1 \leq i \leq p-1$, because 
         we assume that no elements appear more than $p - 1$  times.
@@ -342,7 +344,7 @@ gives a general upper bound for $f(n,d)$.
         This implies that 
         \[A_1 + \cdots + A_{p-1} = \IntegerP{p}\]
         In particular we can pick $p-1$ elements from the first $2p-2$ elements $a_{i_1},\ldots, a_{i_{p-1}}$, with $a_{i_k} \in A_k, 1 \leq k \leq p - 1$.
-        s.t.
+        \sothat
         \[a_{i_1} + \cdots + a_{i_{p-1}} = - a_{2p-1}.\]
         Moving $a_{2p-1}$ to the left handside of the equation, we thus obtain a \zeroSumSeq{p} $a_{i_1},\ldots, a_{i_{p-1}}, a_{2p-1}$, which means
         \[\fnd{p}{1} \leq 2p - 1\]
@@ -514,7 +516,7 @@ gives a general upper bound for $f(n,d)$.
         builds a zero-sum sequence. In particular, if we randomly pick an $x \in J$ and consider the set $J-x$, it follows that
         $\numSumSubset{p}{J-x} = 0$. Now, since $\abs{J-x} = 3p-1$, we can apply Corollary~\ref{cor:3pM13pM2_pJE0Imply2P} to obtain that 
         $\numSumSubset{2p}{J-x} \equiv -1$, in particular, this implies that $\numSumSubset{2p}{J-x} > 0$. \\
-        We observe that $\forall A \subset J$, s.t. $\sum_{a \in A} a \equiv 0$,
+        We observe that $\forall A \subset J$, \sothat $\sum_{a \in A} a \equiv 0$,
         \begin{align*}
             \sum_{a\in A} a + \sum_{b\in J-A} b = \sum_{j \in J} j &\equiv 0\\
             \Rightarrow \sum_{b \in J-A} b &\equiv 0
@@ -559,10 +561,10 @@ gives a general upper bound for $f(n,d)$.
         since once we have chosen $p$ elements $Y$, we need to further choose $\abs{I} - p = 3p-3 - p = 2p-3$ elements from
         total $\abs{X} - p = 4p-3 -p = 3p-3$ elements.
         Note that
-        \[ \sum_{ \substack{Y \subset X,\\\sum_{y\in Y} y= 0}} \sum_{\substack{I,s.t. \\Y\subset I,\\\abs{I} = 3p-3}} 1\]
+        \[ \sum_{ \substack{Y \subset X,\\\sum_{y\in Y} y= 0}} \sum_{\substack{I,\sothat \\Y\subset I,\\\abs{I} = 3p-3}} 1\]
         \begin{align*}
-            \binom{3p-3}{2p-3} \numSumSubset{p}{X} = \sum_{ \substack{Y\subset X\\ \sum_{y\in Y} y = 0}} \binom{3p-3}{2p-3} &= \sum_{ \substack{Y \subset X,\\\sum_{y\in Y} y= 0}} \sum_{\substack{I,s.t. \\Y\subset I,\\\abs{I} = 3p-3}} 1\\
-                &=\sum_{\substack{I,s.t.\\\abs{I} = 3p-3}}\;\sum_{ \substack{Y \subset I,\\\sum_{y\in Y} y= 0}}  1 \\
+            \binom{3p-3}{2p-3} \numSumSubset{p}{X} = \sum_{ \substack{Y\subset X\\ \sum_{y\in Y} y = 0}} \binom{3p-3}{2p-3} &= \sum_{ \substack{Y \subset X,\\\sum_{y\in Y} y= 0}} \sum_{\substack{I,\sothat \\Y\subset I,\\\abs{I} = 3p-3}} 1\\
+                &=\sum_{\substack{I,\sothat\\\abs{I} = 3p-3}}\;\sum_{ \substack{Y \subset I,\\\sum_{y\in Y} y= 0}}  1 \\
                 &= \sum_{I} \numSumSubset{p}{I}
         \end{align*}
         Performing similar calculation, we get
@@ -590,7 +592,7 @@ gives a general upper bound for $f(n,d)$.
             &\equiv 2 \cdot \frac{(p-1)!}{(p-1)!}\\
             &\equiv 2
         \end{align*}
-        Note that we have used the fact that $p$ is an odd prime, so that $(-1)^{p-1} \equiv 1$.
+        Note that we have used the fact that $p$ is an odd prime, \sothat $(-1)^{p-1} \equiv 1$.
         Similarly, one can prove that
         \begin{equation}\label{eqn:binomModulo2}
             \binom{3p-3}{2p-3}\equiv 2, \binom{2p-2}{p-2} \equiv 1, \binom{2p-3}{p-3}\equiv 1.
@@ -627,7 +629,7 @@ gives a general upper bound for $f(n,d)$.
                 &\rightarrow \set{ J \subset X; \abs[]{J} = 3p-1, \sum_{j\in J}j \equiv 0}\\
                     X &\mapsto X - B
             \end{align*}
-            is a bijection, so that 
+            is a bijection, \sothat 
             \[\sum_{B} 1 \equiv \sum_{X -B} 1\]
             \item Since $\sum_{b\in B} b \equiv \sum_{x \in X} x$, it follows that 
             \[\sum_{x \in X - B} x \equiv 0,\]
@@ -671,9 +673,9 @@ gives a general upper bound for $f(n,d)$.
 
 
     \begin{definition}
-        We define a \emph{hyperplane} of $\IntegerP{p}^d$ to be the set of all vectors $v \in \IntegerP{p}^d$ so that
-        $\exists u \in \IntegerP{p}^d$, s.t. $ u\cdot v = c$ for a constant $c \in \IntegerP{p}$. where $\cdot$ denotes the standard
-        scalar product. An \emph{affine basis} is a set $V \subset \IntegerP{p}^d$ with $\abs{V} = d+1$, s.t. $V$ is not contained in a hyperplane.
+        We define a \emph{hyperplane} of $\IntegerP{p}^d$ to be the set of all vectors $v \in \IntegerP{p}^d$ \sothat
+        $\exists u \in \IntegerP{p}^d$, \sothat $ u\cdot v = c$ for a constant $c \in \IntegerP{p}$. where $\cdot$ denotes the standard
+        scalar product. An \emph{affine basis} is a set $V \subset \IntegerP{p}^d$ with $\abs{V} = d+1$, \sothat $V$ is not contained in a hyperplane.
     \end{definition}
         
     \subsection{Some inequalities from additive combinatorics}
@@ -706,7 +708,7 @@ gives a general upper bound for $f(n,d)$.
         , and $\abs{B} > \frac{\abs{G}}{2}$
         . We must have
         \[B \cap g \minus A \neq \emptyset\]
-        in particular, $\exists a \in A, b \in B$, s.t. $g = a + b$, since $g$ is randomly picked, we
+        in particular, $\exists a \in A, b \in B$, \sothat $g = a + b$, since $g$ is randomly picked, we
         obtain $A + B = G$        
     \end{proof}    
 
@@ -841,7 +843,7 @@ gives a general upper bound for $f(n,d)$.
     \end{lemma}
     \begin{proof}
         We know from Lemma~\ref{lem:characterGroupIsAGroup} that $\composition{\chi_1}{\chi_2^{*}}$ is also a character.
-        Since $\chi_1 \neq \chi_2$, it follows that $\exists g \in G$, s.t. $\chi_1(g) \neq \chi_2(g)$
+        Since $\chi_1 \neq \chi_2$, it follows that $\exists g \in G$, \sothat $\chi_1(g) \neq \chi_2(g)$
         \[\composition{\chi_1}{\chi_2^{*}}(g) \neq 1,\]
         which means that $\composition{\chi_1}{\chi_2^{*}} $ is not $1$-mapping.
         Using Lemma~\ref{lem:character_1st_Property}, we obtain
@@ -979,7 +981,7 @@ gives a general upper bound for $f(n,d)$.
     \begin{lemma}\label{lem:a_plus_Y_M_Y_cardinality}
         Suppose $W \geq 1$, let $A$ be a sequence of elements in $\IntegerP{p}^d$ (possible to have equal elements) and 
         suppose no hyperplanes in $\IntegerP{p}^d$ contains more than $\frac{\abs[]{A}}{4W}$ members of $A$. Then $\forall Y \subset \IntegerP{p}^d$,
-        with $\abs{Y} \leq \frac{p^d}{2}$, $\exists a \in A$, s.t.
+        with $\abs{Y} \leq \frac{p^d}{2}$, $\exists a \in A$, \sothat
         \begin{equation}\label{eqn:a_plus_Y_minus_Y_lowerBound}
             \abs{(a + Y)\mySetMinus Y} \geq \frac{W}{16p}\abs{Y}
         \end{equation}            
@@ -1030,9 +1032,9 @@ gives a general upper bound for $f(n,d)$.
         \end{equation*}
         where $\omega = \exp (\frac{2\pi i}{p})$, and $\cdot$ denotes the standard scalar product. Since we want to find out the bound of second largest eigenvalue,
         we set $v \neq 0$.($v = 0$ leads to the largest eigenvalue).
-        We can choose the range of the dot product so that for $a \in A$, 
+        We can choose the range of the dot product \sothat for $a \in A$, 
         \[\frac{\minus p}{2} < v \cdot a \leq \frac{p}{2}\]
-        By assumption for each $c \in \IntegerP{p}$, there are at most $\frac{\abs{A}}{4W}$ elements $a \in A$ so that
+        By assumption for each $c \in \IntegerP{p}$, there are at most $\frac{\abs{A}}{4W}$ elements $a \in A$ \sothat
         $v\cdot a = c$. In particular:
         \begin{align*}
             \abs{\set{a \in A; v \cdot < W}} &\leq \frac{\abs{A}}{4W} \cdot (W-1 - (-W + 1) + 1)\\
@@ -1094,7 +1096,7 @@ gives a general upper bound for $f(n,d)$.
             &\geq \lambda \cdot \frac{\abs{Y}}{8}.
         \end{align*}
         This implies that the set $M:= \set{(y,s); y \in Y, s \in S, y + s \not\in Y}$ has at least $\lambda \cdot \frac{\abs{Y}}{8}$.
-       elements. We could observe that by averaging, there is at least one element $s \in S$, s.t. $M_s := \set{y \in Y; y + s \not\in Y}$
+       elements. We could observe that by averaging, there is at least one element $s \in S$, \sothat $M_s := \set{y \in Y; y + s \not\in Y}$
        has more than $\frac{\abs[]{Y}}{8}$ elements, because otherwise $\forall s \in S, \abs{M_s} < \frac{\abs[]{Y}}{8}$. It follows that
        \begin{align*}
            \abs{M} &= \abs{\bigcup_{s \in S} M_s}\\
@@ -1103,7 +1105,7 @@ gives a general upper bound for $f(n,d)$.
            &= \lambda \cdot \frac{\abs{Y}}{8} \; \contradiction
        \end{align*}
         Choose such $s$, we know from the construction of the set $S$ that $s \in S_a$ for some $a \in A$, that is 
-        $\exists \epsilon, i \in \NaturalNumber, i \leq 2 \roundCeil{\frac{p}{W}}$, s.t. $s = \epsilon i a$. 
+        $\exists \epsilon, i \in \NaturalNumber, i \leq 2 \roundCeil{\frac{p}{W}}$, \sothat $s = \epsilon i a$. 
         From Lemma~\ref{lem:minusA_minusY_and_IA_pYMinusY}, we know that 
         \begin{align*}
             \abs{(s + Y) \setminus Y} &= \abs{(\epsilon i a + Y)\setminus Y}\\

@@ -132,3 +132,5 @@ Note that use `equation` would also work:
         \end{equation}
 
 ```
+
+11. [really wide hat](https://tex.stackexchange.com/questions/100574/really-wide-hat-symbol/101136)
