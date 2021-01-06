@@ -29,6 +29,9 @@
 \usepackage{marvosym} %\Lightning
 \usepackage{stmaryrd} % $\lightning
 
+%========================
+% for bibtex url
+\usepackage{url}
 
 %=================================
 %================================
@@ -115,7 +118,9 @@
 % number ring, fields
 \newcommand{\Field}[1]{\ensuremath{\mathbb{F}_{#1}}}
 \newcommand{\IntegerP}[1]{\ensuremath{\mathbb{Z}_{#1}}}
-\newcommand{\modularInteger}[1]{\ensuremath{\mathbb{Z}/#1\mathbb{Z}}}
+\usepackage{faktor}
+\newcommand{\modularInteger}[1]{\ensuremath{\faktor{\mathbb{Z}}{#1\-\mathbb{Z}}}}
+% \newcommand{\modularInteger}[1]{\ensuremath{\mathbb{Z}/#1\mathbb{Z}}}
 \newcommand{\NaturalNumber}{\ensuremath{\mathbb{N}}}
 \newcommand{\Real}{\ensuremath{\mathbb{R}}}
 \newcommand{\Complex}{\ensuremath{\mathbb{C}}}
@@ -135,7 +140,7 @@
 % notations
 \newcommand{\zeroSumSeq}[1]{$0$-sum $#1$-subsequence}
 \newcommand{\cayleyGraph}[2]{\ensuremath{\Gamma_{#1,#2}}}
-\newcommand{\adjacencyMatrixCayley}[2]{\ensuremath{A_{(#1,#2)}}}
+\newcommand{\adjacencyMatrixCayley}[2]{\ensuremath{A_{#1,#2}}}
 \newcommand{\characterGroup}[1][G]{\ensuremath{\reallywidehat{#1}}}
 \DeclarePairedDelimiter{\roundCeil}\lceil\rceil
 % =======
@@ -208,7 +213,7 @@ The thesis will illustrate a detailed proof which is based on \cite{Reiher_2007}
 gives a general upper bound for $f(n,d)$.
 
 \newpage
-    \section{Introduction}
+    \section{Introduction}\label{sec:Introduction}
     We define a $d$-dimensional affine space $V$ and consider the set of points which lie in the set
     \[V_d := \set{\sum_{i = 1}^d a_i v_i; a_i \in \Integer, \quad 1 \leq i \leq d},\]
     where $\set{v_i; 1 \leq i \leq d}$ are linear independent vectors in $V$. 
@@ -723,14 +728,9 @@ gives a general upper bound for $f(n,d)$.
     \section{Alon-Dubiner Theorem}
     In this chapter, I would like to state the proof the \alonDubinerTheorem{} which gives a general upper bound
     of the number $\fnd{n}{d}$.
-    \subsection{Preliminaries}
-
-
-    \begin{definition}
-        We define a \emph{hyperplane} of $\IntegerP{p}^d$ to be the set of all vectors $v \in \IntegerP{p}^d$ \sothat
-        $\exists u \in \IntegerP{p}^d$, \sothat $ u\cdot v = c$ for a constant $c \in \IntegerP{p}$. where $\cdot$ denotes the standard
-        scalar product. An \emph{affine basis} is a set $V \subset \IntegerP{p}^d$ with $\abs{V} = d+1$, \sothat $V$ is not contained in a hyperplane.
-    \end{definition}
+    I will first discuss some preliminaries from the addtive combinatorics which we will need for the proof.
+    For the following section, the capital letters, $A,B,Y\ldots$ all denote subset of a finite abelian group $G$.
+    % \subsection{Preliminaries}
         
     \subsection{Some inequalities from additive combinatorics}
     \begin{definition}\label{def:sum_of_sets}
@@ -750,7 +750,8 @@ gives a general upper bound for $f(n,d)$.
         \end{align*}
 
     \end{definition}
-
+    We have already seen \emph{Cauchy-Davenport} theorem in Chapter~\ref{sec:Introduction}. The following is another
+    Lemma which characterizes the sum of two subsets which are sufficiently large.
     \begin{lemma}\label{lem:A_B_SumToG}
         Let G be a finite abelian group, A, B are two subsets of G,
         satisfying
@@ -758,48 +759,60 @@ gives a general upper bound for $f(n,d)$.
         Then $A + B = G$
     \end{lemma}
     \begin{proof}
-        We randomly pick an element $g \in G$. Since $\abs{g-A} = \abs{A} > \frac{\abs{G}}{2}$
-        , and $\abs{B} > \frac{\abs{G}}{2}$
+        We randomly pick an element $g \in G$. Since $\abs{g-A} = \abs{A} > \frac{\abs[]{G}}{2}$
+        , and $\abs{B} > \frac{\abs[]{G}}{2}$
         . We must have
         \[B \cap g \minus A \neq \emptyset\]
         in particular, $\exists a \in A, b \in B$, \sothat $g = a + b$, since $g$ is randomly picked, we
         obtain $A + B = G$        
     \end{proof}    
 
-    \begin{lemma}\label{lem:plunneckeRuska_set_LowerBound}
-        If $Y$ and $B$ are finite subsets of an abelian group and $h \in \NaturalNumber$, then
-        \[\abs{Y + B} \geq \abs{Y} (\frac{\abs{hB}}{\abs{Y}})^{\frac{1}{h}}\]
-    \end{lemma}
-    \begin{corollary}\label{cor:YplusB_lowerBound}
-        Let $Y$ be a subset of $\IntegerP{p}^d$ and let $B$ be an affine basis of $\IntegerP{p}^d$. If $\abs{Y} \leq x^d$ 
-        for some integer $x \leq \frac{p}{4d}$ then $\abs{Y + B} \geq \abs{Y}2^{\frac{1}{2x}}$
-    \end{corollary}
+    For the following discussion, it is helpful to introduce the concept of hyperplane, which is an analogy to that in the euclidean
+    space.
+    \begin{definition}
+        We define a \emph{hyperplane} of $\IntegerP{p}^d$ to be the set of all vectors $v \in \IntegerP{p}^d$ \sothat
+        $\exists u \in \IntegerP{p}^d$, \sothat $ u\cdot v = c$ for a constant $c \in \IntegerP{p}$. where $\cdot$ denotes the standard
+        scalar product. An \emph{affine basis} is a set $V \subset \IntegerP{p}^d$ with $\abs{V} = d+1$, \sothat $V$ is not contained in a hyperplane.
+    \end{definition}
 
+    The sumset of $A + B$ has a lower bound which is given by the following Lemma, the key idea is based on \emph{Pl\uUmlaut{}nnecke-Rusza inequality}.
+    I refer the proof of the Lemma to \cite{ruszaPDF} and \cite{DBLP_LatticePoint:journals/combinatorica/AlonD95}.
+    % \begin{lemma}\label{lem:plunneckeRuska_set_LowerBound}
+    %     If $A$ and $B$ are finite subsets of an abelian group and $h \in \NaturalNumber$, then
+    %     \[\abs{A + B} \geq \abs{A} (\frac{\abs{hB}}{\abs{A}})^{\frac{1}{h}}\]
+    % \end{lemma}
+
+    \begin{lemma}\label{lem:YplusB_lowerBound}
+        Let $A$ be a subset of $\IntegerP{p}^d$ and let $B$ be an affine basis of $\IntegerP{p}^d$. If $\abs{A} \leq x^d$ 
+        for some integer $x \leq \frac{p}{4d}$ then $\abs{A + B} \geq \abs{A}2^{\frac{1}{2x}}$
+    \end{lemma}
+    From the above Lemma, we could derive the following Proposition, which will be used for the proof of the \alonDubinerTheorem.
     \begin{proposition}\label{prop:A_sets_sum_Cardinality_lowerBound}
+        Let $x \leq \frac{p}{4d}$ be a power of $2$. Let $A_1,\ldots,A_s$ be $s$ affine spaces of $\IntegerP{p}^d$, with $s = 4xd$. Then
         \[\abs{A_1 + \ldots + A_s} \geq x^d.\]
     \end{proposition}
     \begin{proof}
-        We start with $Y_1 := {0}$ and set $x_1 = 2$. We apply Corollary~\ref{cor:YplusB_lowerBound} to the set
-        $Y = Y_1, B := A_1$, then it follows that $Y + B = Y_1 + A_1 = A_1$. Besides,
-        \[\abs{Y_1 + A_1} \geq \abs{Y_1}2^{\frac{1}{2x_1}}\geq 2^{\frac{1}{2x_1}}\]
-        We then update $B$ to $A_2$ , $Y$ to $Y + B$ and do the same
+        We start with $A_0 := {0}$ and set $x_1 = 2$. We apply Lemma~\ref{lem:YplusB_lowerBound} to the set
+        $A = A_0, B := A_1$, then it follows that $A + B = A_0 + A_1 = A_1$. Besides,
+        \[\abs{A_0 + A_1} \geq \abs{A_0}2^{\frac{1}{2x_1}}\geq 2^{\frac{1}{2x_1}}\]
+        We then update $B$ to $A_2$ , $A$ to $A + B$ and do the same
         procedure recursively, thus
         \begin{alignat*}{2}
-            \abs{A_1 + A_2} &\geq \abs{A_1} \cdot 2^{\frac{1}{2x_1}} \geq 2^{\frac{2}{2x_1}},& &Y \leftarrow A_1 + A_2\\
-            \abs{A_1 + A_2 + A_3} &\geq \abs{A_1 + A_2} \cdot 2^{\frac{1}{2x_1}} \geq 2^{\frac{3}{2x_1}}, &&Y \leftarrow A_1 + A_2 + A_3\\
-            \phantom{\abs{A_1 + \ldots + A_m}} & \phantom{\geq \abs{A_1 +\ldots +  A_{m-1}} \cdot 2^{\frac{1}{2x_1}} \geq 2^{\frac{m}{2x_1}},}& \vdots &\phantom{Y \leftarrow A_1 + \ldots + A_m}\\
-            \abs{A_1 + \ldots + A_m} &\geq \abs{A_1 +\ldots +  A_{m-1}} \cdot 2^{\frac{1}{2x_1}} \geq 2^{\frac{m}{2x_1}},& \quad &Y \leftarrow A_1 + \ldots + A_m
+            \abs{A_1 + A_2} &\geq \abs{A_1} \cdot 2^{\frac{1}{2x_1}} \geq 2^{\frac{2}{2x_1}},& &A \leftarrow A_1 + A_2\\
+            \abs{A_1 + A_2 + A_3} &\geq \abs{A_1 + A_2} \cdot 2^{\frac{1}{2x_1}} \geq 2^{\frac{3}{2x_1}}, &&A \leftarrow A_1 + A_2 + A_3\\
+            \phantom{\abs{A_1 + \ldots + A_m}} & \phantom{\geq \abs{A_1 +\ldots +  A_{m-1}} \cdot 2^{\frac{1}{2x_1}} \geq 2^{\frac{m}{2x_1}},}& \vdots &\phantom{A \leftarrow A_1 + \ldots + A_m}\\
+            \abs{A_1 + \ldots + A_m} &\geq \abs{A_1 +\ldots +  A_{m-1}} \cdot 2^{\frac{1}{2x_1}} \geq 2^{\frac{m}{2x_1}},& \quad &A \leftarrow A_1 + \ldots + A_m
         \end{alignat*}
         Because 
         \[\frac{m}{2x_1} = d \Leftrightarrow m = 2 x_1 d\]
         It follows that after $j \leq 2 x_1 d$ steps, we could guarantee that 
-        $\abs{A_1 + \ldots + A_{j}} \geq x_1^d$. Choose $i_1 := \myInf{\set{j; \abs{A_1 + \ldots + A_{j}} \geq x_1^d }}$ and set $Y = A_1 + \ldots + A_{i_1}$.
-        Now we put $x_2 = 2^2$. Note that at present stage, $\abs{Y} \geq x_1^d$. \\
-        Applying again Corollary~\ref{cor:YplusB_lowerBound}, we obtain
+        $\abs{A_1 + \ldots + A_{j}} \geq x_1^d$. Choose $i_1 := \myInf{\set{j; \abs{A_1 + \ldots + A_{j}} \geq x_1^d }}$ and set $A = A_1 + \ldots + A_{i_1}$.
+        Now we put $x_2 = 2^2$. Note that at present stage, $\abs{A} \geq x_1^d$. \\
+        Applying again Lemma~\ref{lem:YplusB_lowerBound}, we obtain
         \begin{alignat*}{2}
-            \abs{Y + A_{i_1 + 1}} &\geq x_1^d \cdot 2^{\frac{1}{2x_2}}, && Y \leftarrow Y + A_{i_1 + 1}\\
+            \abs{A + A_{i_1 + 1}} &\geq x_1^d \cdot 2^{\frac{1}{2x_2}}, && A \leftarrow A + A_{i_1 + 1}\\
             \vdots\\
-            \abs{Y + A_{m}} &\geq x_1^d \cdot 2^{\frac{j - i_{1}}{2x_2}}, & \quad&Y \leftarrow Y + A_{m}
+            \abs{A + A_{m}} &\geq x_1^d \cdot 2^{\frac{j - i_{1}}{2x_2}}, & \quad&A \leftarrow A + A_{m}
         \end{alignat*}
         Because 
         \[\frac{m}{2x_2} = d \Leftrightarrow m = 2 (i_1 + x_2) d \leq 2(x_1 + x_2) d,\]
@@ -807,10 +820,10 @@ gives a general upper bound for $f(n,d)$.
         we could guarantee that 
         \[\abs{A_1 + \ldots + A_{j}} \geq x_1^d \cdot 2^{d} = x_2^d.\]
         Choose $i_2 := \myInf{\set{j; \abs{A_1 + \ldots + A_{j}} \geq x_2^d }}$ 
-        and set $Y = A_1 + \ldots + A_{i_2}$.
-        Now we put $x_3 = 2^3$ and do the similar procedure. Note that now $\abs{Y} \geq x_2^d$.
+        and set $A = A_1 + \ldots + A_{i_2}$.
+        Now we put $x_3 = 2^3$ and do the similar procedure. Note that now $\abs{A} \geq x_2^d$.
         Since $x$ is a power of $2$, we assume $x = 2^l$. From the discussion above, we could see that after $i_j$ steps,
-        $\abs{Y} \geq x_j^d = 2^{jd}$. In particular after $i_l$ steps, $\abs{Y} \geq 2^{ld} = x^d$. In addition, we observe that $i_j \leq 2(x_1 +\ldots + x_j)d$,
+        $\abs{A} \geq x_j^d = 2^{jd}$. In particular after $i_l$ steps, $\abs{A} \geq 2^{ld} = x^d$. In addition, we observe that $i_j \leq 2(x_1 +\ldots + x_j)d$,
         so at the $l$-th recursion, we obtain 
         \begin{align*}
             i_l &\leq 2 (x_1 + \ldots + x_l) d\\
@@ -927,20 +940,21 @@ gives a general upper bound for $f(n,d)$.
     \end{equation*}
     It can be easily seen that if $\chi_1 \in \characterGroup[G_1]$ and $\chi_2 \in \characterGroup
     [G_2]$,
-    then  is a character on $G_1 \times G_2$. 
-    The injectiveness of the map
-    \begin{align*}
-        \characterGroup[G_1] \times \characterGroup[G_2] &\rightarrow \characterGroup[G_1 \times G_2]\\
-        \chi  \chi(g_1,g_2) &:= \chi_1(g_1)\cdot \chi(g_2)
-    \end{align*} 
-    is clear.
+    then the function $\chi$ defined on $G_1 \times G_2$. 
+    which has the value $\chi(g_1,g_2) = \chi_1(g_1) \cdot \chi_2(g_2))$ is clearly a character. By setting one of the $g_i, i \in \set{1,2}$ to $1$, we could see that
+    this mapping is injective.
+    % \begin{align*}
+    %     \characterGroup[G_1] \times \characterGroup[G_2] &\rightarrow \characterGroup[G_1 \times G_2]\\
+    %     \chi  \chi(g_1,g_2) &:= \chi_1(g_1)\cdot \chi(g_2)
+    % \end{align*} 
+    % is clear.
     We state the result in a proposition.
     \begin{proposition}\label{prop:directSum_characterInjective}
         Let $G_1,G_2$ be two finite abelian groups and $\characterGroup{G_1},\characterGroup{G_2}$ the corresponding
         character groups. The map:
         \begin{align*}
             \characterGroup[G_1] \times \characterGroup[G_2] &\rightarrow \characterGroup[G_1 \times G_2]\\
-            (\chi_1, \chi_2) &\mapsto  \chi: (g \mapsto \chi_1(g) \cdot \chi_2(g))
+            (\chi_1, \chi_2) &\mapsto  \chi: (g_1,g_2) \mapsto \chi_1(g_1) \cdot \chi_2(g_2)
         \end{align*} 
         is injective.
     \end{proposition}
@@ -1032,7 +1046,7 @@ gives a general upper bound for $f(n,d)$.
             e(A,B) \geq (\lambda - \mu) \cdot \frac{\abs{A} \abs{B}}{\abs{G}}
         \end{equation*}
     \end{lemma}
-    We now state a lemma which is useful for the proof of the \alonDubinerTheorem.
+    We now state a Lemma which is useful for the proof of the \alonDubinerTheorem.
     \begin{lemma}\label{lem:a_plus_Y_M_Y_cardinality}
         Suppose $W \geq 1$, let $A$ be a sequence of elements in $\IntegerP{p}^d$ (possible to have equal elements) and 
         suppose no hyperplanes in $\IntegerP{p}^d$ contains more than $\frac{\abs[]{A}}{4W}$ members of $A$. Then $\forall Y \subset \IntegerP{p}^d$,

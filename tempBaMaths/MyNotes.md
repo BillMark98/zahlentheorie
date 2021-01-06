@@ -1,3 +1,8 @@
+# To do
+
+1. Plunnecke Rusza inequality, [here](http://www.math.cmu.edu/users/af1p/Teaching/AdditiveCombinatorics/Additive-Combinatorics.pdf)
+2. 
+
 ## command
 1. note that the command `\wlog` is predefined in latex, but not the meanign of without loss of generality, but 
 > Write string to the log file
@@ -134,3 +139,16 @@ Note that use `equation` would also work:
 ```
 
 11. [really wide hat](https://tex.stackexchange.com/questions/100574/really-wide-hat-symbol/101136)
+
+12. [bibtex url](https://tex.stackexchange.com/questions/3587/how-can-i-use-bibtex-to-cite-a-web-page) and [here](https://engineering.purdue.edu/~mark/puthesis/faq/cite-url/)
+
+Do not forget to use `\usepackage{url}`
+
+```latex
+@misc{ruszaPDF,
+  title={Sumsets and structure},
+  author={Imre Z. Ruzsa},
+  howpublished = {\url{http://www.math.cmu.edu/users/af1p/Teaching/AdditiveCombinatorics/Additive-Combinatorics.pdf}},
+  note={Accessed: 2021-1-4}
+}
+```
