@@ -1,4 +1,4 @@
-\documentclass{article}
+\documentclass[12pt]{article}
 \usepackage{amssymb,latexsym,amsmath,amsthm,mathtools}
 % for enumerate item
 \usepackage{enumitem}
@@ -182,9 +182,69 @@
 \newcommand{\circled}[1]{\ensuremath{#1}}
 
 
-\title{Proof of Kemnitz' Conjecture and generalized to higher dimensions}
-\date{\today}
-\author{Panwei Hu}
+
+% =================================
+% =================================
+
+% Title
+\newcommand{\HRule}[1]{\rule{\linewidth}{#1}}
+% % \onehalfspacing
+% \setcounter{tocdepth}{5}
+% \setcounter{secnumdepth}{5}
+
+%-------------------------------------------------------------------------------
+% HEADER & FOOTER
+%-------------------------------------------------------------------------------
+% \pagestyle{fancy}
+% \fancyhf{}
+% \setlength\headheight{15pt}
+% \fancyhead[L]{BE PROJECT}
+
+%-------------------------------------------------------------------------------
+% TITLE PAGE
+%-------------------------------------------------------------------------------
+
+% \begin{document}
+
+\title{ \normalsize
+		\HRule{0.5pt} \\
+        % \Huge \textbf{\uppercase{Proof of Kemnitz' Conjecture and generalized to higher dimensions}}
+		\Huge \textbf{Proof of Kemnitz' Conjecture and a generalization to higher dimensions}
+		\HRule{2pt} \\ [0.5cm]
+		\normalsize  \vspace*{5\baselineskip}}
+
+\date{}
+
+\author{
+        \vspace{30pt}
+        \LARGE{Panwei Hu}\\ 
+        \vspace{25pt}  
+        \LARGE{Bachelor Thesis}\\
+        \vspace{10pt}  
+        \LARGE{RWTH Aachen University}\\
+        \vspace{10pt}  
+        \LARGE{Univ.-Prof. Dr. Eberhard Triesch}\\
+        \vspace{10pt}  
+        \LARGE{Lehrstuhl II f\uUmlaut{}r Mathematik}\\
+        \\ }
+
+% \maketitle
+
+\newpage
+
+
+% ==================================
+% ==================================
+
+
+
+
+
+
+
+% \title{Proof of Kemnitz' Conjecture and generalized to higher dimensions}
+% \date{}
+% \author{Panwei Hu}
 
 % set the contents of tables depth 
 % here 2 ----  subsection
@@ -194,6 +254,53 @@
 % \renewcommand{\refname}{Literatur}
 
 \begin{document}
+
+
+
+
+
+% \begin{center}
+% \thispagestyle{empty}
+% \LARGE{University of Innsbruck}\\[-0.9ex]
+% \LARGE{Faculty of Business and Management}\\[2ex]
+% \large{Department of Banking and Finance}\\
+% \vspace{0.3cm}
+% \begin{center}
+% % \includegraphics[width=7cm]{universitaet-innsbruck-logo-cmyk-farbe.jpg}\\
+% \vspace{0.9cm}
+% \textbf{\LARGE{Master Thesis}}
+% \medskip\par
+% \textbf{\normalsize{submitted for the degree of}} \\[2ex]
+% \textbf{\Large{Master of Science}}\\
+% \vspace{1.2cm}
+% \Large{\textbf{Lorem ipsum}}\\[-0.5ex]
+% \large{Lorem ipsum dolor sit amet, consectetur adipiscing elit}\\[-1.5ex]
+% \large{Praesent fermentum}
+% \bigskip\par
+% by \par
+% \large{Anton Wahrstätter, BSc LLB }\\[-1ex]
+% \large{Matriculation Nr.: 01515804}\\ [-1ex]
+% \large{ULG Digital Business}\\[-1ex]
+% \vspace{0.6cm}
+% \end{center}
+% \medskip
+% \end{center}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \pagenumbering{gobble}
 \maketitle
@@ -240,12 +347,12 @@ gives a general upper bound for $f(n,d)$.
     We will model a sequence thus as a multiset. From set theory, we know that a multiset whose elements are from the set $A$ can be treated as a function
     $f : A \rightarrow K$, where $K$ is the cardinal number. We thus extend the operation on sets to the multisets as following:
     \begin{definition}\label{def:multisetOperation}
-        Let $f: A\rightarrow K, g: B \rightarrow K$ be two multisets. Let the domain of a function $f$ be denoted as $\Dom{f}$.
+        Let $f: A\rightarrow K, g: B \rightarrow K$ be two multisets. Let the domain of a function $f$ be denoted as $\Dom{f}$.\\
         We define the \emph{union},\emph{intersection},\emph{complement} as following, using the same notation in set theory:\\
         \begin{itemize}
-            \item $f \cup g$:  A multiset whose domain is defined as $\Dom{f \cup g} = \Dom{f} \cup \Dom{g} = A \cup B$ \sothat
+            \item $f \cup g$:  A multiset whose domain is defined as \\$\Dom{f \cup g} = \Dom{f} \cup \Dom{g} = A \cup B$ \sothat
             \[(f \cup g) (x) = \myMax{f(x), g(x)}\]    
-            \item $f \cap g$: A multiset whose domain is defined as $\Dom{f \cap g} = \Dom{f} \cap \Dom{g} = A \cap B$ \sothat
+            \item $f \cap g$: A multiset whose domain is defined as \\$\Dom{f \cap g} = \Dom{f} \cap \Dom{g} = A \cap B$ \sothat
             \[(f \cap g)(x) = \myMin{f(x), g(x)}\]
             \item $f \setminus g$: Let $C := \set{ x \in A\cap B; f(x) > g(x)}$ $f \setminus g$ is a multiset whose domain is defined as $\Dom{f \cap g} = (A \setminus B) \cup C$ \sothat
             \[(f\setminus g)(x) := f(x) - g(x)\]
@@ -684,7 +791,7 @@ gives a general upper bound for $f(n,d)$.
             leads to $\numSumSubset{2p}{X-B} \equiv -1$.    
             \item The map T defined by:
             \begin{align*}
-                T: \set{B\subset X; \abs[]{B} = p - 1, \sum_{b \in B} a \equiv \sum_{x \in X} x}
+                \set{B\subset X; \abs[]{B} = p - 1, \sum_{b \in B} a \equiv \sum_{x \in X} x}
                 &\rightarrow \set{ J \subset X; \abs[]{J} = 3p-1, \sum_{j\in J}j \equiv 0}\\
                     X &\mapsto X - B
             \end{align*}
