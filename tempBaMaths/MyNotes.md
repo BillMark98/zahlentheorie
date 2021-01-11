@@ -73,6 +73,29 @@ see also [here](https://tex.stackexchange.com/questions/43008/absolute-value-sym
 
 Note that from the book `\begin{enumerate}[\upshape (i)]` is useless.  
 
+after first compiling
+
+the enumeration will leads to sth like `i ... i... i..` the reason lies in the code :
+
+```latex
+\usepackage{enumitem}
+\newenvironment{enumeratei}{\begin{enumerate}[label = (\roman{enumii})]}
+            {\end{enumerate}}
+```
+
+simply use `label = (i)` will not increase the label `i, ii, iii` but will always use `i`, so need to change that to `\roman{enumi}`. 
+
+After modification, the enumeration still shows `i ... i ... i` 
+
+The final correct version:
+
+```latex
+\newenvironment{enumeratei}{\begin{enumerate}[label = (\roman{enumii})]}
+            {\end{enumerate}}
+```
+
+The reason might be the place where I used the `enumeratei` is encapsuluated in a enumerate item, so it is a second order enumeration, thus need to use `enumii` instead of `enumi` to customize the labeling.
+
 6. If want the subscript directly below the union symbol should use `\bigcup` instead of `\cup`, see [here](https://tex.stackexchange.com/questions/205125/formatting-the-union-of-sets)
 
 7. [round to ceil](https://tex.stackexchange.com/questions/433101/rounding-to-nearest-integer-symbol-in-latex), use 
@@ -152,3 +175,4 @@ Do not forget to use `\usepackage{url}`
   note={Accessed: 2021-1-4}
 }
 ```
+

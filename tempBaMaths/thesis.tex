@@ -2,6 +2,7 @@
 \usepackage{amssymb,latexsym,amsmath,amsthm,mathtools}
 % for enumerate item
 \usepackage{enumitem}
+% \usepackage{enumerate}
 \theoremstyle{definition}
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
@@ -160,8 +161,9 @@
 \newenvironment{case}
     {\begin{enumerate}[label = \textbf{Case }{\arabic* }:]}
         {\end{enumerate}}
-\newenvironment{enumeratei}{\begin{enumerate}[label = (i)]}%
-    {\end{enumerate}}
+
+\newenvironment{enumeratei}{\begin{enumerate}[label = (\roman{enumii})]}
+            {\end{enumerate}}
 
 \newcommand{\WLOG}{w.l.o.g}
 % \newcommand{\abs}[1]{\ensuremath{|#1|}}
