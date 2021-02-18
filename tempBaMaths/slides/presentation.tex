@@ -1,0 +1,463 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beamer Presentation
+% LaTeX Template
+% Version 1.0 (10/11/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND THEMES
+%----------------------------------------------------------------------------------------
+
+\documentclass[notheorems, envcountsect]{beamer}
+
+\mode<presentation> {
+
+% The Beamer class comes with a number of default slide themes
+% which change the colors and layouts of slides. Below this is a list
+% of all the themes, uncomment each in turn to see what they look like.
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+% As well as themes, the Beamer class has a number of color themes
+% for any slide theme. Uncomment each of these in turn to see how it
+% changes the colors of your current slide theme.
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+\usepackage{amsmath,amsfonts}
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{algorithmic} % algorithm
+\usepackage{pgfgantt}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usetikzlibrary{arrows.meta,positioning}
+\usetikzlibrary{matrix,backgrounds}
+\newcommand{\newKeyword}{\textbf{new }}
+\newcommand{\MWIS}[1]{\hbox{MWIS(\ensuremath{#1})}}
+\newcommand*{\QEDA}{\hfill\ensuremath{\blacksquare}}
+\newcommand{\obdA}{o.B.d.A}
+\newcommand{\myEmptySet}{\ensuremath{(\emptyset, -1, 0)}}
+\newcommand\textganttbar[4]{%
+    \ganttbar{#1}{#3}{#4}
+    \ganttbar[inline,bar label font=\footnotesize]
+    {#2}{#3}{#4}
+}
+\newcommand{\MAXFLOW}{\hbox{MAXFLOW}}
+\newcommand{\maxFlowFunc}[1]{\ensuremath{\hbox{MAXFLOW}(#1)}}
+
+
+% \newcommand{\minus}{-}
+
+%======================================================
+%======================================================
+
+% import from thesis.tex
+
+%-------------------------------------------------------
+
+\usepackage{amssymb,latexsym,amsmath,amsthm, mathtools}
+\setbeamertemplate{theorem}[ams style]
+\setbeamertemplate{theorems}[numbered]
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{corollary}{Corollary}[section]
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{proposition}{Proposition}[section]
+% 
+% for enumerate item
+\usepackage{enumitem}
+% \usepackage{enumerate}
+\theoremstyle{definition}
+% \newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{property}[theorem]{Property}
+% \newtheorem{definition}[theorem]{Definition}
+\newtheorem{Algorithmus}{Algorithmus}
+\newtheorem{example}[theorem]{Example}
+% \newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{prop}[theorem]{Proposition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem*{goal}{Goal}
+\newtheorem*{observation}{Observation}
+\newtheorem{problem}[theorem]{Problem}
+% \newtheorem{problem}{Problem}
+% \newtheorem{property}{Property}
+\numberwithin{equation}{theorem}
+\numberwithin{figure}{theorem}
+
+
+% ===============================
+% For abs and set
+\usepackage{mathtools,nccmath}%
+\usepackage{ etoolbox, xparse} 
+
+% ===============
+% for contradiction symbol
+% \usepackage{wasysym}  % \lightning
+\usepackage{marvosym} %\Lightning
+\usepackage{stmaryrd} % $\lightning
+
+%========================
+% for bibtex url
+\usepackage{url}
+
+%=================================
+%================================
+% title page
+
+% \newcommand{\ThesisTitle}[1]{\newcommand{\thesistitle}{#1}}
+
+% \newcommand{\ThesisDate}[3]{\newcounter{thesisday}
+
+% \newcommand{\ThesisAuthor}[1]{\newcommand{\thesisauthor}{#1}}
+% \newcommand{\FirstExaminerName}[1]{\newcommand{\firstexaminername}{#1}}
+% \newcommand{\SecondExaminerName}[1]{\newcommand{\secondexaminername}{#1}}
+% \newcommand{\SupervisorNames}[1]{\newcommand{\supervisornames}{#1}}
+
+
+
+% \AtBeginDocument{%
+% \hypersetup{
+% 	pdftitle={\thesistitle},
+% 	pdfauthor={\thesisauthor},
+% 	% pdfsubject={\thesistype, Institute for Networked Systems, RWTH Aachen University},
+% 	bookmarksnumbered=true,
+% 	bookmarksopen=true,
+% 	bookmarksopenlevel=1,
+% 	pdfborder={0 0 0},
+% 	plainpages=false,
+% 	pdfcreator={\thesisauthor},
+% }
+
+%================================
+\DeclarePairedDelimiterX{\abs}[1]\lvert\rvert{\ifblank{#1}{\,\cdot\,}{#1}}
+
+\let\oldabs\abs
+\def\abs{\futurelet\testchar\MaybeOptArgAbs}
+\def\MaybeOptArgAbs{\ifx[\testchar\let\next\OptArgAbs
+\else \let\next\NoOptArgAbs\fi \next}
+\def\OptArgAbs[#1]#2{\oldabs[#1]{#2}}
+\def\NoOptArgAbs#1{\ifblank{#1}{\oldabs{}}{\oldabs[\big]{#1}}}
+
+\def\Abs{\oldabs*}
+
+\DeclarePairedDelimiterX{\set}[1]\{\}{\setargs{#1}}
+\NewDocumentCommand{\setargs}{>{\SplitArgument{1}{;}}m}
+{\setargsaux#1}
+\NewDocumentCommand{\setargsaux}{mm}
+{\IfNoValueTF{#2}{#1}{\nonscript\,#1\nonscript\;\delimsize\vert\nonscript\:\allowbreak #2\nonscript\,}}
+%%% Syntaxe : \set{x ; P(x)})
+\let\oldset\set
+\def\set{\futurelet\testchar\MaybeOptArgSet}
+\def\MaybeOptArgSet{\ifx[\testchar \let\next\OptArgSet
+\else \let\next\NoOptArgSet \fi \next}
+\def\OptArgSet[#1]#2{\oldset[#1]{#2}}
+\def\NoOptArgSet#1{\OptArgSet[\big]{#1}}
+
+\def\Set{\oldset*}
+
+% =====================
+% really wide hat
+\usepackage{scalerel,stackengine}
+\stackMath
+\newcommand\reallywidehat[1]{%
+\savestack{\tmpbox}{\stretchto{%
+  \scaleto{%
+    \scalerel*[\widthof{\ensuremath{#1}}]{\kern-.6pt\bigwedge\kern-.6pt}%
+    {\rule[-\textheight/2]{1ex}{\textheight}}%WIDTH-LIMITED BIG WEDGE
+  }{\textheight}% 
+}{0.5ex}}%
+\stackon[1pt]{#1}{\tmpbox}%
+}
+\parskip 1ex
+
+
+% ==============================
+
+% =========
+% theroem
+% \newcommand{\warningTheorem}{\ensuremath{\operatorname{\hbox{\emph{Chevalley-Warning Theorem}}}}}
+% \newcommand{\warningTheorem}{\ensuremath{\textbf{Chevalley-Warning Theorem}}}
+\newcommand{\warningTheorem}{\emph{Chevalley\,-Warning Theorem}}
+\newcommand{\kemnitzConjecture}{\emph{Kemnitz' Conjecture}}
+\newcommand{\alonDubinerTheorem}{\emph{Alon-Dubiner Theorem}}
+
+% ========
+% number ring, fields
+\newcommand{\Field}[1]{\ensuremath{\mathbb{F}_{#1}}}
+\newcommand{\IntegerP}[1]{\ensuremath{\mathbb{Z}_{#1}}}
+\usepackage{faktor}
+\newcommand{\modularInteger}[1]{\ensuremath{\faktor{\mathbb{Z}}{#1\-\mathbb{Z}}}}
+% \newcommand{\modularInteger}[1]{\ensuremath{\mathbb{Z}/#1\mathbb{Z}}}
+\newcommand{\NaturalNumber}{\ensuremath{\mathbb{N}}}
+\newcommand{\Real}{\ensuremath{\mathbb{R}}}
+\newcommand{\Complex}{\ensuremath{\mathbb{C}}}
+\newcommand{\ComplexUnit}{\ensuremath{\mathbb{C}^{*}}}
+
+\newcommand{\Integer}{\ensuremath{\mathbb{Z}}}
+\newcommand{\PolynomialRing}[2]{\ensuremath{#1[x_1,x_2,\ldots,x_{#2}]}}
+
+
+% ================
+% german alphabet
+\newcommand{\oUmlaut}{{\"o}}
+\newcommand{\uUmlaut}{{\"u}}
+\newcommand{\aUmlaut}{{\"a}}
+
+% ======
+% notations
+\newcommand{\zeroSumSeq}[1]{$0$-sum $#1$-subsequence}
+\newcommand{\cayleyGraph}[2]{\ensuremath{\Gamma_{#1,#2}}}
+\newcommand{\adjacencyMatrixCayley}[2]{\ensuremath{A_{#1,#2}}}
+\newcommand{\characterGroup}[1][G]{\ensuremath{\reallywidehat{#1}}}
+\DeclarePairedDelimiter{\roundCeil}\lceil\rceil
+% =======
+% some functions
+\newcommand{\fnd}[2]{\ensuremath{f(#1,#2)}}
+\newcommand{\bigO}[1]{\ensuremath{\mathcal{O}(#1)}}
+\newcommand{\myAlphabetSubSupscript}[3]{\ensuremath{#1_{#2}^{#3}}}
+\newcommand{\mySup}[1]{\sup{#1}}
+\newcommand{\myInf}[1]{\inf{#1}}
+\newcommand{\bilinearForm}[2]{\ensuremath{\langle#1,#2\rangle}}
+\newcommand{\composition}[2]{\ensuremath{#1\circ#2}}
+\newcommand{\sothat}{s.t.\ }
+\newcommand{\TODO}{\textbf{!!!!!!! To Do !!!!!!!!!}}
+\newcommand{\Dom}[1]{\ensuremath{\hbox{Dom}(#1)}}
+% ===========
+% environment
+\newenvironment{case}
+    {\begin{enumerate}[label = \textbf{Case }{\arabic* }:]}
+        {\end{enumerate}}
+
+\newenvironment{enumeratei}{\begin{enumerate}[label = (\roman{enumii})]}
+            {\end{enumerate}}
+
+\newcommand{\WLOG}{w.l.o.g}
+% \newcommand{\abs}[1]{\ensuremath{|#1|}}
+
+% ======
+% math symbol
+\newcommand{\setCondition}{\mid}
+\newcommand{\mySetMinus}{\setminus}
+\newcommand{\minus}{-}
+\newcommand{\myMin}[1]{\ensuremath{\min \{#1\}}}
+\newcommand{\myMax}[1]{\ensuremath{\max \{#1\}}}
+
+\newcommand{\contradiction}{\ensuremath{\lightning}}
+% \newcommand{\negative}{-}
+
+\newcommand{\polyDeg}[1]{deg(\ensuremath{#1})}
+\newcommand{\numSumSubset}[2]{\ensuremath{(#1|#2)}}
+\newcommand{\circled}[1]{\ensuremath{#1}}
+
+%------------------------------------------
+
+
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title{Proof of Kemnitz' Conjecture and a generalization to higher dimensions} % The short title appears at the bottom of every slide, the full title is only on the title page
+
+
+\author{Panwei Hu} % Your name
+% \institute[UCLA] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
+% {
+% University of California \\ % Your institution for the title page
+% \medskip
+% \textit{john@smith.com} % Your email address
+% }
+\date{} % Date, can be changed to a custom date
+
+\begin{document}
+
+\begin{frame}
+\titlepage % Print the title page as the first slide
+\end{frame}
+
+% \begin{frame}
+% \frametitle{Overview} % Table of contents slide, comment this block out to remove it
+% \tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
+% \end{frame}
+
+%----------------------------------------------------------------------------------------
+%	PRESENTATION SLIDES
+%----------------------------------------------------------------------------------------
+
+%------------------------------------------------
+\section{First Section} % Sections can be created in order to organize your presentation into discrete blocks, all sections and subsections are automatically printed in the table of contents as an overview of the talk
+%------------------------------------------------
+
+\subsection{Subsection Example} % A subsection can be created just before a set of slides with a common theme to further break down your presentation into chunks
+
+
+
+\begin{frame}
+\frametitle{Introduction}
+We define a $d$-dimensional affine space $V$ and consider the set of points which lie in the set
+    \[V_d := \set{\sum_{i = 1}^d a_i v_i; a_i \in \Integer, \quad 1 \leq i \leq d},\]
+    where $\set{v_i; 1 \leq i \leq d}$ are linear independent vectors in $V$. 
+    We also call the points in $V_d$ as \emph{lattice} points.
+\begin{problem}\label{problem:centroid}
+    Find out the minimum of the number $f$ \sothat given $f$ sequences in $V_d$, we can guarantee to find out a subsequence of length $n$, \sothat the centroid of this 
+    subsequence is also a lattice point. We define such minimum number as $f(n,d)$.
+\end{problem}
+    % \begin{goal}
+    %     Find the exact value of $f(n,d)$, if not possible, study the upper and lower bound of $f(n,d)$
+    % \end{goal} 
+\end{frame}
+
+% -------------------
+
+\begin{frame}
+\frametitle{Goal}
+\begin{goal}
+Find the exact value of $f(n,d)$, if not possible, study the upper and lower bound of $f(n,d)$
+\end{goal}
+Consider the additive group $G:= \IntegerP{n}^d$.
+We call a subsequence of length $n$, which 
+sums to a $0$ in $\IntegerP{n}^d$ as 
+\zeroSumSeq{n}, where $0$ denotes the zero vector
+ in $G$. 
+\begin{problem}\label{problem:zeroSumSeq}
+    Find the 
+    number $f(n,d)$, \sothat 
+    for any sequences of elements in $G$, with 
+    length $l \geq f(n,d)$, there exists a \zeroSumSeq{n}.
+\end{problem}
+\begin{observation}
+    Problem~\ref{problem:centroid} and Problem~\ref{problem:zeroSumSeq} are equivalent
+\end{observation}
+\end{frame}
+
+%------------------
+
+\begin{frame}
+\frametitle{Multiset operation}
+% $f : A \rightarrow K$, where $K$ is the cardinal number. We thus extend the operation on sets to the multisets as following:
+\begin{definition}[via examples]\label{def:multisetOperation}
+    Let $A = \set{1,1,1,2,2,3,3,3,3}, B = \set{1,1,2,2,2,3}$ be two multisets.\\
+    The \emph{union},\emph{intersection},\emph{complement} between $A$ and $B$ is given by:\\
+    \begin{itemize}
+        \item $A \cup B = \set{1,1,1,2,2,2,3,3,3,3}$
+        \item $A \cap B = \set{1,1,2,2,3}$
+        \item $A \setminus B = \set{1,3,3,3}$
+    \end{itemize}
+\end{definition}\end{frame}
+
+%------------------
+
+\begin{frame}
+    \frametitle{A natural bound on $f(n,d)$}
+    \begin{lemma}\label{lem:f_n_d_naturalBound}
+        \begin{equation}\label{eqn:fndProp1}
+            (n-1) 2^d + 1 \leq \fnd{n}{d} \leq (n-1)n^d + 1
+        \end{equation}
+    \end{lemma}
+    \begin{proof}
+        Left inequality: 
+        We construct $(n-1) 2^d$ vectors, which include all the vectors in $\IntegerP{n}^d$, which has $0$ or $1$ in their entry, so there are in all $2^d$ different vectors.
+        Each vector appear exactly $n-1$ times.  It is impossible to find a \zeroSumSeq{n} among these vectors.
+
+        Right inequality: pigeon hole principle
+
+        Since $\abs{G} = n^d$, given $(n-1)n^d + 1$ elements, there are at least one vector $v$ which has 
+        multiplicity
+        \[\roundCeil{\frac{(n-1) n^d + 1}{n^d}} = n.\]
+    \end{proof}    
+\end{frame}
+
+    %------------------
+\begin{frame}
+    \frametitle{Decomposition of $f(n,d)$ (1)}
+    \begin{lemma}
+        \begin{equation}\label{eqn:fndProp2}
+            \fnd{pq}{d} \leq \fnd{p}{d} + p(\fnd{q}{d} - 1) 
+        \end{equation}
+    \end{lemma}
+    \begin{proof}
+        For the convenience of notation, we define 
+        \[f_1 := \fnd{p}{d}, f_2 := \fnd{q}{d}, f := f_1 + p(f_2 - 1).\] 
+        since 
+        \[f = f_1 + p (f_2 - 1),\]
+        we would obtain $f_2$ \zeroSumSeq{p}s. 
+        Among all these $f_2$ vectors, there exists a \zeroSumSeq{q}, which means 
+        they sum to a vector $z$, with each component divisible by $q$. Since each summand
+        has components all divisible by $p$, the resultant vectors will be divisible by $pq = n$, thus we obtain a \zeroSumSeq{n}.
+    \end{proof}
+\end{frame}
+%------------------------------------------------
+
+\begin{frame}
+    \frametitle{Decomposition of $f(n,d)$ (2)}
+    Due to the symmetry we would obtain similarly:
+    \begin{equation}\label{eqn:fndProp2_prime}
+        \fnd{pq}{d} \leq \fnd{q}{d} + q(\fnd{p}{d} - 1)%\tag{$\ref{eqn:fndProp2}^\prime$}
+    \end{equation}
+    Combining \eqref{eqn:fndProp2} and \eqref{eqn:fndProp2_prime}, we obtain the following upper bound.
+    \begin{corollary}\label{cor:fnd_pq_Bound}
+        \begin{equation}\label{eqn:fnd_pq_Bound}
+            \fnd{pq}{d} \leq \min \{\fnd{p}{d} + p(\fnd{q}{d} - 1),  \fnd{q}{d} + q(\fnd{p}{d} - 1)\}
+        \end{equation}
+    \end{corollary}    
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\end{document} 

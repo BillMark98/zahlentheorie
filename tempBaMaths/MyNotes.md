@@ -176,3 +176,13 @@ Do not forget to use `\usepackage{url}`
 }
 ```
 
+
+# Presentation
+
+* [beamer theorem numbering](https://sites.google.com/site/descriptorkyp/interests/latex/beamerwiththeoremnumbers)
+
+Note that default will include the beamer self defined theorem environment, so it's better to use `\documentclass[notheorems, envcountsect]{beamer}` at the beginning and then define the theorem environment on one's own.
+
+See also [here](https://tex.stackexchange.com/questions/188379/theorem-numbering-in-beamer) and [here](https://latex.org/forum/viewtopic.php?t=6276) 
+
+* [theorem without numbering](https://tex.stackexchange.com/questions/30033/theorem-without-numbering/30040) so use `\newcommand*{goal}{Goal}` for example. [extra, custom numbering](https://tex.stackexchange.com/questions/53978/custom-theorem-numbering)
