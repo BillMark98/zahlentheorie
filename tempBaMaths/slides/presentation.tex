@@ -111,30 +111,30 @@
 \setbeamertemplate{theorem}[ams style]
 \setbeamertemplate{theorems}[numbered]
 
-\theoremstyle{plain}
+\theoremstyle{definition}
 \newtheorem{theorem}{Theorem}[section]
-\newtheorem{lemma}{Lemma}[section]
-\newtheorem{corollary}{Corollary}[section]
-
-\theoremstyle{definition}
-\newtheorem{definition}{Definition}[section]
-\newtheorem{proposition}{Proposition}[section]
-% 
-% for enumerate item
-\usepackage{enumitem}
-% \usepackage{enumerate}
-\theoremstyle{definition}
-% \newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{mainTheorem}{Main Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{property}[theorem]{Property}
-% \newtheorem{definition}[theorem]{Definition}
+\newtheorem{definition}[theorem]{Definition}
 \newtheorem{Algorithmus}{Algorithmus}
 \newtheorem{example}[theorem]{Example}
-% \newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{corollary}[theorem]{Corollary}
 \newtheorem{prop}[theorem]{Proposition}
 \newtheorem{remark}[theorem]{Remark}
+% 
+% for enumerate item
+% \usepackage{enumitem}
+\usepackage{enumerate}
+\theoremstyle{definition}
+% \newtheorem{proposition}[theorem]{Proposition}
+% \newtheorem{definition}[theorem]{Definition}
+% \newtheorem{corollary}[theorem]{Corollary}
 \newtheorem*{goal}{Goal}
 \newtheorem*{observation}{Observation}
 \newtheorem{problem}[theorem]{Problem}
+\newtheorem{notation}[theorem]{Notation}
 % \newtheorem{problem}{Problem}
 % \newtheorem{property}{Property}
 \numberwithin{equation}{theorem}
@@ -266,6 +266,12 @@
 \newcommand{\adjacencyMatrixCayley}[2]{\ensuremath{A_{#1,#2}}}
 \newcommand{\characterGroup}[1][G]{\ensuremath{\reallywidehat{#1}}}
 \DeclarePairedDelimiter{\roundCeil}\lceil\rceil
+
+% =========
+% math symbols
+\newcommand{\means}{\ensuremath{\reallywidehat{=}}}
+
+
 % =======
 % some functions
 \newcommand{\fnd}[2]{\ensuremath{f(#1,#2)}}
@@ -370,17 +376,20 @@ We define a $d$-dimensional affine space $V$ and consider the set of points whic
 \begin{goal}
 Find the exact value of $f(n,d)$, if not possible, study the upper and lower bound of $f(n,d)$
 \end{goal}
+\pause
 Consider the additive group $G:= \IntegerP{n}^d$.
 We call a subsequence of length $n$, which 
 sums to a $0$ in $\IntegerP{n}^d$ as 
 \zeroSumSeq{n}, where $0$ denotes the zero vector
  in $G$. 
+\pause
 \begin{problem}\label{problem:zeroSumSeq}
     Find the 
     number $f(n,d)$, \sothat 
     for any sequences of elements in $G$, with 
     length $l \geq f(n,d)$, there exists a \zeroSumSeq{n}.
 \end{problem}
+\pause
 \begin{observation}
     Problem~\ref{problem:centroid} and Problem~\ref{problem:zeroSumSeq} are equivalent
 \end{observation}
@@ -455,9 +464,211 @@ sums to a $0$ in $\IntegerP{n}^d$ as
         \begin{equation}\label{eqn:fnd_pq_Bound}
             \fnd{pq}{d} \leq \min \{\fnd{p}{d} + p(\fnd{q}{d} - 1),  \fnd{q}{d} + q(\fnd{p}{d} - 1)\}
         \end{equation}
-    \end{corollary}    
+    \end{corollary}
+    \begin{theorem}[Cauchy-Davenport]\label{theorem:cauchy_davenport}
+        Let $p$ be a prime number. If $A, B \subset \IntegerP{p}$ are nonempty, then 
+        \[\abs{A + B} \geq \myMin{p, \abs{A} + \abs{B} - 1},\]
+        where $A+B$ denotes the set of the addition of elements in $A$ and $B$
+    \end{theorem}
 \end{frame}
 
+%------------------------------------------------
+
+\begin{frame}
+    \frametitle{Examples}
+    \begin{theorem}[Erd\oUmlaut s-Ginsburg-Ziv]\label{theorem:Erdos2NM1}
+        \begin{equation*}
+            \fnd{n}{1} = 2n - 1  
+        \end{equation*}
+    \end{theorem}  
+    \begin{proof}[proof sketches]
+        From \eqref{eqn:fndProp1}:
+        \begin{equation}\label{ieqn:fnd_n_1_get_2n_1}
+            \fnd{n}{1} \geq 2 n - 1
+        \end{equation}
+        Only need to show
+        \begin{equation}\label{ieqn:fnd_n_1_leq_2n_1}
+            \fnd{n}{1} \leq 2n - 1.
+        \end{equation}            
+        \begin{enumerate}
+            \item restrict to prime number ($\fnd{pq}{1} \leq 2pq -1$)
+            \item application of Theorem~\ref{theorem:cauchy_davenport} to prove 
+        \[\fnd{p}{1} \leq 2p - 1\]
+        \end{enumerate}
+    \end{proof}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+    \frametitle{Proof of \eqref{ieqn:fnd_n_1_leq_2n_1}(1)}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+    \frametitle{Proof of \eqref{ieqn:fnd_n_1_leq_2n_1}(2)}
+\end{frame}
+%------------------------------------------------
+
+\begin{frame}
+    \frametitle{Further examples}
+    \begin{lemma}\label{lem:f_nd_2_potent}
+        \begin{equation*}
+            \fnd{2^n}{d} = (2^n - 1) 2^d + 1
+        \end{equation*}
+    \end{lemma}
+    % \begin{lemma}\label{lem:f_3_2_Value_Harborth}
+    %     \begin{equation*}
+    %         \fnd{3}{2} = 9
+    %     \end{equation*}
+    % \end{lemma}
+    \pause
+    \begin{lemma}\label{lem:f_3Potent_2_value}
+        \begin{equation*}
+            \fnd{3^n}{2} = 4 \cdot 3^n - 3
+        \end{equation*}
+    \end{lemma}
+    \pause
+    % \begin{remark}
+    %     By setting $d = 2$ in Lemma~\ref{lem:f_nd_2_potent}, we see that
+    %     \[\fnd{2^n}{2} = 4 \cdot 2^n - 3\]
+    %     we see that there is a simlar structure as in $\fnd{3^n}{2}$. 
+    %     A natural question emerges that if this is the case for all $n \in \Integer$, that is
+    % \end{remark}
+    \begin{problem}
+        Is it true for all $n \in \Integer$,
+        \[\fnd{n}{2} = 4n - 3\]
+        This is the well-known \kemnitzConjecture{}
+    \end{problem}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}
+    \begin{remark}
+        Notation: $\equiv$ means modulo in $\IntegerP{p}$.\\
+        The $0$ denotes the usual neutral element of addition in the corresponding abelian group. In particular,
+        $0$ denotes the standard $0$ in the abelian group $\IntegerP{p}$ and $(0,0)$ in the case of $\IntegerP{p}\times \IntegerP{p}$.
+    \end{remark}
+    \pause
+    \begin{theorem}[\warningTheorem]\label{theorem:warning}
+        Let $p$ be a prime number and $q = p^t, t \in \NaturalNumber$. We use $\Field{q}$ to denote the finite field of $q$ elements.
+        Let $p_1,\ldots,p_m$ be $m$ polynomials in $\PolynomialRing{\Field{q}}{n}$, with degree $d_i$. Denote the number of common
+        zeros of the $m$ polynomials as $N$.
+        If 
+        \[\sum_{i = 1}^{m} d_i < n,\]
+        then 
+        \[N \equiv 0 \pmod{p}\]
+    \end{theorem}    
+\end{frame}
+%------------------------------------------------
+
+%------------------------------------------------
+\begin{frame}
+    \begin{mainTheorem}[\kemnitzConjecture{}]
+        Any choice of $4p-3$ lattice points in the plane $\Integer \times \Integer$ contains
+        a subset of cardinality $p$ whose centroid is a lattice point. In other words:
+        \[\fnd{n}{2} = 4n - 3\]
+    \end{mainTheorem}
+\end{frame}
+%------------------------------------------------
+
+%------------------------------------------------
+\begin{frame}
+    \frametitle{First reduction}
+    \begin{mainTheorem}[\kemnitzConjecture{}]
+     \[\fnd{n}{2} = 4n - 3\]
+    \end{mainTheorem}
+    \begin{proposition}
+        It suffices to consider the case for $n$ is an odd prime number.
+    \end{proposition}
+    \pause
+    \begin{notation}
+        Denote $J,X$ and other capital alphabets
+        as a multiset of $\IntegerP{p} \times \IntegerP{p}$.\\
+            \[
+                \numSumSubset{p}{J} \quad \means{} \quad \text{number of \zeroSumSeq{p} in J}.
+            \]
+    \end{notation}
+\end{frame}
+%------------------------------------------------
+
+%------------------------------------------------
+\begin{frame}
+    
+\end{frame}
+%------------------------------------------------
+
+%------------------------------------------------
+\begin{frame}
+    
+\end{frame}
+%------------------------------------------------
+
+%------------------------------------------------
+\begin{frame}
+    
+\end{frame}
+%------------------------------------------------
+
+%------------------------------------------------
+\begin{frame}
+    
+\end{frame}
+%------------------------------------------------
+
+%------------------------------------------------
+\begin{frame}
+    
+\end{frame}
+%------------------------------------------------
+
+%------------------------------------------------
+\begin{frame}
+    
+\end{frame}
+%------------------------------------------------
+
+%------------------------------------------------
+\begin{frame}
+    
+\end{frame}
+%------------------------------------------------
+
+%------------------------------------------------
+\begin{frame}
+    
+\end{frame}
+%------------------------------------------------
+
+%------------------------------------------------
+\begin{frame}
+    
+\end{frame}
+%------------------------------------------------
+
+%------------------------------------------------
+\begin{frame}
+    
+\end{frame}
+%------------------------------------------------
+
+%------------------------------------------------
+\begin{frame}
+    
+\end{frame}
+%------------------------------------------------
+
+%------------------------------------------------
+\begin{frame}
+    
+\end{frame}
+%------------------------------------------------
+
+
 %----------------------------------------------------------------------------------------
+
+
+
 
 \end{document} 
