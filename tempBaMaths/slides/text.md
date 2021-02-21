@@ -27,3 +27,23 @@ We define a $d$-dimensional affine space $V$ and consider the set of points whic
     Since given a sequence of elements in $G$, it is possible that the sequence contains multiple identical elements. so in order to deal neatly with these sequences and analysis,I would first introduce some notation for the multisets which are  consistent with that used in the ususal set context. I omit here a formal definition of these operators which you could find them in my thesis because I think we all have a gut feeling of how this should look like and I just illustrate these definitions via examples, to keep it from being unnecessarily complicated. And I think you could all understand what these operators are defined via the examples.
     
 
+# kemnitz proof
+
+
+There are in all three cases:
+\item $p$ of them are $1$: 
+        This corresponds to $p$ of the $x_i$ are non-zero. We enumerate them as $x_{i_1},\ldots,x_{i_p}$.
+        In order for this particular assignment to be the common zero, it needs to satisfy
+        \[\sum_{j = 1}^{p} a_{i_j} \equiv 0, \quad \sum_{j = 1}^{p} b_{i_j} \equiv 0.\]
+        The total number the set $\{i_1,\ldots, i_p \}$ is exactly $\numSumSubset{p}{J}$.
+        Combining the fact that there are $p-1$ possible value for each $x_i$ s.t $x_i^{p-1} \equiv 1$,
+        the total number of common zeros with $p$ non-zero entries is $(p-1)^p \numSumSubset{p}{J}$.
+        \item $2p$ of them are $1$:\\
+        Arguing similarly as in the second case, we obtain the total number of common zeros with $2p$ non-zero entries 
+        is given by $(p-1)^{2p}\numSumSubset{2p}{J}$.
+        
+
+
+
+        This corresponds to the case where there needs to be a $p-1$ elements in $J$ which form a zero-sum.
+        There are in all 

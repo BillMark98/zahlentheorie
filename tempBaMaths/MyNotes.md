@@ -186,3 +186,6 @@ Note that default will include the beamer self defined theorem environment, so i
 See also [here](https://tex.stackexchange.com/questions/188379/theorem-numbering-in-beamer) and [here](https://latex.org/forum/viewtopic.php?t=6276) 
 
 * [theorem without numbering](https://tex.stackexchange.com/questions/30033/theorem-without-numbering/30040) so use `\newcommand*{goal}{Goal}` for example. [extra, custom numbering](https://tex.stackexchange.com/questions/53978/custom-theorem-numbering)
+
+* [multi column](https://texblog.org/2013/01/21/side-by-side-content-in-beamer-presentations/)
+use `column` environment

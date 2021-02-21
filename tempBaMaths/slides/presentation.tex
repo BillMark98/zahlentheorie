@@ -141,6 +141,48 @@
 \numberwithin{figure}{theorem}
 
 
+% ================================
+% redefine theorem for frame breaks
+% \setbeamertemplate{theorem begin}
+% {%
+%   \par\vskip\medskipamount%
+%   \begin{beamercolorbox}[colsep*=.75ex]{block title}
+%     \usebeamerfont*{block title}%
+%       \inserttheoremname
+%       \ifx\inserttheoremaddition\empty\else\ (\inserttheoremaddition)\fi%
+%   \end{beamercolorbox}%
+%   {\parskip0pt\par}%
+%   \ifbeamercolorempty[bg]{block title}
+%   {}
+%   {\ifbeamercolorempty[bg]{block body}{}{\nointerlineskip\vskip-0.5pt}}%
+%   \usebeamerfont{block body}%
+%   \vskip-.25ex\vbox{}%
+% }
+% \setbeamertemplate{theorem end}{}
+
+\newcommand*{\theorembreak}{\usebeamertemplate{theorem end}\framebreak\usebeamertemplate{theorem begin}}
+
+\makeatletter
+\newenvironment<>{proofs}[1][\proofname]{%
+    \par
+    \def\insertproofname{#1\@addpunct{.}}%
+    \usebeamertemplate{proof begin}#2}
+  {\usebeamertemplate{proof end}}
+\newenvironment<>{proofc}{%
+  \setbeamertemplate{proof begin}{\begin{block}{}}
+    \par
+    \usebeamertemplate{proof begin}}
+  {\usebeamertemplate{proof end}}
+\newenvironment<>{proofe}{%
+    \par
+    \pushQED{\qed}
+    \setbeamertemplate{proof begin}{\begin{block}{}}
+    \usebeamertemplate{proof begin}}
+  {\popQED\usebeamertemplate{proof end}}
+\makeatother
+% ===================
+
+
 % ===============================
 % For abs and set
 \usepackage{mathtools,nccmath}%
@@ -312,6 +354,14 @@
 \newcommand{\circled}[1]{\ensuremath{#1}}
 
 %------------------------------------------
+
+
+
+% ---------------------------------
+% for presentation added
+\newcommand*{\Scale}[2][4]{\scalebox{#1}{$#2$}}%
+\newcommand*{\Resize}[2]{\resizebox{#1}{!}{$#2$}}%
+
 
 
 
@@ -595,73 +645,363 @@ sums to a $0$ in $\IntegerP{n}^d$ as
 
 %------------------------------------------------
 \begin{frame}
+    \begin{corollary}\label{cor:origCountingJ3p}
+        If $\abs{J} = 3p-3$, then $1 - \numSumSubset{p - 1}{J} - \numSumSubset{p}{J} + \numSumSubset{2p-1}{J} + \numSumSubset{2p}{J}\equiv 0$
+    \end{corollary}
+    \pause
+    We consider three polynomials
+        \[p_1 := \sum_{n=1}^{3p-3} x_n^{p-1} + x_{3p-2}^{p-1}, \quad p_2 := \sum_{n=1}^{3p-3}a_n x_n^{p-1}, \quad p_3:= \sum_{n = 1}^{3p-3}b_n x_n^{p-1}\]
+    \pause
+    Since the total sum of degress are $3(p-1) = 3p-3 < 3p-2$, we can apply the \warningTheorem{}.\\
+    \pause
+    Since three polynomials have $0$ as a common zero, the \warningTheorem{} states that there are non-trivial common zeros.
+        We consider the common zeros depending on the term $x_{3p-2}$ in $p_1$.
+            
+\end{frame}
+%------------------------------------------------
+
+%------------------------------------------------
+\begin{frame}
+    \frametitle{Proof of Corollary~\ref{cor:origCountingJ3p}(1) $x_{3n-2} = 0$}
+    $x_{3n-2} = 0$\\
+\pause
+    \begin{columns}
+        \begin{column}{0.4\textwidth}
+            \begin{small}
+            \begin{align*}
+                p_1 :&= \sum_{n=1}^{3p-3} x_n^{p-1} + x_{3p-2}^{p-1} \\
+                p_2 :&= \sum_{n=1}^{3p-3}a_n x_n^{p-1}\\
+                p_3:&= \sum_{n = 1}^{3p-3}b_n x_n^{p-1}
+            \end{align*}
+        \end{small}
+        % \[\Scale[0.5]{
+        %     \begin{align*}
+        %         p_1 :&= \sum_{n=1}^{3p-3} x_n^{p-1} + x_{3p-2}^{p-1} \\
+        %         p_2 :&= \sum_{n=1}^{3p-3}a_n x_n^{p-1}\\
+        %         p_3:&= \sum_{n = 1}^{3p-3}b_n x_n^{p-1}
+        %     \end{align*}}
+        %     \]
+        % \small
+        %     \begin{align*}
+        %         p_1 :&= \sum_{n=1}^{3p-3} x_n^{p-1} + x_{3p-2}^{p-1} \\
+        %         p_2 :&= \sum_{n=1}^{3p-3}a_n x_n^{p-1}\\
+        %         p_3:&= \sum_{n = 1}^{3p-3}b_n x_n^{p-1}
+        %     \end{align*}
+        
+            \end{column}
+            \pause
+        
+        \begin{column}{0.6\textwidth}
+            % $x_{3n-2} = 0$\\
+            In this case for the zero of $p_1$, it needs to satisfy
+            \[\sum_{n = 1}^{3p-3} x_{n}^{p-1} \equiv 0\]
+    
+        \end{column}
+        
+    \end{columns}
+    % $x_{3n-2} = 0$\\
+    %         In this case for the zero of $p_1$, it needs to satisfy
+    %         \[\sum_{n = 1}^{3p-3} x_{n}^{p-1} \equiv 0\]
+            We know that 
+            \begin{equation*}
+                x^{p-1} \equiv 
+                \begin{cases}
+                    1, &\text{if $x \not\equiv 0$;}\\
+                    0, &\text{if $x \equiv 0$.}
+                \end{cases}
+            \end{equation*}
+            Since there are in all $3p-3$ variables left, there could only be three cases:
+\end{frame}
+%------------------------------------------------
+
+%------------------------------------------------
+\begin{frame}
+    \frametitle{Proof of Corollary~\ref{cor:origCountingJ3p}(2)}
+    \begin{columns}
+        \begin{column}{0.4\textwidth}
+            \begin{small}
+            \begin{align*}
+                p_1 :&= \sum_{n=1}^{3p-3} x_n^{p-1} + x_{3p-2}^{p-1} \\
+                p_2 :&= \sum_{n=1}^{3p-3}a_n x_n^{p-1}\\
+                p_3:&= \sum_{n = 1}^{3p-3}b_n x_n^{p-1}
+            \end{align*}
+        \end{small}
+    \end{column}
+    \pause
+
+\begin{column}{0.6\textwidth}
+    \begin{enumeratei}
+        \item $0$ of them are $1$: \# $1$
+        \pause
+        \item $p$ of them are $1$: 
+        $x_{i_1},\ldots,x_{i_p}$.
+        \pause
+        \[\sum_{j = 1}^{p} a_{i_j} \equiv 0, \quad \sum_{j = 1}^{p} b_{i_j} \equiv 0.\]
+        \# $(p-1)^p \numSumSubset{p}{J}$.
+        \item $2p$ of them are $1$:\\
+        \# $(p-1)^{2p}\numSumSubset{2p}{J}$.
+    \end{enumeratei}
+\end{column}
+
+\end{columns}
+
+\end{frame}
+%------------------------------------------------
+
+
+
+%------------------------------------------------
+\begin{frame}
+    \frametitle{Proof of Corollary~\ref{cor:origCountingJ3p}(3)}
+    \begin{columns}
+        \begin{column}{0.4\textwidth}
+            \begin{small}
+            \begin{align*}
+                p_1 :&= \sum_{n=1}^{3p-3} x_n^{p-1} + x_{3p-2}^{p-1} \\
+                p_2 :&= \sum_{n=1}^{3p-3}a_n x_n^{p-1}\\
+                p_3:&= \sum_{n = 1}^{3p-3}b_n x_n^{p-1}
+            \end{align*}
+        \end{small}
+    \end{column}
+    \pause
+
+\begin{column}{0.6\textwidth}
+    \begin{enumeratei}
+        \item $p-1$ of them are $1$. \\
+            \# $(p-1)^p \numSumSubset{p-1}{J}$
+        \pause
+        \item $2p-1$ of them are $1$.\\
+        \# $(p-1)^{2p} \numSumSubset{2p-1}{J}$
+    \end{enumeratei}
+
+\end{column}
+
+\end{columns}
+\pause
+Collecting all the number of common zeros considered in different cases
+            \begin{equation*}
+                1 + (p-1)^p\numSumSubset{p}{J} + (p-1)^{2p} \numSumSubset{2p}{J} + (p-1)^p\numSumSubset{p-1}{J}
+                + (p-1)^{2p}\numSumSubset{2p-1}{J}\equiv 0
+            \end{equation*}
+Simplifying the equation above we obtain
+            \[1 - \numSumSubset{p - 1}{J} - \numSumSubset{p}{J} + \numSumSubset{2p-1}{J} + \numSumSubset{2p}{J}\equiv 0\]
+\end{frame}
+%------------------------------------------------
+
+% %------------------------------------------------
+% \begin{frame}
+%     \frametitle{Proof of Corollary~\ref{cor:origCountingJ3p}(3)}
+    
+% \end{frame}
+% %------------------------------------------------
+
+%------------------------------------------------
+\begin{frame}
+    \begin{corollary}\label{cor:corCountingJ3p}
+        If $|J| = 3p-2$, or $|J| = 3p-1$, then $1 - (p|J) + (2p|J)\equiv 0$ 
+    \end{corollary}
+\pause
+    \begin{corollary}\label{cor:3pM13pM2_pJE0Imply2P}
+        If $\abs{J} = 3p-2$ or $\abs{J} = 3p-1$, then $\numSumSubset{p}{J} = 0$ implies $\numSumSubset{2p}{J}\equiv -1$.
+    \end{corollary}
+    \pause
+
+    \begin{corollary}\label{cor:Exact3pZeroSumHasPzeroSeq}
+        If $J$ contains exactly $3p$ elements, and $\sum_{x \in J} x \equiv 0$, then $\numSumSubset{p}{J} > 0$.
+    \end{corollary}
+\end{frame}
+%------------------------------------------------
+
+%------------------------------------------------
+\begin{frame}[allowframebreaks]
+    \begin{corollary}\label{cor:Exact3pZeroSumHasPzeroSeq}
+        If $J$ contains exactly $3p$ elements, and $\sum_{x \in J} x \equiv 0$, then $\numSumSubset{p}{J} > 0$.
+    \end{corollary}
+    \begin{proof}
+        Assume that $\numSumSubset{p}{J} = 0$, this means that there are no subsets in $J$, of cardinality $p$ which 
+        builds a zero-sum sequence. In particular, if we randomly pick an $x \in J$ and consider the multiset $J-x$, it follows that
+        $\numSumSubset{p}{J-x} = 0$. Now, since $\abs{J-x} = 3p-1$, we can apply Corollary~\ref{cor:3pM13pM2_pJE0Imply2P} to obtain that 
+        $\numSumSubset{2p}{J-x} \equiv -1$, in particular, this implies that $\numSumSubset{2p}{J-x} > 0$. \\
+        We observe that $\forall A \subset J$, \sothat $\sum_{a \in A} a \equiv 0$,
+        \begin{align*}
+            \sum_{a\in A} a + \sum_{b\in J-A} b = \sum_{j \in J} j &\equiv 0\\
+            \Rightarrow \sum_{b \in J-A} b &\equiv 0
+        \end{align*}
+        We could see that the map $T$
+        \begin{align*}
+        T: \set{A\subset J; \abs[]{A} = p, \sum_{a \in A} a \equiv 0}
+        &\rightarrow \set{A\subset J; \abs[]{A} = 2p, \sum_{a\in A}a \equiv 0}\\
+            A &\mapsto J - A
+        \end{align*}
+        is a bijection. It follows that:
+        \begin{equation*}
+            \numSumSubset{p}{J} = \numSumSubset{2p}{J} \geq \numSumSubset{2p}{J - x} > 0,
+        \end{equation*}
+        which is a contradiction to the assumption $\numSumSubset{p}{J} = 0$
+    \end{proof}
     
 \end{frame}
 %------------------------------------------------
 
 %------------------------------------------------
 \begin{frame}
+    \begin{corollary}\label{cor:4pM3_twoEquations}
+        If $\abs{X} = 4p-3$, then
+        \begin{enumerate}
+            \item $-1 + (p|X) - (2p|X) + (3p|X) \equiv 0$
+            \item $(p-1|X) - (2p-1|X) + (3p-1|X) \equiv 0$
+        \end{enumerate}
+    \end{corollary}
+    \begin{corollary}\label{cor:4pM3_multiSum}
+        If $\abs{X} = 4p-3$, then $3 - 2\numSumSubset{p-1}{X} - 2\numSumSubset{p}{X} + \numSumSubset{2p-1}{X} + \numSumSubset{2p}{X} \equiv 0$.
+    \end{corollary}
     
 \end{frame}
 %------------------------------------------------
 
 %------------------------------------------------
 \begin{frame}
-    
+    \begin{proof}
+        We deduce from Corollary~\ref{cor:origCountingJ3p} that:
+        \[\sum_I 1 - \numSumSubset{p-1}{I} - \numSumSubset{p}{I} + \numSumSubset{2p-1}{I} + \numSumSubset{2p}{I} \equiv 0,\]
+        where the sum is over $I\subset X$, s.t, $\abs{I} = 3p-3$. 
+        For a given subset $Y \subset X$,s.t $\abs{Y} = p$ and $\sum_{y\in Y} y \equiv 0$, we want to find out the number of pairs
+        $(Y,I)$, s.t $Y\subset I, \abs{I} = 3p-3$. \\We could see that 
+        \[\abs{\{(Y,I)| Y\subset I, \abs{I} = 3p-3}\} = \binom{3p-3}{2p-3},\]
+        since once we have chosen $p$ elements $Y$, we need to further choose $\abs{I} - p = 3p-3 - p = 2p-3$ elements from
+        total $\abs{X} - p = 4p-3 -p = 3p-3$ elements.
+        Note that
+        \[ \sum_{ \substack{Y \subset X,\\\sum_{y\in Y} y= 0}} \sum_{\substack{I,\sothat \\Y\subset I,\\\abs{I} = 3p-3}} 1\]
+        \begin{align*}
+            \binom{3p-3}{2p-3} \numSumSubset{p}{X} = \sum_{ \substack{Y\subset X\\ \sum_{y\in Y} y = 0}} \binom{3p-3}{2p-3} &= \sum_{ \substack{Y \subset X,\\\sum_{y\in Y} y= 0}} \sum_{\substack{I,\sothat \\Y\subset I,\\\abs{I} = 3p-3}} 1\\
+                &=\sum_{\substack{I,\sothat\\\abs{I} = 3p-3}}\;\sum_{ \substack{Y \subset I,\\\sum_{y\in Y} y= 0}}  1 \\
+                &= \sum_{I} \numSumSubset{p}{I}
+        \end{align*}
+        Performing similar calculation, we get
+        \begin{align}
+            \binom{4p-3}{3p-3} &- \binom{3p-2}{2p-2}\numSumSubset{p-1}{X} - \binom{3p-3}{2p-3}\numSumSubset{p}{X}\nonumber\\ 
+            &+ \binom{2p-2}{p-2}\numSumSubset{2p-1}{X} + \binom{2p-3}{p-3}\numSumSubset{2p}{X} \equiv 0 \label{eqn:4p_3BinomModulo}               
+        \end{align}
+        We finally prove that 
+        \begin{equation}\label{eqn:binomModulo1}
+            \binom{4p-3}{3p-3} \equiv 3, \binom{3p-2}{2p-2}\equiv 2,            
+        \end{equation}
+        because:
+        \begin{align*}
+            \binom{4p-3}{3p-3} &\equiv \frac{(4p-3) \cdots (4p-(p-1)) \cdot 3p \cdot (3p-1) \cdot (3p-2)}{p!}\\
+            &\equiv \frac{(4p-3) \cdots (4p-(p-1)) \cdot 3 \cdot (3p-1) \cdot (3p-2)}{(p-1)!} \\
+            &\equiv 3 \cdot \frac{(-3) \cdot (-4) \cdots (-(p-1)) \cdot(-1)\cdot(-2)}{(p-1)!}\\
+            &\equiv 3 \cdot \frac{(p-1)!}{(p-1)!}\\
+            &\equiv 3
+        \end{align*}        
+        and
+        \begin{align*}
+            \binom{3p-2}{2p-2} &\equiv \frac{(3p-2) \cdots (3p-(p-1)) \cdot 2p \cdot (2p-1)}{p!}\\
+            &\equiv \frac{(3p-2) \cdots (3p-(p-1)) \cdot 2 \cdot (2p-1) \cdot (2p-2)}{(p-1)!} \\
+            &\equiv 2 \cdot \frac{(-2) \cdot (-4) \cdots (-(p-1)) \cdot(-1)}{(p-1)!}\\
+            &\equiv 2 \cdot \frac{(p-1)!}{(p-1)!}\\
+            &\equiv 2
+        \end{align*}
+        Note that we have used the fact that $p$ is an odd prime, \sothat $(-1)^{p-1} \equiv 1$.
+        Similarly, one can prove that
+        \begin{equation}\label{eqn:binomModulo2}
+            \binom{3p-3}{2p-3}\equiv 2, \binom{2p-2}{p-2} \equiv 1, \binom{2p-3}{p-3}\equiv 1.
+        \end{equation}
+        Combining the modulo equivalence in~\eqref{eqn:binomModulo1} and~\eqref{eqn:binomModulo2}, \eqref{eqn:4p_3BinomModulo} can be simplified to
+        \begin{equation}
+            3 - 2\numSumSubset{p-1}{X} - 2\numSumSubset{p}{X} + \numSumSubset{2p-1}{X} + \numSumSubset{2p}{X} \equiv 0, 
+        \end{equation}
+        which is what we want to prove.
+        \end{proof}
 \end{frame}
 %------------------------------------------------
 
 %------------------------------------------------
 \begin{frame}
-    
+    \begin{lemma}\label{lem:4pM3_pX0_impliesPM1_3PM1}
+        If $\abs{X} = 4p- 3$  and $\numSumSubset{p}{X} = 0$, then $\numSumSubset{p-1}{X} \equiv \numSumSubset{3p-1}{X}$.
+    \end{lemma}
 \end{frame}
 %------------------------------------------------
 
 %------------------------------------------------
 \begin{frame}
-    
+    \begin{proofs}
+        We consider the partition of $X = A \cup B \cup C$, where 
+        \[\abs{A} = p-1, \quad \abs{B} = p-2, \quad \abs{C} = 2p.\] and 
+        \[\sum_{a \in A} a \equiv 0, \quad \sum_{b \in B} b \equiv \sum_{x \in X} x, \quad \sum_{c \in C} c \equiv 0\]
+        Let $\chi$ denote the number of such partition. We use two ways to compute the number $\chi$, the first one fixes $A$ and 
+        find out the possible set $C$:
+        \[\chi \equiv \sum_{A} \numSumSubset{2p}{X-A} \equiv \sum_{A} -1 \equiv -\numSumSubset{p-1}{X},\]
+        where we have used Corollary~\ref{cor:3pM13pM2_pJE0Imply2P}, for $J = X-A$, with $\abs{J} = 3p-2$ and the fact that 
+        \[0 \leq \numSumSubset{p}{J} \leq \numSumSubset{p}{X} = 0,\]
+        which leads to $\numSumSubset{p}{J} = 0$.
+    \end{proofs}
+\end{frame}
+%------------------------------------------------
+
+\begin{frame}
+    \begin{proofc}
+        Now by fixing $B$ and count the possible set $C$, we get:
+        \[\chi \equiv \sum_{B} \numSumSubset{2p}{X-B} \stackrel{\circled{1}}{\equiv} \sum_{B} -1 
+        \stackrel{\circled{2}}{\equiv} \sum_{X-B}-1 \stackrel{\circled{3}}{\equiv} -\numSumSubset{3p-1}{X}\]
+        For the three equivalences, we have used the following facts:
+        \begin{enumerate}
+            \item  We use the similar argumentation as before, since $\abs{X-B} = 3p-1$ and apply Corollary~\ref{cor:3pM13pM2_pJE0Imply2P}
+            leads to $\numSumSubset{2p}{X-B} \equiv -1$.    
+            \item The map T defined by:
+            \begin{align*}
+                \set{B\subset X; \abs[]{B} = p - 1, \sum_{b \in B} a \equiv \sum_{x \in X} x}
+                &\rightarrow \set{ J \subset X; \abs[]{J} = 3p-1, \sum_{j\in J}j \equiv 0}\\
+                    X &\mapsto X - B
+            \end{align*}
+            is a bijection, \sothat 
+            \[\sum_{B} 1 \equiv \sum_{X -B} 1\]
+            \item Since $\sum_{b\in B} b \equiv \sum_{x \in X} x$, it follows that 
+            \[\sum_{x \in X - B} x \equiv 0,\]
+            in particular 
+            \[\sum_{X-B} -1 \equiv -1 \cdot \numSumSubset{3p-1}{X}\]
+        \end{enumerate}
+
+    \end{proofc}
+\end{frame}
+
+
+
+%------------------------------------------------
+\begin{frame}
+    \frametitle{Proof of \kemnitzConjecture{}}
+    \begin{proofs}
+        \begin{align}
+            -1 + (p|X) - (2p|X) + (3p|X) &\equiv 0\\
+            (p-1|X) - (2p-1|X) + (3p-1|X) &\equiv 0\\
+            3 - 2\numSumSubset{p-1}{X} - 2\numSumSubset{p}{X} + \numSumSubset{2p-1}{X} + \numSumSubset{2p}{X} &\equiv 0.
+        \end{align}
+        \pause
+        Adding the three above equations, we obtain:
+        \begin{equation}\label{eqn:kemnitzSum3Eqn}
+            2 - \numSumSubset{p-1}{X} - \numSumSubset{p}{X} + \numSumSubset{3p-1}{X} + \numSumSubset{3p}{X} \equiv 0            
+        \end{equation}
+        Assume there is a set $X$, with $\abs{X} = 4p-3$ which contradicts the theorem, that is $\numSumSubset{p}{X} = 0$.
+        Using the previous Lemma~\ref{lem:4pM3_pX0_impliesPM1_3PM1}, we obtain $\numSumSubset{p-1}{X} \equiv \numSumSubset{3p-1}{X}$
+        Then \eqref{eqn:kemnitzSum3Eqn} simplifies to
+        \begin{equation}
+            2 - \numSumSubset{p}{X} + \numSumSubset{3p}{X} \equiv 0
+        \end{equation}
+
+    \end{proofs}
 \end{frame}
 %------------------------------------------------
 
 %------------------------------------------------
 \begin{frame}
-    
-\end{frame}
-%------------------------------------------------
-
-%------------------------------------------------
-\begin{frame}
-    
-\end{frame}
-%------------------------------------------------
-
-%------------------------------------------------
-\begin{frame}
-    
-\end{frame}
-%------------------------------------------------
-
-%------------------------------------------------
-\begin{frame}
-    
-\end{frame}
-%------------------------------------------------
-
-%------------------------------------------------
-\begin{frame}
-    
-\end{frame}
-%------------------------------------------------
-
-%------------------------------------------------
-\begin{frame}
-    
-\end{frame}
-%------------------------------------------------
-
-%------------------------------------------------
-\begin{frame}
-    
+\begin{proofe}
+    Since $p$ is odd, we see that $\numSumSubset{p}{X}$ and $\numSumSubset{3p}{X}$ could not both be $0$.
+    Since we assume that $\numSumSubset{p}{X} = 0$, it follows that $\numSumSubset{3p}{X} > 0$, i.e., there is a subset $J \subset X$,
+    $\abs{J} = 3p$ and $\sum_{j \in J} j \equiv 0$. 
+    But from Corollary~\ref{cor:Exact3pZeroSumHasPzeroSeq}, we see that $\numSumSubset{p}{J} > 0$, in particular $\numSumSubset{p}{X} > 0$,
+    which is a contradiction.
+\end{proofe}
 \end{frame}
 %------------------------------------------------
 
