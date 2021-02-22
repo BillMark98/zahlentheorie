@@ -47,3 +47,19 @@ There are in all three cases:
 
         This corresponds to the case where there needs to be a $p-1$ elements in $J$ which form a zero-sum.
         There are in all 
+
+
+    
+  \frametitle{Proof of Corollary 3.6}
+    \begin{proofs}
+        Assume that $\numSumSubset{p}{J} = 0$, this means that there are no subsets in $J$, of cardinality $p$ which 
+        builds a zero-sum sequence. In particular, if we randomly pick an $x \in J$ and consider the multiset $J-x$, it follows that
+        $\numSumSubset{p}{J-x} = 0$. Now, since $\abs{J-x} = 3p-1$, we can apply Corollary~\ref{cor:3pM13pM2_pJE0Imply2P} to obtain that 
+        $\numSumSubset{2p}{J-x} \equiv -1$, in particular, this implies that $\numSumSubset{2p}{J-x} > 0$. \\
+        We observe that $\forall A \subset J$, \sothat $\sum_{a \in A} a \equiv 0$,
+        \begin{align*}
+            \sum_{a\in A} a + \sum_{b\in J-A} b = \sum_{j \in J} j &\equiv 0\\
+            \Rightarrow \sum_{b \in J-A} b &\equiv 0
+        \end{align*}
+       
+  

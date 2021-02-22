@@ -1296,7 +1296,12 @@ gives a general upper bound for $f(n,d)$.
 
 
     \subsection{Proof of \alonDubinerTheorem}
-    We can now prove the \alonDubinerTheorem{}. We first note that it suffices to prove the theorem
+    We can now prove the \alonDubinerTheorem{}. 
+    \begin{theorem}[\alonDubinerTheorem]\label{theorem:AlonDubiner}
+        $\exists c > 0$, \sothat $\forall n \in \NaturalNumber$, 
+        \[\fnd{n}{d} < (cd \log_2 d)^d n\]
+    \end{theorem}
+    We first note that it suffices to prove the theorem
     for the prime number. Because if $\fnd{p}{d} \leq cp \leq 2cp - (2c - 1)$, then it follows from 
     \eqref{eqn:fndProp2} that for $n = pq$:
     \begin{align*}
