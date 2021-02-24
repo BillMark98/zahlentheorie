@@ -350,7 +350,7 @@ gives a general upper bound for $f(n,d)$.
     $f : A \rightarrow K$, where $K$ is the cardinal number. We thus extend the operation on sets to the multisets as following:
     \begin{definition}\label{def:multisetOperation}
         Let $f: A\rightarrow K, g: B \rightarrow K$ be two multisets. Let the domain of a function $f$ be denoted as $\Dom{f}$.\\
-        We define the \emph{union},\emph{intersection},\emph{complement} as following, using the same notation in set theory:\\
+        We define the \emph{union},\emph{intersection},\emph{difference} as following, using the same notation in set theory:\\
         \begin{itemize}
             \item $f \cup g$:  A multiset whose domain is defined as \\$\Dom{f \cup g} = \Dom{f} \cup \Dom{g} = A \cup B$ \sothat
             \[(f \cup g) (x) = \myMax{f(x), g(x)}\]    
@@ -380,7 +380,21 @@ gives a general upper bound for $f(n,d)$.
         The left inequality can be seen as following:
 
         We construct $(n-1) 2^d$ vectors, which include all the vectors in $\IntegerP{n}^d$, which has $0$ or $1$ in their entry, so there are in all $2^d$ different vectors.
-        Each vector appear exactly $n-1$ times.  It is impossible to find a \zeroSumSeq{n} among these vectors. Thus we must have 
+        Each vector appear exactly $n-1$ times.  It is impossible to find a \zeroSumSeq{n} among these vectors.
+        This claim can be proved by induction on the dimension $d$.
+
+        Induction base: $d = 1$. We have $1$ and $0$ each appear exactly $n - 1$ times. We see that 
+        to make a $\zeroSumSeq{n}$, we need to have either $n$ 0s or $n$ 1s, which is impossible.
+
+        Induction step.  Assume that the claim is valid for all $k \leq d$. 
+        For the dimension $d+1$. We consider the first $d$ components (for a vector $v \in \IntegerP{n}^{d+1}$, I use the notation $\tilde{v}$ to denote the truncated). Now due to increased dimension by one.
+        The number of occurence of the vector in the first $d$ components are $2(n-1)$. Given $n$ summands, if each $\tilde{v}$ appear less than $n$ times, then
+        we can reduce to the $d-1$ case and affirm that the sum is not $0$ in the $d$ components and thus also not zero in $\IntegerP{n}^{d+1}$. If there is $\tilde{v}$ appear more than $n-1$ times,
+        so it could only be possible that all the $n$ summands have the same first $d$ components. But now it falls back to the induction basis, because we do not need to consider
+        the first $d$ component and only focus on the $d+1$ component. We have at most $n-1$ 1s and $0$s which is impossible to have a zero sum.
+
+                 Thus we must have 
+
         \[(n-1) 2^d + 1 \leq \fnd{n}{d}.\]
 
         To prove the right inequality we use the pigeon hole principle. 

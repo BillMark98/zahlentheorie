@@ -458,7 +458,6 @@
 %----------------------------------------------------------------------------------------
 %	PRESENTATION SLIDES
 %----------------------------------------------------------------------------------------
-
 %------------------------------------------------
 \section{Abstract} % Sections can be created in order to organize your presentation into discrete blocks, all sections and subsections are automatically printed in the table of contents as an overview of the talk
 %------------------------------------------------
@@ -470,10 +469,10 @@
 \begin{frame}
 \frametitle{Introduction}
 We define a $d$-dimensional affine space $V$ and consider the set of points which lie in the set
-    \[V_d := \set{\sum_{i = 1}^d a_i v_i; a_i \in \Integer, \quad 1 \leq i \leq d},\]
+    \[V_d := \set{\sum_{i = 1}^d \alpha_i v_i; \alpha_i \in \Integer, \quad 1 \leq i \leq d},\]
     where $\set{v_i; 1 \leq i \leq d}$ are linear independent vectors in $V$. 
     We also call the points in $V_d$ as \emph{lattice} points.
-\begin{prob}\label{prob:centroid}
+\begin{prob}(1)\label{prob:centroid}
     Find out the minimum of the number $f$ \sothat given $f$ sequences in $V_d$, we can guarantee to find out a subsequence of length $n$, \sothat the centroid of this 
     subsequence is also a lattice point. We define such minimum number as $f(n,d)$.
 \end{prob}
@@ -496,7 +495,7 @@ sums to a $0$ in $\IntegerP{n}^d$ as
 \zeroSumSeq{n}, where $0$ denotes the zero vector
  in $G$. 
 \pause
-\begin{prob}\label{prob:zeroSumSeq}
+\begin{prob}(2)\label{prob:zeroSumSeq}
     Find the 
     number $f(n,d)$, \sothat 
     for any sequences of elements in $G$, with 
@@ -510,32 +509,34 @@ sums to a $0$ in $\IntegerP{n}^d$ as
 
 % %------------------
 
-\begin{frame}
-\frametitle{Multiset operation}
-% $f : A \rightarrow K$, where $K$ is the cardinal number. We thus extend the operation on sets to the multisets as following:
-\begin{defn}[via examples]\label{def:multisetOperation}
-    Let $A = \set{1,1,1,2,2,3,3,3,3}, B = \set{1,1,2,2,2,3}$ be two multisets.\\
-    The \emph{union},\emph{intersection},\emph{complement} between $A$ and $B$ is given by:\\
-    \begin{itemize}
-        \item $A \cup B = \set{1,1,1,2,2,2,3,3,3,3}$
-        \item $A \cap B = \set{1,1,2,2,3}$
-        \item $A \setminus B = \set{1,3,3,3}$
-    \end{itemize}
-\end{defn}\end{frame}
+% \begin{frame}
+% \frametitle{Multiset operation}
+% % $f : A \rightarrow K$, where $K$ is the cardinal number. We thus extend the operation on sets to the multisets as following:
+% \begin{defn}(2.1)[via examples]\label{def:multisetOperation}
+%     Let $A = \set{1,1,1,2,2,3,3,3,3}, B = \set{1,1,2,2,2,3}$ be two multisets.\\
+%     The \emph{union},\emph{intersection},\emph{difference} between $A$ and $B$ is given by:\\
+%     \begin{itemize}
+%         \item $A \cup B = \set{1,1,1,2,2,2,3,3,3,3}$
+%         \item $A \cap B = \set{1,1,2,2,3}$
+%         \item $A \setminus B = \set{1,3,3,3}$
+%     \end{itemize}
+% \end{defn}\end{frame}
 
 %------------------
 
 \begin{frame}
     \frametitle{A natural bound on $f(n,d)$}
-    \begin{lem}\label{lem:f_n_d_naturalBound}
+    \begin{lem}(2.2)\label{lem:f_n_d_naturalBound}
         \begin{equation}\label{eqn:fndProp1}
             (n-1) 2^d + 1 \leq \fnd{n}{d} \leq (n-1)n^d + 1
         \end{equation}
     \end{lem}
+    \pause
     \begin{proof}
         Left inequality: 
-        We construct $(n-1) 2^d$ vectors, which include all the vectors in $\IntegerP{n}^d$, which has $0$ or $1$ in their entry, so there are in all $2^d$ different vectors.
+        Construct $(n-1) 2^d$ vectors, which include all the vectors in $\IntegerP{n}^d$, which has $0$ or $1$ in their entry, so there are in all $2^d$ different vectors.
         Each vector appear exactly $n-1$ times.  It is impossible to find a \zeroSumSeq{n} among these vectors.
+\pause
 
         Right inequality: pigeon hole principle
 
@@ -548,9 +549,9 @@ sums to a $0$ in $\IntegerP{n}^d$ as
 %     %------------------
 \begin{frame}
     \frametitle{Decomposition of $f(n,d)$ (1)}
-    \begin{lem}
+    \begin{lem}(2.3)
         \begin{equation}\label{eqn:fndProp2}
-            \fnd{pq}{d} \leq \fnd{p}{d} + p(\fnd{q}{d} - 1) 
+            \fnd{pq}{d} \leq \fnd{p}{d} + p(\fnd{q}{d} - 1) \tag{2.3.1}
         \end{equation}
     \end{lem}
     \begin{proof}
@@ -570,18 +571,20 @@ sums to a $0$ in $\IntegerP{n}^d$ as
     \frametitle{Decomposition of $f(n,d)$ (2)}
     Due to the symmetry we would obtain similarly:
     \begin{equation}\label{eqn:fndProp2_prime}
-        \fnd{pq}{d} \leq \fnd{q}{d} + q(\fnd{p}{d} - 1)%\tag{$\ref{eqn:fndProp2}^\prime$}
+        \fnd{pq}{d} \leq \fnd{q}{d} + q(\fnd{p}{d} - 1 ) \tag{2.3.1'} %\tag{$\ref{eqn:fndProp2}^\prime$}
     \end{equation}
+    \pause
     Combining \eqref{eqn:fndProp2} and \eqref{eqn:fndProp2_prime}, we obtain the following upper bound.
-    \begin{cor}\label{cor:fnd_pq_Bound}
+    \begin{cor}(2.5)\label{cor:fnd_pq_Bound}
         \begin{equation}\label{eqn:fnd_pq_Bound}
             \fnd{pq}{d} \leq \min \{\fnd{p}{d} + p(\fnd{q}{d} - 1),  \fnd{q}{d} + q(\fnd{p}{d} - 1)\}
         \end{equation}
     \end{cor}
-    \begin{thm}[Cauchy-Davenport]\label{thm:cauchy_davenport}
+    \pause
+    \begin{thm}(2.5)[Cauchy-Davenport]\label{thm:cauchy_davenport}
         Let $p$ be a prime number. If $A, B \subset \IntegerP{p}$ are nonempty, then 
         \[\abs{A + B} \geq \myMin{p, \abs{A} + \abs{B} - 1},\]
-        where $A+B$ denotes the set of the addition of elements in $A$ and $B$
+        where $A + B := \set{ a + b ; a \in A, b \in B }$
     \end{thm}
 \end{frame}
 
@@ -589,12 +592,12 @@ sums to a $0$ in $\IntegerP{n}^d$ as
 
 \begin{frame}
     \frametitle{Examples}
-    \begin{thm}[Erd\oUmlaut s-Ginsburg-Ziv]\label{thm:Erdos2NM1}
+    \begin{thm}(2.7)[Erd\oUmlaut s-Ginsburg-Ziv]\label{thm:Erdos2NM1}
         \begin{equation*}
             \fnd{n}{1} = 2n - 1  
         \end{equation*}
     \end{thm}  
-    \begin{proof}[proof sketches]
+    \begin{proof}[Proof sketches]
         From \eqref{eqn:fndProp1}:
         \begin{equation}\label{ieqn:fnd_n_1_get_2n_1}
             \fnd{n}{1} \geq 2 n - 1
@@ -602,7 +605,10 @@ sums to a $0$ in $\IntegerP{n}^d$ as
         Only need to show
         \begin{equation}\label{ieqn:fnd_n_1_leq_2n_1}
             \fnd{n}{1} \leq 2n - 1.
-        \end{equation}            
+        \end{equation}   
+    \pause         
+    Recall $\qquad\fnd{pq}{d} \leq \fnd{p}{d} + p(\fnd{q}{d} - 1)$
+\pause
         \begin{enumerate}
             \item restrict to prime number ($\fnd{pq}{1} \leq 2pq -1$)
             \item application of Theorem~\ref{thm:cauchy_davenport} to prove 
@@ -626,7 +632,7 @@ sums to a $0$ in $\IntegerP{n}^d$ as
 
 \begin{frame}
     \frametitle{Further examples}
-    \begin{lem}\label{lem:f_nd_2_potent}
+    \begin{lem}(2.8)\label{lem:f_nd_2_potent}
         \begin{equation*}
             \fnd{2^n}{d} = (2^n - 1) 2^d + 1
         \end{equation*}
@@ -637,7 +643,7 @@ sums to a $0$ in $\IntegerP{n}^d$ as
     %     \end{equation*}
     % \end{lem}
     \pause
-    \begin{lem}\label{lem:f_3Potent_2_value}
+    \begin{lem}(2.9)\label{lem:f_3Potent_2_value}
         \begin{equation*}
             \fnd{3^n}{2} = 4 \cdot 3^n - 3
         \end{equation*}
@@ -685,7 +691,7 @@ sums to a $0$ in $\IntegerP{n}^d$ as
         \[\fnd{n}{2} = 4n - 3\]
     \end{mainthm}
 \end{frame}
-------------------------------------------------
+% ------------------------------------------------
 
 %------------------------------------------------
 \begin{frame}
