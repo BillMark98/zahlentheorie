@@ -189,3 +189,5 @@ See also [here](https://tex.stackexchange.com/questions/188379/theorem-numbering
 
 * [multi column](https://texblog.org/2013/01/21/side-by-side-content-in-beamer-presentations/)
 use `column` environment
+
+* [end section big thank you](https://stackoverflow.com/questions/30643945/how-to-put-a-big-centered-thank-you-in-a-latex-slide)

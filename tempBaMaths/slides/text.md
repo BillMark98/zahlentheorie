@@ -15,9 +15,9 @@ We now want to find out the minimum of the number $f$ so that given $f$ sequence
 
     Now I would like to introduce an equivalent formulation of the problem which would ease the later analysis.
     Let us consider the additive group $G:= \IntegerP{n}^d$.
-    We call a subsequence of length $n$, which 
+    We call a subsequence of length $l$, which 
     sums to a $0$ in $\IntegerP{n}^d$ as 
-    \zeroSumSeq{n}, where $0$ denotes the zero vector
+    \zeroSumSeq{l}, w.r.t G, but without particular mentioning, it means we are considering the sum in the group G, where $0$ denotes the zero vector
      in $G$.  
 
     We define a second problem, Find the 
@@ -127,6 +127,15 @@ This is the well-known Kemnitz' Conjecture and I would like to illustrate a proo
 
 # kemnitz proof
 
+Before we move on, I would introduce some notations. So this congruence will mean the modulo in Zp because as we shall se later the proof will be given in the case when n is a prime p, so without explicitly noticing, when I use this congruence symbol it always means congruent in the Zp group. And the 0 in the coming equations, will always denote the zero element in the corresponding abelian groups we are considering, be it Zp, Zp times Zp. 
+
+Now I'd like to post a fundamental and important theorem which is the chevalley warning theorem, which will be of central point of the proof of kemnitz' conjecture.
+
+It states that given a finite field Fq q = p^t for some t in natural number and m polynomials in variables x1 to xn. If the sum of the degrees of the polynomials are smaller than n then the number of the common zeros of these m polynomials are congruent to zero.
+
+I will omit a proof of this, which you can find in a lot of literatures. Let us see again the Kemnitz' conjecture, we remember when we prove the f(n,1) = 2n -1 we have reduced the case to n is a prime p. We would like to do the same trick here. Since we have already seen that for p = 2, this statement holds, we can only focus on the case when p is an odd prime number.
+
+For the further discussion, I use captial letters to denote multiset in Zp times Zp, remeber for dimension equals 2, this is exactly the group, in which we are about to find a zero-sum n subsequence. Further, I 'd like to use this notation to denote the number of 0 sum p-subsequence in J. 
 
 There are in all three cases:
 \item $p$ of them are $1$: 
@@ -161,3 +170,13 @@ There are in all three cases:
         \end{align*}
        
   
+You see the cardinality 4p-3 reminds us of something of the kemnitz' conjecture. Indeed, as we will see later, this is the place that connects the kemnitz' conjecture with this multiset.
+
+Lets recall what we have sofar. We obtain from Corollary 3.2 the following equation. Given I which has cardinality 3p-3, this equation holds. Now let us pick for each subset of X which has this cardinality
+
+We would like to bring the number of p-subsequence in X (p|X) and p subsequence in I (p|I) into some connection. This can be done by counting this pair. The reason why we do this will come soon later.
+
+
+## proof Lemma 3.9
+
+The first way to count is by fixing A and see the possible C once the two sets are fixed, then B is automatically fixed.

@@ -335,9 +335,9 @@ gives a general upper bound for $f(n,d)$.
     
 
     Consider the additive group $G:= \IntegerP{n}^d$.
-    We call a subsequence of length $n$, which 
+    We call a subsequence of length $l$, which 
     sums to a $0$ in $\IntegerP{n}^d$ as 
-    \zeroSumSeq{n}, where $0$ denotes the zero vector
+    \zeroSumSeq{l} (w.r.t $G$), where $0$ denotes the zero vector
      in $G$.  
     It is not hard to see that the above problem 
     can be equivalently formulated as finding the 
@@ -425,7 +425,9 @@ gives a general upper bound for $f(n,d)$.
         We perform this procedure recursively. Finally, 
         since 
         \[f = f_1 + p (f_2 - 1),\]
-        we would obtain $f_2$ \zeroSumSeq{p}s. According to the definition, each such subsequence $A_l$ sums to a vector $w_l$ of the form
+
+        we would obtain $f_2$ \zeroSumSeq{p} (w.r.t $\IntegerP{p}^d$). 
+        According to the definition, each such subsequence $A_l$ sums to a vector $w_l$ of the form
         \begin{equation*}\label{eqn:fnd_pq_p_sumVec}
             w_l = p \cdot \begin{pmatrix}
             v_1\\
@@ -433,7 +435,7 @@ gives a general upper bound for $f(n,d)$.
             v_d
         \end{pmatrix}, \quad v_i \in \Integer, \; 1 \leq i \leq d
         \end{equation*}
-        Among all these $f_2$ vectors, there exists a \zeroSumSeq{q}, which means 
+        Among all these $f_2$ vectors, there exists a \zeroSumSeq{q} (w.r.t $\IntegerP{q}^d$), which means 
         they sum to a vector $z$, with
         \[z = q \cdot \begin{pmatrix}
             v_1\\
@@ -567,7 +569,7 @@ gives a general upper bound for $f(n,d)$.
     By setting $d = 2$ in Lemma~\ref{lem:f_nd_2_potent}, we see that
     \[\fnd{2^n}{2} = 4 \cdot 2^n - 3\]
     we see that there is a simlar structure as in $\fnd{3^n}{2}$. 
-    A natural question emerges that if this is the case for all $n \in \Integer$, that is
+    A natural question emerges that if this is the case for all $n \in \NaturalNumber$, that is
     \[\fnd{n}{2} = 4n - 3\]
     This is the well-known \kemnitzConjecture{}, which we will discuss in the next chapter.
 \newpage
@@ -599,8 +601,9 @@ gives a general upper bound for $f(n,d)$.
     Thus it suffices to consider the case when $p$ is prime. In addition from Lemma~\ref{lem:f_nd_2_potent}, we already know that
     \[\fnd{2}{2} = 4 \cdot 2 - 3 = 5,\]
     it suffices to consider the odd prime number. Thus we assume in the following paragraph that $p$ is an odd prime number. We denote $J,X$ and other capital alphabets
-    as a multiset of $\IntegerP{p} \times \IntegerP{p}$.
-    We use the notation $\numSumSubset{p}{J}$ to denote the number of the \zeroSumSeq{p} in $J$.
+    as a multiset of $G := \IntegerP{p} \times \IntegerP{p}$.
+    We use the notation $\numSumSubset{m}{J}$ to denote the number of the \zeroSumSeq{m} (w.r.t $G$) in $J$.
+
     First we obtain the following Corollary from Theorem~\ref{theorem:warning}.
     \begin{corollary}\label{cor:origCountingJ3p}
         If $\abs{J} = 3p-3$, then $1 - \numSumSubset{p - 1}{J} - \numSumSubset{p}{J} + \numSumSubset{2p-1}{J} + \numSumSubset{2p}{J}\equiv 0$
@@ -645,7 +648,7 @@ gives a general upper bound for $f(n,d)$.
             There are two possible cases for the other entries of $x$.
             \begin{enumeratei}
                 \item $p-1$ of them are $1$.
-                This corresponds to the case where there needs to be a $p-1$ elements in $J$ which form a zero-sum.
+                This corresponds to the case where there needs to be $p-1$ elements in $J$ which form a zero-sum.
                 There are in all 
                 \[(p-1) \cdot (p-1)^{p-1} \cdot \numSumSubset{p-1}{J} = (p-1)^p \numSumSubset{p-1}{J},\]
                 possible choices for $x$, where the first term corresponds to the choice of $x_{3n-2}$, the second to the rest of $x_i$.
@@ -679,7 +682,7 @@ gives a general upper bound for $f(n,d)$.
     \end{proof}
     \begin{remark}
         Note that in the case where $\abs{J} = 3p-1$ or $3p-2$, the three polynomials we examined
-        all have the same number of monomials, i.e. $\abs{J}$, diffrent from in the case in $\abs{J} = 3p-3$. This
+        all have the same number of monomials, i.e. $\abs{J}$, different from in the case in $\abs{J} = 3p-3$. This
         is due to the fact the total degrees of the three polynomials (denoted as $f_i, i \in \{1,2,3\}$) natuarlly satisfy $\sum_{i} \polyDeg{f_i} < \abs{J}$
     \end{remark}
 
@@ -737,16 +740,20 @@ gives a general upper bound for $f(n,d)$.
         \[\sum_I 1 - \numSumSubset{p-1}{I} - \numSumSubset{p}{I} + \numSumSubset{2p-1}{I} + \numSumSubset{2p}{I} \equiv 0,\]
         where the sum is over $I\subset X$, s.t, $\abs{I} = 3p-3$. 
         For a given subset $Y \subset X$,s.t $\abs{Y} = p$ and $\sum_{y\in Y} y \equiv 0$, we want to find out the number of pairs
-        $(Y,I)$, s.t $Y\subset I, \abs{I} = 3p-3$. \\We could see that 
-        \[\abs{\{(Y,I)| Y\subset I, \abs{I} = 3p-3}\} = \binom{3p-3}{2p-3},\]
+        $(Y,I)$, s.t $Y\subset I, \abs{I} = 3p-3$. \\        
+        We could see that 
+        \[\abs{\{(Y,I)| Y\subset I, 
+        \sothat \sum_{y\in Y} y \equiv 0, \;\abs{I} = 3p-3\}}
+        = \binom{3p-3}{2p-3},\]
         since once we have chosen $p$ elements $Y$, we need to further choose $\abs{I} - p = 3p-3 - p = 2p-3$ elements from
         total $\abs{X} - p = 4p-3 -p = 3p-3$ elements.
+        We consider the sum:
+        \[ \sum_{ \substack{Y \subset X,\\\sum_{y\in Y} y= 0}} \sum_{\substack{I,\sothat \\Y\subset I,\\\abs[]{I} = 3p-3}} 1\]
         Note that
-        \[ \sum_{ \substack{Y \subset X,\\\sum_{y\in Y} y= 0}} \sum_{\substack{I,\sothat \\Y\subset I,\\\abs{I} = 3p-3}} 1\]
         \begin{align*}
-            \binom{3p-3}{2p-3} \numSumSubset{p}{X} = \sum_{ \substack{Y\subset X\\ \sum_{y\in Y} y = 0}} \binom{3p-3}{2p-3} &= \sum_{ \substack{Y \subset X,\\\sum_{y\in Y} y= 0}} \sum_{\substack{I,\sothat \\Y\subset I,\\\abs{I} = 3p-3}} 1\\
-                &=\sum_{\substack{I,\sothat\\\abs{I} = 3p-3}}\;\sum_{ \substack{Y \subset I,\\\sum_{y\in Y} y= 0}}  1 \\
-                &= \sum_{I} \numSumSubset{p}{I}
+            \binom{3p-3}{2p-3} \numSumSubset{p}{X} &= \sum_{ \substack{Y\subset X\\ \sum_{y\in Y} y = 0}} \binom{3p-3}{2p-3} &&= \sum_{ \substack{Y \subset X,\\\sum_{y\in Y} y= 0}} \sum_{\substack{I,\sothat \\Y\subset I,\\\abs{I} = 3p-3}} 1\\
+                &=\sum_{\substack{I,\sothat\\\abs{I} = 3p-3}}\;\sum_{ \substack{Y \subset I,\\\sum_{y\in Y} y= 0}}  1
+                &&= \sum_{I} \numSumSubset{p}{I}
         \end{align*}
         Performing similar calculation, we get
         \begin{align}
@@ -805,21 +812,26 @@ gives a general upper bound for $f(n,d)$.
         \begin{enumerate}
             \item  We use the similar argumentation as before, since $\abs{X-B} = 3p-1$ and apply Corollary~\ref{cor:3pM13pM2_pJE0Imply2P}
             leads to $\numSumSubset{2p}{X-B} \equiv -1$.    
-            \item The map T defined by:
+            \item     Consider the two sets
             \begin{align*}
-                \set{B\subset X; \abs[]{B} = p - 1, \sum_{b \in B} a \equiv \sum_{x \in X} x}
-                &\rightarrow \set{ J \subset X; \abs[]{J} = 3p-1, \sum_{j\in J}j \equiv 0}\\
-                    X &\mapsto X - B
+                S :&=\set{B\subset X; \abs[]{B} = p - 2, \sum_{b \in B} b \equiv \sum_{x \in X} x}\\
+                W :&=\set{ J \subset X; \abs[]{J} = 3p-1, \sum_{j\in J}j \equiv 0}
+                \end{align*}
+    The map $T$ defined by:
+            \begin{align*}
+                T: S &\rightarrow W\\
+                B &\mapsto X - B
             \end{align*}
             is a bijection, \sothat 
-            \[\sum_{B} 1 \equiv \sum_{X -B} 1\]
+                        \[\sum_{B} 1 \equiv \sum_{X -B} 1\]
             \item Since $\sum_{b\in B} b \equiv \sum_{x \in X} x$, it follows that 
             \[\sum_{x \in X - B} x \equiv 0,\]
             in particular 
             \[\sum_{X-B} -1 \equiv -1 \cdot \numSumSubset{3p-1}{X}\]
         \end{enumerate}
-        Now we are able to prove the \kemnitzConjecture:        
     \end{proof}
+    Now we are able to prove the \kemnitzConjecture:        
+
     \begin{theorem}
         Any choice of $4p-3$ lattice points in the plane $\Integer \times \Integer$ contains
         a subset of cardinality $p$ whose centroid is a lattice point.
@@ -1126,7 +1138,7 @@ gives a general upper bound for $f(n,d)$.
             \vdots\\
             \chi(g_n)
         \end{pmatrix},\]
-        is dinstict for diffrent $\chi \in \characterGroup$. Since $\adjacencyMatrixCayley{G}{S}$ is symmetric,
+        is dinstict for different $\chi \in \characterGroup$. Since $\adjacencyMatrixCayley{G}{S}$ is symmetric,
         it has exactly $n$ eigenvectors. We are done if we prove that
         the eigenvalue of $v_{\chi}$ is given by \eqref{eqn:cayleygraph_Eigenvalue}. 
         We define $A := \adjacencyMatrixCayley{G}{S}$  and $\chi_g := \chi(g)$ for convenience of notation.
