@@ -748,11 +748,12 @@ gives a general upper bound for $f(n,d)$.
         since once we have chosen $p$ elements $Y$, we need to further choose $\abs{I} - p = 3p-3 - p = 2p-3$ elements from
         total $\abs{X} - p = 4p-3 -p = 3p-3$ elements.
         We consider the sum:
-        \[ \sum_{ \substack{Y \subset X,\\\sum_{y\in Y} y= 0}} \sum_{\substack{I,\sothat \\Y\subset I,\\\abs[]{I} = 3p-3}} 1\]
+        \[ \sum_{ \substack{Y \subset X, \abs[]{Y} = p, \\\sum_{y\in Y} y= 0}} \sum_{\substack{I,\sothat \\Y\subset I,\\\abs{I} = 3p-3}} 1\]
         Note that
         \begin{align*}
-            \binom{3p-3}{2p-3} \numSumSubset{p}{X} &= \sum_{ \substack{Y\subset X\\ \sum_{y\in Y} y = 0}} \binom{3p-3}{2p-3} &&= \sum_{ \substack{Y \subset X,\\\sum_{y\in Y} y= 0}} \sum_{\substack{I,\sothat \\Y\subset I,\\\abs{I} = 3p-3}} 1\\
-                &=\sum_{\substack{I,\sothat\\\abs{I} = 3p-3}}\;\sum_{ \substack{Y \subset I,\\\sum_{y\in Y} y= 0}}  1
+            \binom{3p-3}{2p-3} \numSumSubset{p}{X} 
+            &= \sum_{ \substack{Y\subset X, \abs[]{Y} = p, \\\ \sum_{y\in Y} y = 0}} \binom{3p-3}{2p-3} &&= \sum_{ \substack{Y\subset X, \abs[]{Y} = p, \\\sum_{y\in Y} y= 0}} \sum_{\substack{I,\sothat \\Y\subset I,\\\abs[]{I} = 3p-3}} 1\\
+                &=\sum_{\substack{I,\sothat\\\abs[]{I} = 3p-3}}\;\sum_{ \substack{Y \subset I,\abs[]{Y} = p,\\\sum_{y\in Y} y= 0}}  1
                 &&= \sum_{I} \numSumSubset{p}{I}
         \end{align*}
         Performing similar calculation, we get
