@@ -133,22 +133,19 @@ Now I'd like to post a fundamental and important theorem which is the chevalley 
 
 It states that given a finite field Fq q = p^t for some t in natural number and m polynomials in variables x1 to xn. If the sum of the degrees of the polynomials are smaller than n then the number of the common zeros of these m polynomials are congruent to zero.
 
-I will omit a proof of this, which you can find in a lot of literatures. Let us see again the Kemnitz' conjecture, we remember when we prove the f(n,1) = 2n -1 we have reduced the case to n is a prime p. We would like to do the same trick here. Since we have already seen that for p = 2, this statement holds, we can only focus on the case when p is an odd prime number.
+I will omit a proof of this, which you can find in a lot of literatures. 
 
-For the further discussion, I use captial letters to denote multiset in Zp times Zp, remeber for dimension equals 2, this is exactly the group, in which we are about to find a zero-sum n subsequence. Further, I 'd like to use this notation to denote the number of 0 sum p-subsequence in J. 
+Let us see again the theorem, Kemnitz' conjecture, it states that 
+f(n,2) = 4n-3.
+Or put it in other words, any choice of 4n-3 lattice points in the plane contains a subset of cardinality p whose centroid is a lattice-point as well.
 
-There are in all three cases:
-\item $p$ of them are $1$: 
-        This corresponds to $p$ of the $x_i$ are non-zero. We enumerate them as $x_{i_1},\ldots,x_{i_p}$.
-        In order for this particular assignment to be the common zero, it needs to satisfy
-        \[\sum_{j = 1}^{p} a_{i_j} \equiv 0, \quad \sum_{j = 1}^{p} b_{i_j} \equiv 0.\]
-        The total number the set $\{i_1,\ldots, i_p \}$ is exactly $\numSumSubset{p}{J}$.
-        Combining the fact that there are $p-1$ possible value for each $x_i$ s.t $x_i^{p-1} \equiv 1$,
-        the total number of common zeros with $p$ non-zero entries is $(p-1)^p \numSumSubset{p}{J}$.
-        \item $2p$ of them are $1$:\\
-        Arguing similarly as in the second case, we obtain the total number of common zeros with $2p$ non-zero entries 
-        is given by $(p-1)^{2p}\numSumSubset{2p}{J}$.
-        
+ we remember when we prove the f(n,1) = 2n -1 we have reduced the case to n is a prime p. We would like to do the same trick here. 
+ Suppose ...
+
+
+ Since we have already seen that for p = 2, this statement holds, we can only focus on the case when p is an odd prime number.
+
+For the further discussion, I use captial letters to denote multiset in Zp times Zp, remeber for dimension equals 2, this is exactly the group, in which we are about to find a zero-sum p subsequence. Further, I 'd like to use this notation to denote the number of 0 sum m-subsequence w.r.t to G in J. 
 
 
 
@@ -168,8 +165,25 @@ There are in all three cases:
             \sum_{a\in A} a + \sum_{b\in J-A} b = \sum_{j \in J} j &\equiv 0\\
             \Rightarrow \sum_{b \in J-A} b &\equiv 0
         \end{align*}
-       
-  
+
+## Cor 3.2
+
+Now all the preparations are done, let us begin with the proof.
+The first statement
+
+There are in all three cases:
+\item $p$ of them are $1$: 
+        This corresponds to $p$ of the $x_i$ are non-zero. We enumerate them as $x_{i_1},\ldots,x_{i_p}$.
+        In order for this particular assignment to be the common zero, it needs to satisfy
+        \[\sum_{j = 1}^{p} a_{i_j} \equiv 0, \quad \sum_{j = 1}^{p} b_{i_j} \equiv 0.\]
+        The total number the set $\{i_1,\ldots, i_p \}$ is exactly $\numSumSubset{p}{J}$.
+        Combining the fact that there are $p-1$ possible value for each $x_i$ s.t $x_i^{p-1} \equiv 1$,
+        the total number of common zeros with $p$ non-zero entries is $(p-1)^p \numSumSubset{p}{J}$.
+        \item $2p$ of them are $1$:\\
+        Arguing similarly as in the second case, we obtain the total number of common zeros with $2p$ non-zero entries 
+        is given by $(p-1)^{2p}\numSumSubset{2p}{J}$.
+        
+
 You see the cardinality 4p-3 reminds us of something of the kemnitz' conjecture. Indeed, as we will see later, this is the place that connects the kemnitz' conjecture with this multiset.
 
 Lets recall what we have sofar. We obtain from Corollary 3.2 the following equation. Given I which has cardinality 3p-3, this equation holds. Now let us pick for each subset of X which has this cardinality
@@ -179,4 +193,4 @@ We would like to bring the number of p-subsequence in X (p|X) and p subsequence 
 
 ## proof Lemma 3.9
 
-The first way to count is by fixing A and see the possible C once the two sets are fixed, then B is automatically fixed.
+The first way to count is by fixing A and see the possible C once the two sets are fixed, then B is automatically fixed. 

@@ -675,7 +675,7 @@ We call a subsequence of length $l$, which
     \pause
     \begin{thm}[\warningTheorem](3.1)\label{thm:warning}
         Let $p$ be a prime number and $q = p^t, t \in \NaturalNumber$. We use $\Field{q}$ to denote the finite field of $q$ elements.
-        Let $p_1,\ldots,p_m$ be $m$ polynomials in $\PolynomialRing{\Field{q}}{n}$, with degree $d_i$. Denote the number of common
+        Let $p_1,\ldots,p_m$ be $m$ polynomials in $\PolynomialRing{\Field{q}}{n}$, with degree $d_1,\ldots,d_m$. Denote the number of common
         zeros of the $m$ polynomials as $N$.
         If 
         \[\sum_{i = 1}^{m} d_i < n,\]
@@ -790,7 +790,7 @@ We call a subsequence of length $l$, which
 
 %------------------------------------------------
 \begin{frame}
-    \frametitle{Proof of Corollary 3.2(2)}
+    \frametitle{Proof of Corollary 3.2(2) $x_{3n-2} = 0$}
     \begin{columns}
         \begin{column}{0.4\textwidth}
             \begin{small}
@@ -804,17 +804,19 @@ We call a subsequence of length $l$, which
     \pause
 
 \begin{column}{0.6\textwidth}
-    \begin{enumeratei}
+    \begin{enumerate}
         \item $0$ of them are $1$: \# $1$
         \pause
         \item $p$ of them are $1$: 
         $x_{i_1},\ldots,x_{i_p}$.
         \pause
         \[\sum_{j = 1}^{p} a_{i_j} \equiv 0, \quad \sum_{j = 1}^{p} b_{i_j} \equiv 0.\]
+        \pause
         \# $(p-1)^p \numSumSubset{p}{J}$.
+        \pause
         \item $2p$ of them are $1$:\\
         \# $(p-1)^{2p}\numSumSubset{2p}{J}$.
-    \end{enumeratei}
+    \end{enumerate}
 \end{column}
 
 \end{columns}
@@ -826,7 +828,8 @@ We call a subsequence of length $l$, which
 
 %------------------------------------------------
 \begin{frame}
-    \frametitle{Proof of Corollary 3.2(3)}
+    \frametitle{Proof of Corollary 3.2(3) $x_{3n-2} \neq 0$}
+    $x_{3n-2} \neq 0$
     \begin{columns}
         \begin{column}{0.4\textwidth}
             \begin{small}
@@ -840,13 +843,14 @@ We call a subsequence of length $l$, which
     \pause
 
 \begin{column}{0.6\textwidth}
-    \begin{enumeratei}
+    \begin{enumerate}
         \item $p-1$ of them are $1$. \\
+        \pause
             \# $(p-1)^p \numSumSubset{p-1}{J}$
         \pause
         \item $2p-1$ of them are $1$.\\
         \# $(p-1)^{2p} \numSumSubset{2p-1}{J}$
-    \end{enumeratei}
+    \end{enumerate}
 
 \end{column}
 
@@ -854,12 +858,13 @@ We call a subsequence of length $l$, which
 \pause
 Collecting all the number of common zeros:
             \begin{align*}
-                1 + (p-1)^p\numSumSubset{p}{J} + (p-1)^{2p} \numSumSubset{2p}{J} &+ 
-                (p-1)^p\numSumSubset{p-1}{J}\\
-                + (p-1)^{2p}\numSumSubset{2p-1}{J}&\equiv 0
+                1 + (p-1)^p\numSumSubset{p}{J} + (p-1)^{2p} 
+                \numSumSubset{2p}{J} + 
+                (p-1)^p&\numSumSubset{p-1}{J}\\
+                + (p-1)^{2p}\numSumSubset{2p-1}{J}&\equiv 0\\
+\Rightarrow   \quad 1 - \numSumSubset{p - 1}{J} - \numSumSubset{p}{J} 
++ \numSumSubset{2p-1}{J} + \numSumSubset{2p}{J}&\equiv 0
             \end{align*}
-Simplifying the equation above we obtain
-            \[1 - \numSumSubset{p - 1}{J} - \numSumSubset{p}{J} + \numSumSubset{2p-1}{J} + \numSumSubset{2p}{J}\equiv 0\]
 \end{frame}
 %------------------------------------------------
 
@@ -944,6 +949,7 @@ Simplifying the equation above we obtain
             \item $(p-1|X) - (2p-1|X) + (3p-1|X) \equiv 0$
         \end{enumerate}
     \end{cor}
+    \pause
     \begin{cor}(3.8)\label{cor:4pM3_multiSum}
         If $\abs{X} = 4p-3$, then $3 - 2\numSumSubset{p-1}{X} - 2\numSumSubset{p}{X} + \numSumSubset{2p-1}{X} + \numSumSubset{2p}{X} \equiv 0$.
     \end{cor}
@@ -961,13 +967,14 @@ Simplifying the equation above we obtain
         % $(Y,I)$, s.t $Y\subset I, \abs{I} = 3p-3$. \\
         % We could see that 
         \pause
-        \[\abs{\{(Y,I)| Y\subset I, 
-        \sothat \sum_{y\in Y} y \equiv 0, \;\abs{I} = 3p-3\}}
+        Given a subset $Y \subset X, \sothat \abs{Y} = p, \sum_{y\in Y} y \equiv 0$
+        \[\abs{\set{I| Y\subset I, \;\abs{I} = 3p-3}}
         = \binom{3p-3}{2p-3},\]
         % since once we have chosen $p$ elements $Y$, we need to further choose $\abs{I} - p = 3p-3 - p = 2p-3$ elements from
         % total $\abs{X} - p = 4p-3 -p = 3p-3$ elements.
+        \pause
         We consider the sum
-        \[ \sum_{ \substack{Y \subset X,\\\sum_{y\in Y} y= 0}} \sum_{\substack{I,\sothat \\Y\subset I,\\\abs{I} = 3p-3}} 1\]
+        \[ \sum_{ \substack{Y \subset X, \abs[]{Y} = p, \\\sum_{y\in Y} y= 0}} \sum_{\substack{I,\sothat \\Y\subset I,\\\abs{I} = 3p-3}} 1\]
     \end{proofs}
 \end{frame}
 %------------------------------------------------
@@ -975,8 +982,9 @@ Simplifying the equation above we obtain
 \begin{frame}
     \begin{proofc}
         \begin{align*}
-            \binom{3p-3}{2p-3} \numSumSubset{p}{X} &= \sum_{ \substack{Y\subset X\\ \sum_{y\in Y} y = 0}} \binom{3p-3}{2p-3} &&= \sum_{ \substack{Y \subset X,\\\sum_{y\in Y} y= 0}} \sum_{\substack{I,\sothat \\Y\subset I,\\\abs{I} = 3p-3}} 1\\
-                &=\sum_{\substack{I,\sothat\\\abs{I} = 3p-3}}\;\sum_{ \substack{Y \subset I,\\\sum_{y\in Y} y= 0}}  1
+            \binom{3p-3}{2p-3} \numSumSubset{p}{X} 
+            &= \sum_{ \substack{Y\subset X, \abs[]{Y} = p, \\\ \sum_{y\in Y} y = 0}} \binom{3p-3}{2p-3} &&= \sum_{ \substack{Y\subset X, \abs[]{Y} = p, \\\sum_{y\in Y} y= 0}} \sum_{\substack{I,\sothat \\Y\subset I,\\\abs[]{I} = 3p-3}} 1\\
+                &=\sum_{\substack{I,\sothat\\\abs[]{I} = 3p-3}}\;\sum_{ \substack{Y \subset I,\abs[]{Y} = p,\\\sum_{y\in Y} y= 0}}  1
                 &&= \sum_{I} \numSumSubset{p}{I}
         \end{align*}
             Performing similar calculation, we get
@@ -992,7 +1000,7 @@ Simplifying the equation above we obtain
     \begin{proofc}
         We finally prove that 
         \begin{equation}\label{eqn:binomModulo1}
-            \binom{4p-3}{3p-3} \equiv 3, \binom{3p-2}{2p-2}\equiv 2,            
+            \binom{4p-3}{3p-3} \equiv 3            
         \end{equation}
         because:
         \begin{align*}
@@ -1002,7 +1010,7 @@ Simplifying the equation above we obtain
             &\equiv 3 \cdot \frac{(p-1)!}{(p-1)!}\\
             &\equiv 3
         \end{align*}        
-        Note that we have used the fact that $p$ is an odd prime, \sothat $(-1)^{p-1} \equiv 1$.
+        Note that we have used the fact that $(-1)^{p-1} \equiv 1$.
     \end{proofc}    
 \end{frame}
 
@@ -1039,6 +1047,7 @@ Simplifying the equation above we obtain
         We consider the partition of $X = A \cup B \cup C$, where 
         \[\abs{A} = p-1, \quad \abs{B} = p-2, \quad \abs{C} = 2p.\] and 
         \[\sum_{a \in A} a \equiv 0, \quad \sum_{b \in B} b \equiv \sum_{x \in X} x, \quad \sum_{c \in C} c \equiv 0\]
+        \pause
         Let $\chi$ denote the number of such partition. We use two ways to compute the number $\chi$, the first one fixes $A$ and 
         find out the possible set $C$:
         \[\chi \equiv \sum_{A} \numSumSubset{2p}{X-A} \equiv \sum_{A} -1 \equiv -\numSumSubset{p-1}{X},\]
@@ -1051,7 +1060,7 @@ Simplifying the equation above we obtain
 
 \begin{frame}
     \begin{proofc}
-        Now by fixing $B$ and count the possible set $C$, we get:
+        Now by fixing $B$ and counting the possible set $C$, we get:
         \[\chi \equiv \sum_{B} \numSumSubset{2p}{X-B} \stackrel{\circled{1}}{\equiv} \sum_{B} -1 
         \stackrel{\circled{2}}{\equiv} \sum_{X-B}-1 \stackrel{\circled{3}}{\equiv} -\numSumSubset{3p-1}{X}\]
         For the three equivalences, we have used the following facts:
